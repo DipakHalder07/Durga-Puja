@@ -2,8 +2,14 @@ import React from 'react';
 import InteractiveMap from '../components/InteractiveMap';
 import { MapPin, Navigation, Info, ShieldCheck } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import { useSeo } from '../lib/seo';
 
 export default function MapPage() {
+  useSeo({
+    title: 'Durga Puja Pandal Map 2026 – Siliguri Live Map',
+    description: 'Live Durga Puja pandal map 2026 for Siliguri: every verified pandal with GPS pins, search, area filters, parking info and one-tap Google Maps directions.',
+    path: '/siliguri-puja-map',
+  });
   return (
     <div className="space-y-6 pb-12">
       <PageHeader

@@ -24,6 +24,18 @@ const clockLabel = (dayMin) => {
   return `${((h + 11) % 12) + 1}:${mm} ${h < 12 ? 'AM' : 'PM'}`;
 };
 
+function StepTitle({ id, n, title, bn, aside }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <h3 id={id} className="flex items-center gap-3 text-base sm:text-lg font-semibold text-brand-ink">
+        <span className="w-8 h-8 rounded-full border-2 border-brand-crimson text-brand-crimson font-bengali-serif text-lg flex items-center justify-center leading-none pt-0.5">{n}</span>
+        {title}
+      </h3>
+      {aside ?? <span className="font-bengali-serif text-sm text-brand-muted">{bn}</span>}
+    </div>
+  );
+}
+
 export default function QuickRouteBuilder({ showHeader = true }) {
   const { userLocation, requestUserLocation, isLocating, savedPandalIds, toggleSave } = usePlan();
 
@@ -136,364 +148,244 @@ export default function QuickRouteBuilder({ showHeader = true }) {
     }
   };
 
+  const MODES = [
+    { title: 'Walking', label: 'Walk', desc: 'Dense clusters', hint: '≈2.5 km', icon: Footprints },
+    { title: 'Bike / Scooty', label: 'Bike', desc: 'Cross zones', hint: '≈8 km', icon: Bike },
+    { title: 'Car / Auto', label: 'Car', desc: 'With parking', hint: '≈10 km', icon: Car },
+  ];
+  const GOALS = [
+    { title: 'Top Themes', bn: 'সেরা থিম', desc: 'Best-rated installations', icon: Sparkles },
+    { title: 'Maximum Pandals', bn: 'বেশি প্যান্ডেল', desc: 'As many as you can', icon: Zap },
+    { title: 'Traditional', bn: 'সাবেকি', desc: 'Heritage & classic pujas', icon: Compass },
+    { title: 'Family Friendly', bn: 'পরিবার', desc: 'Parking, shorter visits', icon: Users },
+  ];
+  const POPULAR_IMG = {
+    'Central Heritage': '/images/routes/central-siliguri-heritage-walk.jpg',
+    'Sevoke Mega Themes': '/images/routes/eastern-corridor-grand-themes.jpg',
+    'South Siliguri': '/images/routes/north-junction-family-express.jpg',
+  };
+  const modeLabel = MODES.find((m) => m.title === travelMode)?.label || travelMode;
+  const startLabel = startingPoint === MY_LOCATION ? 'My location' : startingPoint;
+  const timeLabel = `${Math.floor(minutesAvailable / 60)}h${minutesAvailable % 60 ? ` ${minutesAvailable % 60}m` : ''}`;
+  const chip = (selected) =>
+    `h-10 px-4 rounded-full text-sm font-medium border transition-all active:scale-95 ${
+      selected
+        ? 'bg-brand-crimson text-white border-brand-crimson shadow-xs'
+        : 'bg-brand-card text-brand-ink border-brand-border hover:border-brand-crimson/40'
+    }`;
+
   return (
     <div id="quick-route-builder" className="scroll-mt-24">
       <section
         aria-label="Smart Puja Route Planner"
-        className="w-full bg-brand-card/95 rounded-3xl border border-brand-border/70 p-6 sm:p-8 md:p-10 shadow-songi transition-all max-w-4xl mx-auto"
+        className="relative w-full bg-brand-card rounded-[2rem] border border-brand-border shadow-songi max-w-4xl mx-auto overflow-hidden"
       >
-        {/* Header */}
-        {showHeader && (
-        <header className="space-y-1.5 pb-6 border-b border-brand-border/40">
-          <h2 className="text-2xl sm:text-3xl font-bold text-brand-ink">
-            Smart Puja Route Planner
-          </h2>
-          <p className="text-xs sm:text-sm text-brand-muted">
-            Plan around your time, starting point and way of travelling.
-          </p>
-        </header>
-        )}
+        <div className="laal-paar-thin" aria-hidden="true" />
+        <div className="p-5 sm:p-8 md:p-10">
+          {showHeader && (
+            <header className="pb-6">
+              <p className="font-bengali-serif text-brand-crimson text-lg leading-none">রুট বানান</p>
+              <h2 className="mt-1.5 text-[1.65rem] sm:text-3xl font-bold text-brand-ink">Smart Puja Route Planner</h2>
+              <p className="text-sm text-brand-muted mt-1">Four quick choices — we pick and order the pandals for you.</p>
+            </header>
+          )}
 
-        {/* Popular 1-tap routes */}
-        <div className={`${showHeader ? 'py-5' : 'pb-5'} border-b border-brand-border/40`}>
-          <div className="flex items-center justify-between mb-2.5">
-            <span className="text-[11px] font-bold text-brand-muted uppercase tracking-wider">
-              POPULAR ROUTES
-            </span>
-            <span className="text-[11px] text-brand-muted/70 hidden sm:inline">
-              1-tap instant circuits
-            </span>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {popularRoutes.map((rt) => (
-              <button
-                key={rt.name}
-                type="button"
-                onClick={() => handleApplyPreset(rt)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-ivory hover:bg-white text-brand-primary border border-brand-border/80 hover:border-brand-vermilion/50 transition-all active:scale-95 shadow-2xs"
-              >
-                <span className="text-brand-primary font-bold">{rt.name}</span>
-                <span className="text-brand-muted">·</span>
-                <span className="text-brand-vermilion font-medium">{rt.time}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Form Wizard */}
-        <form onSubmit={handleGenerateRoute} className="pt-6 space-y-7">
-          {/* STEP 1: Starting point */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-brand-primary">
-                <span className="w-5 h-5 rounded-full bg-brand-primary text-white text-[11px] font-black flex items-center justify-center shrink-0">
-                  1
-                </span>
-                <span className="uppercase tracking-wider">STARTING POINT</span>
-              </div>
-              <span className="text-[11px] text-brand-muted font-bengali font-normal">
-                শুরু কোথা থেকে?
-              </span>
+          {/* Popular one-tap routes */}
+          <div className="pb-7">
+            <p className="text-sm font-semibold text-brand-ink mb-3">
+              Popular routes <span className="font-normal text-brand-muted">· tap to build instantly</span>
+            </p>
+            <div className="rail -mx-5 px-5 sm:mx-0 sm:px-0 flex sm:grid sm:grid-cols-3 gap-3 overflow-x-auto">
+              {popularRoutes.map((rt) => (
+                <button
+                  key={rt.name}
+                  type="button"
+                  onClick={() => handleApplyPreset(rt)}
+                  className="group relative shrink-0 w-[62vw] xs:w-[48vw] sm:w-auto h-28 rounded-2xl overflow-hidden text-left active:scale-[0.98] transition-transform"
+                >
+                  <img src={POPULAR_IMG[rt.name]} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                  <span className="absolute left-3 right-3 bottom-2.5 text-white">
+                    <span className="block font-display text-base font-semibold leading-tight">{rt.name}</span>
+                    <span className="block text-[11px] text-white/80 mt-0.5">{rt.time} · {rt.mode} · {rt.pref}</span>
+                  </span>
+                </button>
+              ))}
             </div>
+          </div>
 
-            <div className="space-y-2.5">
-              <div>
+          <form onSubmit={handleGenerateRoute} className="space-y-8 border-t border-brand-border pt-7">
+            {/* 1 · Start */}
+            <div role="group" aria-labelledby="step-start" className="space-y-3">
+              <StepTitle id="step-start" n="১" title="Where do you start?" bn="শুরু কোথা থেকে?" />
+              <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={() => {
                     requestUserLocation();
                     setStartingPoint(MY_LOCATION);
                   }}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold border transition-all active:scale-[0.99] shadow-2xs ${
-                    startingPoint === MY_LOCATION
-                      ? 'bg-brand-primary text-white border-brand-primary'
-                      : 'bg-brand-ivory text-brand-primary border-brand-border/80 hover:bg-white hover:border-brand-primary/50'
-                  }`}
+                  className={`${chip(startingPoint === MY_LOCATION)} inline-flex items-center gap-2`}
                 >
-                  <Navigation className="w-4 h-4 text-brand-vermilion" />
-                  <span>
-                    {isLocating
-                      ? 'Locating...'
-                      : userLocation
-                      ? '📍 Using Current GPS Location'
-                      : '📍 Use my location'}
-                  </span>
+                  <Navigation className="w-4 h-4" />
+                  {isLocating ? 'Locating…' : userLocation ? 'My location' : 'Use my location'}
                 </button>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                {startingPoints.map((pt) => {
-                  const selected = startingPoint === pt;
-                  return (
-                    <button
-                      key={pt}
-                      type="button"
-                      onClick={() => setStartingPoint(pt)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
-                        selected
-                          ? 'bg-brand-primary text-white border-brand-primary shadow-xs'
-                          : 'shadow-2xs bg-brand-ivory/70 text-brand-primary border-brand-border/70 hover:bg-white hover:border-brand-border'
-                      }`}
-                    >
-                      <span>{pt}</span>
-                    </button>
-                  );
-                })}
+                {startingPoints.map((pt) => (
+                  <button key={pt} type="button" onClick={() => setStartingPoint(pt)} className={chip(startingPoint === pt)}>
+                    {pt}
+                  </button>
+                ))}
                 {showMoreStarts &&
-                  AREA_STARTING_POINTS.map((pt) => {
-                    const selected = startingPoint === pt.name;
-                    return (
-                      <button
-                        key={pt.name}
-                        type="button"
-                        onClick={() => setStartingPoint(pt.name)}
-                        className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
-                          selected
-                            ? 'bg-brand-primary text-white border-brand-primary shadow-xs'
-                            : 'shadow-2xs bg-brand-ivory/70 text-brand-primary border-brand-border/70 hover:bg-white hover:border-brand-border'
-                        }`}
-                      >
-                        {pt.name}
-                      </button>
-                    );
-                  })}
+                  AREA_STARTING_POINTS.map((pt) => (
+                    <button key={pt.name} type="button" onClick={() => setStartingPoint(pt.name)} className={chip(startingPoint === pt.name)}>
+                      {pt.name}
+                    </button>
+                  ))}
               </div>
               <button
                 type="button"
                 onClick={() => setShowMoreStarts((v) => !v)}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-brand-vermilion hover:underline"
+                className="inline-flex items-center gap-1 text-sm font-medium text-brand-crimson hover:underline underline-offset-4"
                 aria-expanded={showMoreStarts}
               >
-                {showMoreStarts ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-                <span>{showMoreStarts ? 'Fewer starting points' : `More starting points (${AREA_STARTING_POINTS.length} areas)`}</span>
+                {showMoreStarts ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                {showMoreStarts ? 'Fewer starting points' : `${AREA_STARTING_POINTS.length} more neighbourhoods`}
               </button>
             </div>
-          </div>
 
-          <div className="border-t border-brand-border/30" />
-
-          {/* STEP 2: Travel Mode */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-brand-primary">
-                <span className="w-5 h-5 rounded-full bg-brand-primary text-white text-[11px] font-black flex items-center justify-center shrink-0">
-                  2
-                </span>
-                <span className="uppercase tracking-wider">TRAVEL MODE</span>
-              </div>
-              <span className="text-[11px] text-brand-muted font-bengali font-normal">
-                কীভাবে ঘুরবেন?
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { title: 'Walking', desc: 'Best for nearby clusters', icon: Footprints },
-                { title: 'Bike / Scooty', desc: 'Fastest for covering zones', icon: Bike },
-                { title: 'Car / Auto', desc: 'Parking-aware routes', icon: Car },
-              ].map((mode) => {
-                const Icon = mode.icon;
-                const isSelected = travelMode === mode.title;
-                return (
-                  <button
-                    key={mode.title}
-                    type="button"
-                    onClick={() => setTravelMode(mode.title)}
-                    className={`p-3.5 rounded-2xl border text-left transition-all active:scale-[0.99] flex items-center justify-between gap-3 shadow-2xs ${
-                      isSelected
-                        ? 'bg-brand-vermilion/10 border-brand-vermilion text-brand-primary ring-1 ring-brand-vermilion'
-                        : 'bg-brand-ivory/60 border-brand-border/60 text-brand-primary hover:bg-white hover:border-brand-border'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div
-                        className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                          isSelected
-                            ? 'bg-brand-vermilion text-white'
-                            : 'bg-brand-card text-brand-muted border border-brand-border/60'
-                        }`}
-                      >
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div className="min-w-0">
-                        <span className="block font-bold text-xs sm:text-sm text-brand-primary truncate">
-                          {mode.title}
-                        </span>
-                        <span className="block text-[11px] text-brand-muted truncate">
-                          {mode.desc}
-                        </span>
-                      </div>
-                    </div>
-                    {isSelected && <Check className="w-4 h-4 text-brand-vermilion shrink-0" />}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="border-t border-brand-border/30" />
-
-          {/* STEP 3: Time Available */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-brand-primary">
-                <span className="w-5 h-5 rounded-full bg-brand-primary text-white text-[11px] font-black flex items-center justify-center shrink-0">
-                  3
-                </span>
-                <span className="uppercase tracking-wider">TIME AVAILABLE</span>
-              </div>
-              <span className="text-xs font-bold text-brand-vermilion">
-                {Math.floor(minutesAvailable / 60)}h {minutesAvailable % 60 ? `${minutesAvailable % 60}m` : ''}
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              <div className="grid grid-cols-4 gap-2">
-                {[120, 180, 240, 300].map((mins) => {
-                  const hours = mins / 60;
-                  const selected = minutesAvailable === mins;
+            {/* 2 · Mode */}
+            <div role="group" aria-labelledby="step-mode" className="space-y-3">
+              <StepTitle id="step-mode" n="২" title="How will you travel?" bn="কীভাবে ঘুরবেন?" />
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                {MODES.map(({ title, label, desc, hint, icon: Icon }) => {
+                  const on = travelMode === title;
                   return (
                     <button
-                      key={mins}
+                      key={title}
                       type="button"
-                      onClick={() => setMinutesAvailable(mins)}
-                      className={`py-2.5 px-2 rounded-xl text-xs font-bold border transition-all text-center active:scale-95 ${
-                        selected
-                          ? 'bg-brand-primary text-white border-brand-primary shadow-xs'
-                          : 'shadow-2xs bg-brand-ivory/70 text-brand-primary border-brand-border/70 hover:bg-white hover:border-brand-border'
+                      aria-pressed={on}
+                      onClick={() => setTravelMode(title)}
+                      className={`relative rounded-2xl border p-3 sm:p-4 text-center transition-all active:scale-[0.98] ${
+                        on ? 'border-brand-crimson bg-brand-vermilion-light ring-1 ring-brand-crimson' : 'border-brand-border bg-brand-card hover:border-brand-crimson/40'
                       }`}
                     >
-                      {hours}h
+                      <span className={`mx-auto w-11 h-11 rounded-full flex items-center justify-center ${on ? 'bg-brand-crimson text-white' : 'bg-brand-paper text-brand-ink'}`}>
+                        <Icon className="w-5 h-5" />
+                      </span>
+                      <span className="block mt-2 text-sm font-semibold text-brand-ink">{label}</span>
+                      <span className="block text-[11px] text-brand-muted leading-tight">{desc}</span>
+                      <span className="hidden sm:block text-[11px] text-brand-crimson/80 mt-1">{hint} range</span>
+                      {on && <Check className="absolute top-2 right-2 w-4 h-4 text-brand-crimson" />}
                     </button>
                   );
                 })}
               </div>
-
-              <div className="pt-1">
-                <input
-                  type="range"
-                  min="60"
-                  max="420"
-                  step="30"
-                  value={minutesAvailable}
-                  onChange={(e) => setMinutesAvailable(Number(e.target.value))}
-                  className="w-full h-1.5 bg-brand-border/80 rounded-lg appearance-none cursor-pointer accent-brand-vermilion"
-                  aria-label="Adjust available minutes"
-                />
-                <div className="flex justify-between text-[10px] text-brand-muted font-medium mt-1">
-                  <span>1h</span>
-                  <span>3h (Standard)</span>
-                  <span>7h</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-brand-border/30" />
-
-          {/* STEP 4: What do you want to see? */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-brand-primary">
-                <span className="w-5 h-5 rounded-full bg-brand-primary text-white text-[11px] font-black flex items-center justify-center shrink-0">
-                  4
-                </span>
-                <span className="uppercase tracking-wider">WHAT DO YOU WANT TO SEE?</span>
-              </div>
-              <span className="text-[11px] text-brand-muted font-bengali font-normal">
-                পছন্দ কী?
-              </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {[
-                { title: 'Top Themes', desc: 'Best-rated / featured pandals', icon: Sparkles },
-                { title: 'Maximum Pandals', desc: 'See the most venues possible', icon: Zap },
-                { title: 'Traditional', desc: 'Heritage & classic pujas', icon: Compass },
-                { title: 'Family Friendly', desc: 'Easier walking & lower crowd exposure', icon: Users },
-              ].map((item) => {
-                const Icon = item.icon;
-                const isSelected = preference === item.title;
-                return (
+            {/* 3 · Time */}
+            <div role="group" aria-labelledby="step-time" className="space-y-3">
+              <StepTitle
+                id="step-time"
+                n="৩"
+                title="How much time?"
+                aside={<span className="font-display text-xl font-semibold text-brand-crimson">{timeLabel}</span>}
+              />
+              <div className="grid grid-cols-4 gap-1 p-1 rounded-full bg-brand-paper border border-brand-border">
+                {[120, 180, 240, 300].map((mins) => (
                   <button
-                    key={item.title}
+                    key={mins}
                     type="button"
-                    onClick={() => setPreference(item.title)}
-                    className={`p-3 rounded-2xl border text-left transition-all active:scale-[0.99] flex items-center gap-3 shadow-2xs ${
-                      isSelected
-                        ? 'bg-brand-vermilion/10 border-brand-vermilion text-brand-primary ring-1 ring-brand-vermilion font-bold'
-                        : 'bg-brand-ivory/60 border-brand-border/60 text-brand-primary hover:bg-white hover:border-brand-border'
+                    onClick={() => setMinutesAvailable(mins)}
+                    className={`h-10 rounded-full text-sm font-semibold transition-all ${
+                      minutesAvailable === mins ? 'bg-brand-card text-brand-crimson shadow-songi' : 'text-brand-ink/70 hover:text-brand-ink'
                     }`}
                   >
-                    <Icon
-                      className={`w-4 h-4 shrink-0 ${
-                        isSelected ? 'text-brand-vermilion' : 'text-brand-muted'
-                      }`}
-                    />
-                    <div className="min-w-0">
-                      <span className="block text-xs font-bold text-brand-primary truncate">
-                        {item.title}
-                      </span>
-                      <span className="block text-[11px] text-brand-muted truncate font-normal">
-                        {item.desc}
-                      </span>
-                    </div>
-                    {isSelected && (
-                      <Check className="w-3.5 h-3.5 text-brand-vermilion ml-auto shrink-0" />
-                    )}
+                    {mins / 60} hrs
                   </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Circular route toggle */}
-          <div className="flex items-center justify-between py-2 text-xs">
-            <div className="flex items-center gap-2">
-              <RotateCcw className="w-3.5 h-3.5 text-brand-vermilion shrink-0" />
-              <span className="font-semibold text-brand-primary">Circular route (return to start)</span>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
+                ))}
+              </div>
               <input
-                type="checkbox"
-                checked={isCircular}
-                onChange={(e) => setIsCircular(e.target.checked)}
-                className="sr-only peer"
+                type="range"
+                min="60"
+                max="420"
+                step="30"
+                value={minutesAvailable}
+                onChange={(e) => setMinutesAvailable(Number(e.target.value))}
+                className="w-full accent-brand-crimson"
+                aria-label="Fine-tune available time"
               />
-              <div className="w-8 h-4 bg-brand-border/80 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-brand-vermilion" />
-            </label>
-          </div>
+              <div className="flex justify-between text-xs text-brand-muted -mt-1">
+                <span>1 hr</span>
+                <span>Drag to fine-tune</span>
+                <span>7 hrs</span>
+              </div>
+            </div>
 
-          {/* Submit button */}
-          <div className="pt-2 space-y-2.5">
+            {/* 4 · Goal */}
+            <div role="group" aria-labelledby="step-goal" className="space-y-3">
+              <StepTitle id="step-goal" n="৪" title="What do you want to see?" bn="পছন্দ কী?" />
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                {GOALS.map(({ title, bn, desc, icon: Icon }) => {
+                  const on = preference === title;
+                  return (
+                    <button
+                      key={title}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => setPreference(title)}
+                      className={`relative rounded-2xl border p-3.5 sm:p-4 text-left transition-all active:scale-[0.98] ${
+                        on ? 'border-brand-crimson bg-brand-vermilion-light ring-1 ring-brand-crimson' : 'border-brand-border bg-brand-card hover:border-brand-crimson/40'
+                      }`}
+                    >
+                      <Icon className={`w-5 h-5 ${on ? 'text-brand-crimson' : 'text-brand-gold'}`} />
+                      <span className="block mt-2 text-sm font-semibold text-brand-ink leading-tight">{title}</span>
+                      <span className="block font-bengali-serif text-xs text-brand-crimson/80 mt-0.5">{bn}</span>
+                      <span className="hidden sm:block text-xs text-brand-muted mt-1">{desc}</span>
+                      {on && <Check className="absolute top-3 right-3 w-4 h-4 text-brand-crimson" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Round trip */}
+            <label className="flex items-center justify-between gap-4 rounded-2xl bg-brand-paper border border-brand-border px-4 py-3 cursor-pointer">
+              <span className="flex items-center gap-3">
+                <RotateCcw className="w-5 h-5 text-brand-crimson" />
+                <span>
+                  <span className="block text-sm font-semibold text-brand-ink">Come back to the start</span>
+                  <span className="block text-xs text-brand-muted">Round trip — handy if you parked or are staying nearby</span>
+                </span>
+              </span>
+              <input type="checkbox" checked={isCircular} onChange={(e) => setIsCircular(e.target.checked)} className="sr-only peer" />
+              <span className="relative w-12 h-7 shrink-0 rounded-full bg-brand-border peer-checked:bg-brand-crimson transition-colors after:absolute after:top-1 after:left-1 after:w-5 after:h-5 after:rounded-full after:bg-white after:shadow after:transition-transform peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-crimson" />
+            </label>
+
             {error && (
-              <p role="alert" className="flex items-center gap-2 text-xs font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">
+              <p role="alert" className="flex items-center gap-2 text-sm font-medium text-rose-700 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2.5">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{error}</span>
               </p>
             )}
-            <button
-              type="submit"
-              disabled={isBuilding}
-              className="w-full py-4 px-6 rounded-2xl bg-brand-vermilion hover:bg-brand-vermilion-hover disabled:opacity-80 text-white font-extrabold text-sm sm:text-base tracking-wide transition-all shadow-songi hover:shadow-songi-lg flex items-center justify-center gap-2 active:scale-[0.99] group"
-            >
-              {isBuilding ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>BUILDING YOUR ROUTE…</span>
-                </>
-              ) : (
-                <>
-                  <span>BUILD MY PUJA ROUTE</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </button>
-            <p className="text-center text-[11px] text-brand-muted">
-              Verified coordinates • Open in Google Maps
-            </p>
-          </div>
-        </form>
+
+            {/* Sticky summary + build (stays in reach while scrolling the form on phones) */}
+            <div className="sticky z-20 bottom-[calc(4.6rem+env(safe-area-inset-bottom,0px))] lg:bottom-4 -mx-2 sm:mx-0">
+              <div className="flex items-center gap-3 rounded-2xl bg-brand-ink text-white p-2 pl-4 shadow-songi-lg">
+                <div className="min-w-0 flex-1 leading-tight">
+                  <p className="text-sm font-semibold truncate">{startLabel} · {modeLabel} · {timeLabel}</p>
+                  <p className="text-xs text-white/65 truncate">{preference} · {isCircular ? 'Round trip' : 'One way'}</p>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isBuilding}
+                  className="shrink-0 h-12 px-5 sm:px-7 rounded-xl bg-brand-crimson hover:bg-brand-vermilion-hover disabled:opacity-80 font-semibold text-[15px] inline-flex items-center gap-2 transition-colors active:scale-[0.98]"
+                >
+                  {isBuilding ? <Loader2 className="w-5 h-5 animate-spin" /> : <RouteIcon className="w-5 h-5" />}
+                  {isBuilding ? 'Building…' : 'Build route'}
+                </button>
+              </div>
+            </div>
+          </form>
 
         {/* Generated route */}
         {generatedRoute && (
@@ -671,6 +563,7 @@ export default function QuickRouteBuilder({ showHeader = true }) {
             )}
           </div>
         )}
+        </div>
       </section>
     </div>
   );

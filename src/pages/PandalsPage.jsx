@@ -4,8 +4,14 @@ import PandalCard from '../components/PandalCard';
 import pandalsData from '../data/pandals.json';
 import areasData from '../data/areas.json';
 import PageHeader from '../components/PageHeader';
+import { useSeo } from '../lib/seo';
 
 export default function PandalsPage() {
+  useSeo({
+    title: 'Siliguri Puja Pandals 2026 – All Pandals List',
+    description: `All ${pandalsData.length} Siliguri Durga Puja pandals for 2026 with themes, scores, parking and areas. Filter and save pandals to your Puja plan.`,
+    path: '/siliguri-puja-pandals',
+  });
   const [search, setSearch] = useState('');
   const [selectedArea, setSelectedArea] = useState('All');
   const [selectedCategory, setSelectedCategory] = useState('All');

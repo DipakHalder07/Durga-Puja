@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useParams } from 'react-router-dom';
 import { PlanProvider } from './context/PlanContext';
 import Navbar from './components/Navbar';
 import BottomNav from './components/BottomNav';
@@ -16,14 +16,21 @@ import SchedulePage from './pages/SchedulePage';
 import MahalayaPage from './pages/MahalayaPage';
 import AreasPage from './pages/AreasPage';
 import AreaDetailPage from './pages/AreaDetailPage';
-import GuidesPage from './pages/GuidesPage';
-import GuideDetailPage from './pages/GuideDetailPage';
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
+import { LEGACY_GUIDE_REDIRECTS } from './data/blog';
 import SavedPage from './pages/SavedPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import LegalPage from './pages/LegalPage';
 import PhotoCreditsPage from './pages/PhotoCreditsPage';
 import MandalaDecorations from './components/MandalaDecorations';
+
+function LegacyGuideRedirect() {
+  const { slug } = useParams();
+  const target = LEGACY_GUIDE_REDIRECTS[slug];
+  return <Navigate to={target ? `/blog/${target}` : '/blog'} replace />;
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -72,9 +79,11 @@ export default function App() {
               <Route path="/areas" element={<AreasPage />} />
               <Route path="/areas/:slug" element={<AreaDetailPage />} />
 
-              {/* Hopping Guides */}
-              <Route path="/guides" element={<GuidesPage />} />
-              <Route path="/guides/:slug" element={<GuideDetailPage />} />
+              {/* Blog (old /guides URLs redirect here) */}
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/guides" element={<Navigate to="/blog" replace />} />
+              <Route path="/guides/:slug" element={<LegacyGuideRedirect />} />
 
               {/* Saved Plan */}
               <Route path="/saved" element={<SavedPage />} />

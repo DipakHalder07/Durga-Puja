@@ -8,6 +8,7 @@ import { usePlan } from '../context/PlanContext';
 import pandalsData from '../data/pandals.json';
 import SmartImage from '../components/SmartImage';
 import { pandalImage } from '../lib/images';
+import { useSeo } from '../lib/seo';
 
 export default function PandalDetailPage() {
   const { slug } = useParams();
@@ -15,6 +16,15 @@ export default function PandalDetailPage() {
   const { isSaved, toggleSave } = usePlan();
 
   const pandal = pandalsData.find((p) => p.slug === slug);
+
+  useSeo({
+    title: pandal ? `${pandal.name} Durga Puja 2026 – ${pandal.area_name}, Siliguri` : 'Pandal not found',
+    description: pandal
+      ? `${pandal.name} (${pandal.area_name}) on the Siliguri Durga Puja pandal map 2026: theme “${pandal.theme}”, visit time, parking and directions.`.slice(0, 160)
+      : undefined,
+    path: pandal ? `/pandals/${pandal.slug}` : undefined,
+    image: pandal ? pandalImage(pandal) : undefined,
+  });
 
   if (!pandal) {
     return (

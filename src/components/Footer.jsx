@@ -20,9 +20,10 @@ const LINK_GROUPS = [
     links: [
       ['Puja schedule 2026', '/puja-schedule'],
       ['Mahalaya 2026', '/mahalaya'],
-      ['Best pandals in Siliguri', '/best-puja-pandals-in-siliguri'],
-      ['Pandal hopping guide', '/guides/siliguri-pandal-hopping-guide'],
-      ['All guides', '/guides'],
+      ['Durga Puja pandal map 2026', '/blog/durga-puja-pandal-map-2026'],
+      ['Zone-wise pandal map', '/blog/siliguri-durga-puja-pandal-map-2026-zone-wise'],
+      ['Walking pandal routes', '/blog/durga-puja-pandal-map-2026-walking-routes'],
+      ['Blog', '/blog'],
     ],
   },
   {

@@ -16,11 +16,3 @@ export const guideImage = (slug) => `/images/guides/${slug}.jpg`;
 
 export const MAHALAYA_IMAGE = '/images/mahalaya/mahalaya-dawn.jpg';
 
-// Guide covers: a real photo where one fits, otherwise the guide's illustration
-const GUIDE_PHOTOS = {
-  'central-colony-durga-puja-2026': 'siliguri-pandal-inside',
-  'mahalaya-siliguri-traditions': 'kash-sunset',
-  'siliguri-pandal-hopping-guide': 'night-street',
-};
-export const guideCover = (slug) =>
-  GUIDE_PHOTOS[slug] ? { photo: GUIDE_PHOTOS[slug] } : { src: guideImage(slug) };

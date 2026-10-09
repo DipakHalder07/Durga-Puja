@@ -2,8 +2,14 @@ import React from 'react';
 import { Calendar, Clock, BookOpen, ShieldCheck, Sparkles, MapPin } from 'lucide-react';
 import eventsData from '../data/events.json';
 import PageHeader from '../components/PageHeader';
+import { useSeo } from '../lib/seo';
 
 export default function SchedulePage() {
+  useSeo({
+    title: 'Durga Puja 2026 Schedule – Siliguri Dates & Timings',
+    description: 'Durga Puja 2026 dates and ritual timings for Siliguri: Mahalaya 10 Oct, Shashti 17 Oct to Vijaya Dashami 21 Oct, pushpanjali, Sandhi Puja and visarjan.',
+    path: '/puja-schedule',
+  });
   return (
     <div className="space-y-12 pb-16">
       <PageHeader

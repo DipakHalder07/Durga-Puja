@@ -13,7 +13,7 @@ export default function Navbar() {
     { name: 'Map', path: '/siliguri-puja-map', icon: MapPin },
     { name: 'Smart Routes', path: '/siliguri-puja-routes', icon: Route },
     { name: 'Puja Schedule', path: '/puja-schedule', icon: Calendar },
-    { name: 'Guides', path: '/guides', icon: BookOpen },
+    { name: 'Blog', path: '/blog', icon: BookOpen },
     { name: 'Contact', path: '/contact', icon: Mail },
   ];
 

@@ -9,12 +9,14 @@ import { SectionHeading } from '../components/PageHeader';
 import {
   DhakSketch, KashSketch, DurgaEyesSketch, DhunuchiSketch, PandalSketch, LotusSketch, AlpanaSketch, LaalPaar,
 } from '../components/BengalArt';
-import { routeImage, guideCover } from '../lib/images';
+import { routeImage } from '../lib/images';
 import { estimateCircuit, formatDuration, formatKm } from '../lib/routeEngine';
 import pandalsData from '../data/pandals.json';
 import eventsData from '../data/events.json';
 import routesData from '../data/routes.json';
-import guidesData from '../data/guides.json';
+import { BLOG_POSTS } from '../data/blog';
+import { PostCover } from '../components/BlogBlocks';
+import { useSeo } from '../lib/seo';
 
 const HERO_PHOTOS = ['siliguri-palace-night', 'siliguri-pandal-red', 'siliguri-idol-golden'];
 
@@ -90,6 +92,12 @@ function useNextEvent() {
 
 export default function Home() {
   const { events, today, next, left } = useNextEvent();
+
+  useSeo({
+    title: 'Siliguri Durga Puja 2026 – Pandal Map & Smart Routes',
+    description: `Durga Puja pandal map 2026 for Siliguri: ${pandalsData.length} verified pandals, smart walking, bike and car routes, Puja dates and local guides.`,
+    path: '/',
+  });
 
   const featuredPandals = pandalsData
     .filter((p) => p.featured || Number(p.pujo_songi_score || 0) >= 9.5)
@@ -425,37 +433,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────────────── GUIDES ───────────────── */}
-      <section aria-label="Puja guides" className="space-y-6">
+      {/* ───────────────── BLOG ───────────────── */}
+      <section aria-label="From the blog" className="space-y-6">
         <SectionHeading
-          bn="জেনে রাখুন"
-          title="Local guides"
-          sub="Timings, diversions, food stops and crowd tips from people who live here."
-          to="/guides"
-          linkLabel="All guides"
+          bn="পুজোর খবর"
+          title="Durga Puja pandal map 2026 guides"
+          sub="Zones, walking clusters, parking, dates and the best pujas — written by locals."
+          to="/blog"
+          linkLabel={`All ${BLOG_POSTS.length} articles`}
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {guidesData.slice(0, 3).map((guide) => {
-            const cover = guideCover(guide.slug);
-            return (
-              <Link
-                key={guide.slug}
-                to={`/guides/${guide.slug}`}
-                className="group bg-brand-card rounded-2xl border border-brand-border overflow-hidden hover:shadow-songi-lg hover:border-brand-crimson/40 transition-all flex flex-col"
-              >
-                {cover.photo ? (
-                  <Photo slug={cover.photo} alt={guide.title} sizes="(max-width: 768px) 100vw, 33vw" className="h-44" imgClassName="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
-                ) : (
-                  <div className="bg-brand-maroon"><SmartImage src={cover.src} alt={guide.title} className="w-full h-44 object-cover" /></div>
-                )}
-                <div className="p-5 flex-1 flex flex-col">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-crimson">{guide.category} · {guide.read_time}</span>
-                  <h3 className="font-display text-lg font-semibold text-brand-ink leading-snug mt-1.5 group-hover:text-brand-crimson transition-colors">{guide.title}</h3>
-                  <p className="text-sm text-brand-muted mt-2 line-clamp-2">{guide.description}</p>
-                </div>
-              </Link>
-            );
-          })}
+          {BLOG_POSTS.slice(0, 3).map((post) => (
+            <Link
+              key={post.slug}
+              to={`/blog/${post.slug}`}
+              className="group bg-brand-card rounded-2xl border border-brand-border overflow-hidden hover:shadow-songi-lg hover:border-brand-crimson/40 transition-all flex flex-col"
+            >
+              <PostCover post={post} sizes="(max-width: 768px) 100vw, 33vw" className="h-44" />
+              <div className="p-5 flex-1 flex flex-col">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-crimson">{post.category}</span>
+                <h3 className="font-display text-lg font-semibold text-brand-ink leading-snug mt-1.5 group-hover:text-brand-crimson transition-colors">{post.title}</h3>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

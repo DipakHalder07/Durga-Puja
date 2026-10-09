@@ -11,7 +11,9 @@ import SmartImage from '../components/SmartImage';
 import { routeImage } from '../lib/images';
 import { estimateCircuit, formatDuration, formatKm } from '../lib/routeEngine';
 import { usePlan } from '../context/PlanContext';
-import PageHeader from '../components/PageHeader';
+import PageHeader, { SectionHeading } from '../components/PageHeader';
+import { DhakSketch } from '../components/BengalArt';
+import { useSeo } from '../lib/seo';
 
 const pandalMap = Object.fromEntries(pandalsData.map((p) => [p.slug, p]));
 
@@ -171,6 +173,11 @@ function CircuitCard({ route }) {
 }
 
 export default function RoutesPage() {
+  useSeo({
+    title: 'Siliguri Puja Routes 2026 – Smart Pandal Route Planner',
+    description: 'Plan Durga Puja 2026 pandal hopping in Siliguri: pick a start point, walking, bike or car and your time — get an ordered route on the pandal map.',
+    path: '/siliguri-puja-routes',
+  });
   return (
     <div className="space-y-12 sm:space-y-16 pb-8">
       <div className="space-y-4">
@@ -193,67 +200,75 @@ export default function RoutesPage() {
       <QuickRouteBuilder />
 
       {/* How it works */}
-      <section className="space-y-5">
-        <SectionTitle
-          title="How Smart Routes Work"
+      <section className="space-y-6">
+        <SectionHeading
+          bn="কীভাবে কাজ করে"
+          title="How smart routes work"
           sub="Every route is calculated from verified Siliguri pandal coordinates — not a fixed list."
         />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+        <ol className="relative grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <span className="hidden md:block absolute top-10 left-[16%] right-[16%] border-t-2 border-dashed border-brand-crimson/25" aria-hidden="true" />
           {HOW_IT_WORKS.map((step, i) => (
-            <div key={step.title} className="bg-brand-card rounded-2xl border border-brand-border p-5 shadow-2xs">
-              <div className="flex items-center gap-3">
-                <span className="w-9 h-9 rounded-xl bg-brand-vermilion-light text-brand-crimson font-black flex items-center justify-center">{i + 1}</span>
-                <h3 className="text-base font-extrabold text-brand-primary">{step.title}</h3>
+            <li key={step.title} className="relative rounded-2xl border border-brand-border bg-brand-card p-5 sm:p-6">
+              <div className="flex items-center gap-4">
+                <span className="relative z-10 w-14 h-14 shrink-0 rounded-full bg-brand-crimson text-white font-bengali-serif text-3xl flex items-center justify-center ring-4 ring-brand-ivory">
+                  {['১', '২', '৩'][i]}
+                </span>
+                <h3 className="font-display text-xl font-semibold text-brand-ink leading-snug">{step.title}</h3>
               </div>
-              <p className="text-sm text-brand-muted leading-relaxed mt-3">{step.text}</p>
-            </div>
+              <p className="text-[15px] text-brand-muted leading-relaxed mt-4">{step.text}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       {/* Travel modes & goals */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-4">
-          <SectionTitle title="Travel Modes & Neighbourhoods" />
-          {TRAVEL_TIPS.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="bg-brand-card rounded-2xl border border-brand-border p-4 shadow-2xs">
-              <h3 className="flex items-center gap-2 text-sm font-extrabold text-brand-crimson">
-                <Icon className="w-4 h-4" /> {title}
-              </h3>
-              <p className="text-sm text-brand-muted leading-relaxed mt-1.5">{text}</p>
+      <section className="space-y-6">
+        <SectionHeading
+          bn="যাতায়াত"
+          title="Pick the right way to travel"
+          sub="Each mode suits a different part of the city — and a different goal."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {TRAVEL_TIPS.map(({ icon: Icon, title, text }, i) => (
+            <div key={title} className={`rounded-2xl border p-5 ${i === 0 ? 'bg-brand-vermilion-light border-brand-crimson/25' : 'bg-brand-card border-brand-border'}`}>
+              <span className={`w-11 h-11 rounded-full flex items-center justify-center ${i === 0 ? 'bg-brand-crimson text-white' : 'bg-brand-paper text-brand-crimson'}`}>
+                <Icon className="w-5 h-5" />
+              </span>
+              <h3 className="font-display text-lg font-semibold text-brand-ink mt-3">{title}</h3>
+              <p className="text-[15px] text-brand-muted leading-relaxed mt-1.5">{text}</p>
             </div>
           ))}
         </div>
-        <div className="space-y-4">
-          <SectionTitle title="Choosing Your Goal" />
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.1fr] gap-4">
           {GOALS.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="bg-brand-card rounded-2xl border border-brand-border p-4 shadow-2xs">
-              <h3 className="flex items-center gap-2 text-sm font-extrabold text-brand-primary">
-                <Icon className="w-4 h-4 text-brand-gold" /> {title}
+            <div key={title} className="rounded-2xl border border-brand-border bg-brand-card p-5">
+              <h3 className="flex items-center gap-2 font-display text-lg font-semibold text-brand-ink">
+                <Icon className="w-5 h-5 text-brand-gold" /> {title}
               </h3>
-              <p className="text-sm text-brand-muted leading-relaxed mt-1.5">{text}</p>
+              <p className="text-[15px] text-brand-muted leading-relaxed mt-1.5">{text}</p>
             </div>
           ))}
-          <div className="rounded-2xl bg-gradient-to-br from-brand-maroon to-brand-crimson text-white p-5 shadow-songi">
-            <p className="text-sm font-bold">Tip: start before 6 PM</p>
-            <p className="text-xs text-white/80 leading-relaxed mt-1">
-              Roads around Venus More, Sevoke Road and Hill Cart Road get busiest from 7 PM to midnight on Saptami–Navami.
+          <div className="relative overflow-hidden rounded-2xl bg-brand-crimson text-white p-5">
+            <DhakSketch className="absolute -right-3 -bottom-3 w-24 h-24 text-white/15" />
+            <p className="font-bengali-serif text-brand-gold-light">টিপস</p>
+            <p className="font-display text-lg font-semibold mt-1">Start before 6 PM</p>
+            <p className="text-sm text-white/80 leading-relaxed mt-1.5 pr-10">
+              Venus More, Sevoke Road and Hill Cart Road are busiest from 7 PM to midnight on Saptami–Navami.
             </p>
           </div>
         </div>
       </section>
 
       {/* Curated circuits */}
-      <section className="space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <SectionTitle
-            title="Curated Siliguri Puja Circuits"
-            sub="Tested routes across major Siliguri Puja sectors, ready for pandal hopping."
-          />
-          <Link to="/guides/siliguri-pandal-hopping-guide" className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-vermilion hover:underline shrink-0">
-            <BookOpen className="w-4 h-4" /> Read Pandal Hopping Guide
-          </Link>
-        </div>
+      <section className="space-y-6">
+        <SectionHeading
+          bn="চেনা পথ"
+          title="Curated Siliguri Puja circuits"
+          sub="Tested routes across the main Puja sectors, ready for pandal hopping."
+          to="/blog/durga-puja-pandal-map-2026-walking-routes"
+          linkLabel="Walking routes guide"
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {routesData.map((route) => (
             <CircuitCard key={route.id} route={route} />
