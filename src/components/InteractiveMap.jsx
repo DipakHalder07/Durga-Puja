@@ -35,40 +35,17 @@ const createCustomIcon = (score, isSelected) => {
   });
 };
 
-// Map tile layers
-const TILE_LAYERS = {
-  'google-streets': {
-    name: 'Google Maps',
-    url: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-    subdomains: ['0', '1', '2', '3'],
-    maxZoom: 20,
-    attribution: '&copy; Google Maps',
-  },
-  'google-satellite': {
-    name: 'Google Satellite',
-    url: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
-    subdomains: ['0', '1', '2', '3'],
-    maxZoom: 20,
-    attribution: '&copy; Google Maps Satellite',
-  },
-  'osm-standard': {
-    name: 'OpenStreetMap',
-    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-    subdomains: [],
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors',
-  },
-};
+// One street map keeps the page simple and the tiles fast
+const TILE_URL = 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
+const TILE_OPTIONS = { subdomains: ['0', '1', '2', '3'], maxZoom: 20, attribution: '&copy; Google Maps' };
 
 export default function InteractiveMap({ initialSelectedPandal = null, height = 'h-[650px]' }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
-  const currentTileLayerRef = useRef(null);
   const markersRef = useRef({});
 
   const { isSaved, toggleSave, userLocation, requestUserLocation } = usePlan();
 
-  const [mapType, setMapType] = useState('google-streets');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedArea, setSelectedArea] = useState('All');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -104,14 +81,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
         zoomControl: true,
       });
 
-      const tileConfig = TILE_LAYERS['google-streets'];
-      const tileLayer = L.tileLayer(tileConfig.url, {
-        attribution: tileConfig.attribution,
-        maxZoom: tileConfig.maxZoom,
-        subdomains: tileConfig.subdomains,
-      }).addTo(map);
-
-      currentTileLayerRef.current = tileLayer;
+      L.tileLayer(TILE_URL, TILE_OPTIONS).addTo(map);
       mapInstanceRef.current = map;
 
       // Force recalculate dimensions so tiles render immediately without grey borders
@@ -129,25 +99,6 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
       };
     }
   }, []);
-
-  // Handle Map Type switch (Google Maps, Satellite, Warm Map)
-  useEffect(() => {
-    const map = mapInstanceRef.current;
-    if (!map) return;
-
-    if (currentTileLayerRef.current) {
-      map.removeLayer(currentTileLayerRef.current);
-    }
-
-    const tileConfig = TILE_LAYERS[mapType] || TILE_LAYERS['google-streets'];
-    const newLayer = L.tileLayer(tileConfig.url, {
-      attribution: tileConfig.attribution,
-      maxZoom: tileConfig.maxZoom,
-      subdomains: tileConfig.subdomains,
-    }).addTo(map);
-
-    currentTileLayerRef.current = newLayer;
-  }, [mapType]);
 
   // Update Markers
   useEffect(() => {
@@ -256,27 +207,8 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
           </select>
         </div>
 
-        {/* Map Type Switcher & Category Pills */}
+        {/* Category filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-          {/* Layer Selector */}
-          <div className="flex items-center bg-brand-ivory p-0.5 rounded-xl border border-brand-border shrink-0">
-            {Object.entries(TILE_LAYERS).map(([key, cfg]) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setMapType(key)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                  mapType === key
-                    ? 'bg-brand-primary text-white shadow-2xs'
-                    : 'text-brand-muted hover:text-brand-primary'
-                }`}
-                title={`Switch to ${cfg.name}`}
-              >
-                {cfg.name}
-              </button>
-            ))}
-          </div>
-
           {/* Quick Filters */}
           {['All', 'Top Theme', 'Traditional', 'Parking', 'Verified'].map((cat) => (
             <button
