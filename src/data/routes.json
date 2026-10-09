@@ -1,0 +1,81 @@
+[
+  {
+    "id": "central-siliguri-heritage-walk",
+    "slug": "central-siliguri-heritage-walk",
+    "title": "Central Siliguri Heritage & Traditional Loop",
+    "short_title": "Central Heritage",
+    "duration_minutes": 150,
+    "duration_str": "2.5h",
+    "distance_km": "4.2 km",
+    "travel_mode": "Walking",
+    "category": "Traditional",
+    "description": "A classic heritage circuit through the traditional bastions of Central Siliguri, covering Sabeki idols, century-old clubs, and intimate neighborhood celebrations.",
+    "starting_point": "Venus More / Sevoke More",
+    "stopping_points": [
+      "ujjwal-sangha",
+      "hakimpara-yuvak-sangha",
+      "dada-bhai-sporting-club",
+      "jatiya-tarun-sangha"
+    ],
+    "tips": [
+      "Best experienced on foot or by cycle between 4:00 PM and 8:00 PM before peak evening rush.",
+      "Enjoy authentic Siliguri street snacks like Ghugni and Jhalmuri around Deshbandhupara crossing.",
+      "Strict no-vehicle zones apply inside residential alleys of Hakimpara."
+    ],
+    "title_bengali": "সেন্ট্রাল শিলিগুড়ি হেরিটেজ ওয়াক",
+    "highlight": "Traditional Sabeki idols & heritage craft",
+    "focus": "Babupara & Hakimpara"
+  },
+  {
+    "id": "eastern-corridor-grand-themes",
+    "slug": "eastern-corridor-grand-themes",
+    "title": "Eastern Corridor Grand Theme Tour",
+    "short_title": "Sevoke Mega Themes",
+    "duration_minutes": 210,
+    "duration_str": "3.5h",
+    "distance_km": "8.5 km",
+    "travel_mode": "Bike / Scooty",
+    "category": "Top Themes",
+    "description": "Witness Siliguri’s most breathtaking blockbuster theme pandals along the eastern artery and Sevoke Road corridor, featuring monumental structures and laser illuminations.",
+    "starting_point": "Sevoke More / Baghajatin Park",
+    "stopping_points": [
+      "haiderpara-sarbojanin-samiti",
+      "salugara-durga-puja-committee",
+      "baghajatin-park-durgotsab-committee"
+    ],
+    "tips": [
+      "Take two-wheelers or battery e-rickshaws (Toto) as car parking along Sevoke Road is restricted.",
+      "Peak illumination lighting starts after 6:30 PM.",
+      "Check police diversions near Panitanki traffic point before entering Haiderpara."
+    ],
+    "title_bengali": "ইস্টার্ন করিডোর গ্র্যান্ড থিম ট্যুর",
+    "highlight": "Spectacular lighting and modern thematic architecture",
+    "focus": "Haiderpara & Sevoke Road"
+  },
+  {
+    "id": "north-junction-family-express",
+    "slug": "north-junction-family-express",
+    "title": "North Junction Accessible Family Express",
+    "short_title": "South Siliguri",
+    "duration_minutes": 180,
+    "duration_str": "3h",
+    "distance_km": "6.8 km",
+    "travel_mode": "Car / Auto",
+    "category": "Family Friendly",
+    "description": "Designed specifically for families with elders and young children, focusing on wide approach roads, designated parking hubs, and easy pedestrian walkways.",
+    "starting_point": "Siliguri Junction / Mallaguri",
+    "stopping_points": [
+      "champasari-pujabarir-theme",
+      "uttar-mallaguri-sarbojanin-durga-puja-committee",
+      "shiv-mandir-durga-puja-committee"
+    ],
+    "tips": [
+      "Dedicated parking grounds available near Champasari High School grounds.",
+      "Wheelchair friendly entrance corridors available at Uttar Mallaguri.",
+      "Ideal time for family visits is late morning (11 AM - 3 PM) or early dusk."
+    ],
+    "title_bengali": "নর্থ জংশন ফ্যামিলি এক্সপ্রেস",
+    "highlight": "Senior-friendly approaches, wide lanes and open spaces",
+    "focus": "Pradhannagar & Champasari"
+  }
+]

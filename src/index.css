@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #2A0A0E;
+  --brand-ivory: #FAF5EB;
+  --brand-card: #FFFBF5;
+  --brand-border: #EADCC6;
+  --brand-maroon: #6C020E;
+  --brand-maroon-dark: #3A0212;
+  --brand-vermilion: #820A14;
+  --brand-vermilion-hover: #6C020E;
+  --brand-vermilion-light: #FBECEC;
+  --brand-gold: #E8AE45;
+  --brand-muted: #6E5A55;
+}
+
+body {
+  background-color: var(--brand-ivory);
+  color: var(--brand-primary);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Handmade-paper grain over the cream background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.15 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Display type: modern serif for English headings, Tiro Bangla for Bengali */
+h1, h2, .font-display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+}
+h1.font-black, h2.font-black, h1.font-extrabold, h2.font-extrabold {
+  font-weight: 700;
+}
+h2.uppercase {
+  text-transform: none;
+}
+.font-bengali-serif {
+  font-family: 'Tiro Bangla', 'Hind Siliguri', serif;
+}
+
+/* Laal-paar: the red-and-gold border of a Bengali saree, used as a divider */
+.laal-paar {
+  height: 14px;
+  background:
+    linear-gradient(#820A14, #820A14) top / 100% 7px no-repeat,
+    linear-gradient(#E8AE45, #E8AE45) 0 9px / 100% 2px no-repeat,
+    linear-gradient(#820A14, #820A14) 0 12px / 100% 1px no-repeat,
+    radial-gradient(circle, #FBD596 1.4px, transparent 1.8px) 0 0 / 12px 7px repeat-x;
+}
+.laal-paar-thin {
+  height: 6px;
+  background:
+    linear-gradient(#820A14, #820A14) top / 100% 3px no-repeat,
+    linear-gradient(#E8AE45, #E8AE45) 0 4px / 100% 1px no-repeat;
+}
+
+/* Horizontal photo rails on phones */
+.rail {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.rail::-webkit-scrollbar { display: none; }
+.rail > * { scroll-snap-align: start; }
+
+@keyframes hero-fade {
+  0%, 30% { opacity: 1; }
+  36%, 94% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.font-bengali {
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.glass-header {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(130, 10, 20, 0.97) 0%, rgba(108, 2, 14, 0.97) 60%, rgba(84, 3, 16, 0.97) 100%);
+}
+
+.glass-bottom-nav {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  background: rgba(255, 251, 245, 0.94);
+}
+
+/* Custom smooth scroll */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Clear, consistent keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--brand-vermilion);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-menu-in {
+  animation: menu-in 180ms ease-out;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FBF4EA;
+}
+::-webkit-scrollbar-thumb {
+  background: #F0DFC8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6C020E;
+}
+
+/* Leaflet map brand overrides */
+.leaflet-popup-content-wrapper {
+  background: #FFFBF5 !important;
+  color: #2A0A0E !important;
+  border: 1px solid #F0DFC8 !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 16px 36px -6px rgba(58, 2, 18, 0.1) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+.leaflet-popup-tip {
+  background: #FFFBF5 !important;
+}
+.leaflet-container {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Very slow rotation for the background mandalas (disabled by reduced-motion rule above) */
+@keyframes mandala-spin {
+  to { transform: rotate(360deg); }
+}
+.animate-mandala-spin {
+  animation: mandala-spin 240s linear infinite;
+}
+.animate-mandala-spin-reverse {
+  animation: mandala-spin 300s linear infinite reverse;
+}
