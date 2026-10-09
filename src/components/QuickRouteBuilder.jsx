@@ -571,23 +571,25 @@ export default function QuickRouteBuilder({ showHeader = true }) {
                       )}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 pt-4">
-                      <span className="inline-flex items-center gap-1.5 mr-1 text-sm font-semibold text-brand-ink">
+                    <div className="pt-4">
+                      <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-ink">
                         <Clock className="w-4 h-4 text-brand-vermilion" /> Leave at
-                      </span>
+                      </p>
+                      <div className="mt-2.5 grid grid-cols-4 gap-2">
                       {START_TIMES.map((t) => (
                         <button
                           key={t.min}
                           type="button"
                           aria-pressed={startTime === t.min}
                           onClick={() => setStartTime(t.min)}
-                          className={`h-10 px-4 rounded-full text-sm font-semibold border transition-colors ${
+                          className={`h-10 rounded-full text-sm font-semibold border transition-colors ${
                             startTime === t.min ? 'bg-brand-ink text-white border-brand-ink' : 'bg-brand-card text-brand-ink border-brand-border hover:border-brand-ink/40'
                           }`}
                         >
                           {t.label}
                         </button>
                       ))}
+                      </div>
                     </div>
 
                     {lastRemoved && (

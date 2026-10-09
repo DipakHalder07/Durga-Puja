@@ -31,6 +31,9 @@ const startIcon = (name) =>
     popupAnchor: [0, -18],
   });
 
+// Narrow enough for phones; kept clear of the control column on the right
+const POPUP = { maxWidth: 230, autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [64, 16] };
+
 const popup = (title, sub, slug) =>
   `<div class="rs-pop"><strong>${esc(title)}</strong>${sub ? `<span>${esc(sub)}</span>` : ''}${
     slug ? `<a href="/pandals/${esc(slug)}" data-spa>View pandal details →</a>` : ''
@@ -144,12 +147,12 @@ export default function RouteMap({
       zIndexOffset: 1000,
       keyboard: false,
     })
-      .bindPopup(popup(startLabel === 'S' ? `Start · ${originName}` : `${startLabel}. ${originName}`))
+      .bindPopup(popup(startLabel === 'S' ? `Start · ${originName}` : `${startLabel}. ${originName}`), POPUP)
       .addTo(layer);
 
     markersRef.current = stops.map((p, i) =>
       L.marker([p.latitude, p.longitude], { icon: stopIcon(i + 1 + numberOffset), title: p.name })
-        .bindPopup(popup(`${i + 1 + numberOffset}. ${p.name}`, p.area_name, p.slug))
+        .bindPopup(popup(`${i + 1 + numberOffset}. ${p.name}`, p.area_name, p.slug), POPUP)
         .on('click', () => onSelectRef.current?.(i))
         .addTo(layer)
     );
