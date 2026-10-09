@@ -2,25 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, ShieldCheck, MapPin, Compass, Sparkles, ArrowRight } from 'lucide-react';
 import legalData from '../data/legal.json';
+import PageHeader from '../components/PageHeader';
 
 export default function AboutPage() {
   const paragraphs = legalData.about?.paragraphs || [];
 
   return (
     <div className="max-w-4xl mx-auto space-y-12 pb-16">
-      {/* Header */}
-      <div className="space-y-4 text-center">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <Heart className="w-3.5 h-3.5 text-brand-vermilion fill-brand-vermilion/30" />
-          <span>Born in Siliguri • For North Bengal</span>
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-brand-primary leading-tight">
-          Crafted in Siliguri to make every pandal hopper's journey memorable.
-        </h1>
-        <p className="text-base text-brand-muted max-w-2xl mx-auto leading-relaxed">
-          PUJO PANDAL (পুজো প্যান্ডেল) was built with love, local reverence, and authentic field verification to solve real festival congestion.
-        </p>
-      </div>
+      <PageHeader
+        bn="আমাদের কথা"
+        kicker="Born in Siliguri"
+        title="Made in Siliguri for every pandal hopper"
+        description="Pujo Pandal (পুজো প্যান্ডেল) is built with love, local reverence and on-ground verification to make festival travel easier."
+        photo="kumartuli-idol"
+      />
 
       {/* Main Philosophy Card */}
       <div className="bg-brand-card rounded-3xl border border-brand-border p-6 sm:p-10 shadow-songi space-y-6">

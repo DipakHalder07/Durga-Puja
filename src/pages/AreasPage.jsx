@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, ArrowRight } from 'lucide-react';
 import areasData from '../data/areas.json';
 import pandalsData from '../data/pandals.json';
+import PageHeader from '../components/PageHeader';
 
 export default function AreasPage() {
   const pandalsByArea = pandalsData.reduce((acc, p) => {
@@ -12,21 +13,13 @@ export default function AreasPage() {
 
   return (
     <div className="space-y-10 pb-16">
-      {/* Header */}
-      <div className="space-y-2 border-b border-brand-border/70 pb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <MapPin className="w-3.5 h-3.5" />
-          <span>Siliguri Municipal Zones</span>
-          <span>•</span>
-          <span className="font-bengali">এলাকা ভিত্তিক পুজো</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Siliguri Puja Neighborhoods &amp; Areas
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          Explore Durga Puja pandals organized by municipal localities and residential paras across the Siliguri Metropolitan Area.
-        </p>
-      </div>
+      <PageHeader
+        bn="পাড়ায় পাড়ায়"
+        kicker="Neighbourhoods"
+        title="Pujo, para by para"
+        description="Explore Durga Puja pandals by locality and residential para across the Siliguri metropolitan area."
+        photo="night-street"
+      />
 
       {/* Areas Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -45,7 +38,7 @@ export default function AreasPage() {
                   </span>
                   <MapPin className="w-3.5 h-3.5 text-brand-muted group-hover:text-brand-vermilion transition-colors" />
                 </div>
-                <h3 className="text-base font-extrabold text-brand-primary group-hover:text-brand-vermilion transition-colors">
+                <h3 className="font-display text-lg font-semibold text-brand-ink group-hover:text-brand-crimson transition-colors">
                   {area.name}
                 </h3>
                 {area.description && (

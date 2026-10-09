@@ -25,18 +25,15 @@ export function DhakSketch({ className = 'w-24 h-24', strokeWidth = 1.6 }) {
         <path d="M30 59 L42 99 M42 59 L30 99 M54 59 L66 99 M66 59 L54 99 M78 59 L90 99 M90 59 L78 99" strokeWidth={strokeWidth * 0.6} />
         <path d="M24 66 Q60 60 96 66 M24 92 Q60 98 96 92" strokeWidth={strokeWidth * 0.6} />
       </g>
-      {/* plume */}
+      {/* kash-feather plume */}
       {range(5).map((i) => {
-        const x = 34 + i * 9;
-        const tip = 12 + (i % 2) * 6;
+        const x = 36 + i * 9;
+        const tipX = x - 12 + i * 5;
+        const tipY = 10 + (i % 2) * 7;
         return (
           <g key={i}>
-            <path d={`M${x} 56 Q${x - 6 + i * 2} 34 ${x - 10 + i * 4} ${tip}`} />
-            {range(5).map((k) => {
-              const y = tip + 6 + k * 7;
-              const cx = x - 10 + i * 4 + (k * (6 - i * 2)) / 6;
-              return <path key={k} d={`M${cx} ${y} l-5 -4 M${cx} ${y} l5 -4`} strokeWidth={strokeWidth * 0.55} />;
-            })}
+            <path d={`M${x} 58 C${x - 9} 42 ${tipX - 9} ${tipY + 16} ${tipX} ${tipY} C${tipX + 9} ${tipY + 16} ${x + 9} 42 ${x} 58`} />
+            <path d={`M${x} 58 Q${(x + tipX) / 2} 36 ${tipX} ${tipY + 4}`} strokeWidth={strokeWidth * 0.5} />
           </g>
         );
       })}
@@ -83,12 +80,15 @@ export function KashSketch({ className = 'w-24 h-32', strokeWidth = 1.4 }) {
 export function ShankhaSketch({ className = 'w-16 h-16', strokeWidth = 1.6 }) {
   return (
     <svg viewBox="0 0 100 100" className={className} strokeWidth={strokeWidth} {...base}>
-      <path d="M18 62 C14 40 34 18 58 20 C78 22 90 38 86 54 C82 72 60 84 40 84 C28 84 20 76 18 62 Z" />
-      <path d="M58 20 C64 30 66 44 60 56 C54 66 42 70 32 66" />
-      <path d="M60 56 C70 58 78 54 84 46" strokeWidth={strokeWidth * 0.7} />
-      <path d="M40 84 L28 96 M46 84 L42 96" />
-      <path d="M30 40 Q40 36 48 42 M26 50 Q38 46 50 52" strokeWidth={strokeWidth * 0.6} />
-      <path d="M86 54 L96 50 L92 60 Z" />
+      {/* spire */}
+      <path d="M6 52 L30 38 L30 64 Z" />
+      <path d="M12 49 L24 56 M16 45 L28 53 M21 42 L30 47" strokeWidth={strokeWidth * 0.6} />
+      {/* body + siphonal tail */}
+      <path d="M30 38 C46 16 82 18 92 44 C96 56 92 64 84 68 L96 86 L76 74 C60 82 40 78 30 64 Z" />
+      {/* aperture lip */}
+      <path d="M62 30 C78 38 84 54 80 68" />
+      {/* ridges */}
+      <path d="M42 32 C48 44 48 58 42 70 M54 26 C60 42 60 60 54 76" strokeWidth={strokeWidth * 0.6} />
     </svg>
   );
 }
@@ -190,8 +190,8 @@ export function AlpanaSketch({ className = 'w-64 h-64', strokeWidth = 1.4 }) {
 }
 
 // Laal-paar divider (red-and-gold saree border)
-export function LaalPaar({ className = '' }) {
-  return <div className={`laal-paar w-full ${className}`} aria-hidden="true" />;
+export function LaalPaar({ className = '', style }) {
+  return <div className={`laal-paar w-full ${className}`} style={style} aria-hidden="true" />;
 }
 
 // Short ornamental rule: line • lotus • line

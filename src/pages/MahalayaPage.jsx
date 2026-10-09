@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, Radio, Waves, Palette, Calendar, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
-import SmartImage from '../components/SmartImage';
-import { MAHALAYA_IMAGE } from '../lib/images';
+import Photo from '../components/Photo';
+import PageHeader from '../components/PageHeader';
 
 export default function MahalayaPage() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -28,29 +28,22 @@ export default function MahalayaPage() {
 
   return (
     <div className="space-y-12 pb-16">
-      {/* Header */}
-      <div className="space-y-2 border-b border-brand-border/70 pb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <Clock className="w-3.5 h-3.5" />
-          <span>Sacred Festival Dawn</span>
-          <span>•</span>
-          <span className="font-bengali">মহালয়া ১৪৩৩</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Mahalaya 2026 in Siliguri
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          The sacred dawn of Bengal's grandest festival. From the nostalgic 4:00 AM radio resonance of Birendra Krishna Bhadra to ancestral Tarpan rituals on the Mahananda Ghats.
-        </p>
-      </div>
+      <PageHeader
+        bn="মহালয়া"
+        kicker="The dawn before Pujo"
+        title="Mahalaya 2026 in Siliguri"
+        description="From the 4 AM radio voice of Birendra Krishna Bhadra to tarpan on the Mahananda ghats — the morning Pujo truly begins."
+        photo="kash-sunset"
+      />
 
       {/* Countdown Card */}
       <div className="relative isolate overflow-hidden w-full bg-gradient-to-tr from-brand-maroon via-brand-maroon-dark to-brand-primary text-white rounded-3xl p-8 shadow-songi text-center space-y-6">
-        <SmartImage
-          src={MAHALAYA_IMAGE}
+        <Photo
+          slug="siliguri-mahananda"
           alt=""
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 w-full h-full object-cover opacity-35"
+          credit="none"
+          sizes="100vw"
+          className="absolute inset-0 -z-10 opacity-40"
         />
         <div className="space-y-1">
           <span className="text-xs uppercase font-bold text-brand-gold tracking-widest">

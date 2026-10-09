@@ -11,6 +11,7 @@ import SmartImage from '../components/SmartImage';
 import { routeImage } from '../lib/images';
 import { estimateCircuit, formatDuration, formatKm } from '../lib/routeEngine';
 import { usePlan } from '../context/PlanContext';
+import PageHeader from '../components/PageHeader';
 
 const pandalMap = Object.fromEntries(pandalsData.map((p) => [p.slug, p]));
 
@@ -172,8 +173,7 @@ function CircuitCard({ route }) {
 export default function RoutesPage() {
   return (
     <div className="space-y-12 sm:space-y-16 pb-8">
-      {/* Header */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-brand-muted">
           <Link to="/" className="inline-flex items-center gap-1 hover:text-brand-primary">
             <HomeIcon className="w-3.5 h-3.5" /> Home
@@ -181,17 +181,13 @@ export default function RoutesPage() {
           <ChevronRight className="w-3 h-3" />
           <span className="text-brand-primary font-semibold">Siliguri Puja Routes 2026</span>
         </nav>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-vermilion-light border border-brand-vermilion/20 text-[11px] font-bold uppercase tracking-wide text-brand-crimson">
-          <Route className="w-3.5 h-3.5" />
-          <span>Pujo Pandal Smart Route Engine</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Siliguri Puja Routes 2026
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          See more pandals and spend less time stuck on congested Siliguri roads. The route planner uses real pandal
-          coordinates, travel times for your mode and viewing buffers to design your ideal Puja circuit.
-        </p>
+        <PageHeader
+          bn="স্মার্ট রুট"
+          kicker="Route planner"
+          title="Siliguri Puja Routes 2026"
+          description="See more pandals and spend less time stuck in traffic. The planner uses real pandal coordinates, travel times for your mode and viewing time to design your circuit."
+          photo="lights-temple"
+        />
       </div>
 
       <QuickRouteBuilder />

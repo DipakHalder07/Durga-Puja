@@ -33,7 +33,7 @@ const createCustomIcon = (score, isSelected) => {
       </defs>
       <path d="M16 0C7.16 0 0 7.16 0 16c0 11.2 14.4 24.6 15.2 25.4.4.4 1.1.4 1.5 0C17.6 40.6 32 27.2 32 16 32 7.16 24.84 0 16 0z" fill="${bg}" stroke="${stroke}" stroke-width="1.5" filter="url(#shadow)"/>
       <circle cx="16" cy="15" r="9" fill="#FFFBF5"/>
-      <text x="16" y="19" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="bold" font-size="9" fill="${bg}" text-anchor="middle">${score}</text>
+      <text x="16" y="19" font-family="'Inter', system-ui, sans-serif" font-weight="bold" font-size="9" fill="${bg}" text-anchor="middle">${score}</text>
     </svg>
   `;
 
@@ -184,7 +184,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
 
       // Popup Content
       const popupHtml = `
-        <div style="min-width: 230px; max-width: 270px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; padding: 12px 14px;">
+        <div style="min-width: 230px; max-width: 270px; font-family: 'Inter', system-ui, sans-serif; padding: 12px 14px;">
           <div style="font-size: 10px; font-weight: 700; color: #820A14; text-transform: uppercase; margin-bottom: 2px;">
             ${pandal.area_name} • ${pandal.zone || 'Siliguri'}
           </div>

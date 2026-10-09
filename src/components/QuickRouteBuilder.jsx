@@ -24,7 +24,7 @@ const clockLabel = (dayMin) => {
   return `${((h + 11) % 12) + 1}:${mm} ${h < 12 ? 'AM' : 'PM'}`;
 };
 
-export default function QuickRouteBuilder() {
+export default function QuickRouteBuilder({ showHeader = true }) {
   const { userLocation, requestUserLocation, isLocating, savedPandalIds, toggleSave } = usePlan();
 
   const [startingPoint, setStartingPoint] = useState('Sevoke More');
@@ -143,17 +143,19 @@ export default function QuickRouteBuilder() {
         className="w-full bg-brand-card/95 rounded-3xl border border-brand-border/70 p-6 sm:p-8 md:p-10 shadow-songi transition-all max-w-4xl mx-auto"
       >
         {/* Header */}
+        {showHeader && (
         <header className="space-y-1.5 pb-6 border-b border-brand-border/40">
-          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-brand-primary uppercase">
-            SMART PUJA ROUTE PLANNER
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-ink">
+            Smart Puja Route Planner
           </h2>
           <p className="text-xs sm:text-sm text-brand-muted">
             Plan around your time, starting point and way of travelling.
           </p>
         </header>
+        )}
 
         {/* Popular 1-tap routes */}
-        <div className="py-5 border-b border-brand-border/40">
+        <div className={`${showHeader ? 'py-5' : 'pb-5'} border-b border-brand-border/40`}>
           <div className="flex items-center justify-between mb-2.5">
             <span className="text-[11px] font-bold text-brand-muted uppercase tracking-wider">
               POPULAR ROUTES

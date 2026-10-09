@@ -9,7 +9,7 @@ const numberedIcon = (label, isOrigin = false) =>
     html: `<div style="
       width:${isOrigin ? 34 : 30}px;height:${isOrigin ? 34 : 30}px;border-radius:9999px;
       display:flex;align-items:center;justify-content:center;
-      font:800 ${isOrigin ? 11 : 13}px 'Plus Jakarta Sans',system-ui,sans-serif;
+      font:800 ${isOrigin ? 11 : 13}px 'Inter',system-ui,sans-serif;
       background:${isOrigin ? '#E8AE45' : '#820A14'};color:${isOrigin ? '#3A0212' : '#FFFBF5'};
       border:3px solid ${isOrigin ? '#3A0212' : '#FBD596'};
       box-shadow:0 4px 10px -2px rgba(58,2,18,.45)">${label}</div>`,

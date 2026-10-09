@@ -1,25 +1,18 @@
 import React from 'react';
 import { Calendar, Clock, BookOpen, ShieldCheck, Sparkles, MapPin } from 'lucide-react';
 import eventsData from '../data/events.json';
+import PageHeader from '../components/PageHeader';
 
 export default function SchedulePage() {
   return (
     <div className="space-y-12 pb-16">
-      {/* Header */}
-      <div className="space-y-2 border-b border-brand-border/70 pb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <Calendar className="w-3.5 h-3.5" />
-          <span>Official 2026 Almanac</span>
-          <span>•</span>
-          <span className="font-bengali">পুজোর নির্ঘণ্ট ১৪৩৩</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Siliguri Puja Schedule 2026
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          Comprehensive tithi, ritual hours, pushpanjali, and visarjan schedule verified according to the Bishuddho Siddhanto Panjika for Siliguri and North Bengal.
-        </p>
-      </div>
+      <PageHeader
+        bn="পুজোর নির্ঘণ্ট"
+        kicker="Bengali almanac 1433"
+        title="Puja Schedule 2026"
+        description="Tithi, ritual hours, pushpanjali and visarjan timings for Siliguri, from the Bishuddho Siddhanto Panjika."
+        photo="dhak-drummers"
+      />
 
       {/* Events List */}
       <div className="space-y-6">

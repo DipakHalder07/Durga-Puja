@@ -1,25 +1,18 @@
 import React from 'react';
 import InteractiveMap from '../components/InteractiveMap';
 import { MapPin, Navigation, Info, ShieldCheck } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
 export default function MapPage() {
   return (
     <div className="space-y-6 pb-12">
-      {/* Header */}
-      <div className="space-y-2 border-b border-brand-border/70 pb-5">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <MapPin className="w-3.5 h-3.5" />
-          <span>Interactive Festival Atlas</span>
-          <span>•</span>
-          <span className="font-bengali">শিলিগুড়ি পুজো ম্যাপ</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Siliguri Durga Puja Map 2026
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          Interactive geographical map of all 83 verified Puja pandals across Siliguri. Search by name, select specific neighborhoods, inspect Songi Scores, and open turn-by-turn directions.
-        </p>
-      </div>
+      <PageHeader
+        bn="শিলিগুড়ি পুজো ম্যাপ"
+        kicker="Interactive map"
+        title="Siliguri Durga Puja Map 2026"
+        description="Every verified pandal on one map. Search by name, pick a neighbourhood, and open turn-by-turn directions."
+        photo="lights-gate"
+      />
 
       {/* Main Interactive Map */}
       <InteractiveMap height="h-[70vh] min-h-[550px]" />

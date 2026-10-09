@@ -100,7 +100,7 @@ export default function PandalCard({ pandal }) {
 
           {/* Name */}
           <div>
-            <h3 className="text-base font-bold text-brand-primary group-hover:text-brand-vermilion transition-colors line-clamp-1">
+            <h3 className="font-display text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-crimson transition-colors line-clamp-1">
               <Link to={`/pandals/${pandal.slug}`}>{pandal.name}</Link>
             </h3>
           </div>

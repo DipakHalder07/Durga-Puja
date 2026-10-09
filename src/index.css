@@ -19,8 +19,16 @@
 body {
   background-color: var(--brand-ivory);
   color: var(--brand-primary);
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+/* Bengali text inside Inter falls back to Hind Siliguri automatically */
+:lang(bn), .font-bengali {
+  font-family: 'Hind Siliguri', 'Inter', sans-serif;
 }
 
 /* Handmade-paper grain over the cream background */
@@ -64,6 +72,14 @@ h2.uppercase {
   background:
     linear-gradient(#820A14, #820A14) top / 100% 3px no-repeat,
     linear-gradient(#E8AE45, #E8AE45) 0 4px / 100% 1px no-repeat;
+}
+
+/* Gold trim under the red header */
+.header-trim {
+  height: 6px;
+  background:
+    linear-gradient(#E8AE45, #E8AE45) top / 100% 2px no-repeat,
+    radial-gradient(circle, #E8AE45 1.3px, transparent 1.7px) 0 2px / 11px 4px repeat-x;
 }
 
 /* Horizontal photo rails on phones */
@@ -164,7 +180,7 @@ html {
   background: #FFFBF5 !important;
 }
 .leaflet-container {
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 /* Very slow rotation for the background mandalas (disabled by reduced-motion rule above) */

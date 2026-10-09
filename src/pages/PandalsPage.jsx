@@ -3,6 +3,7 @@ import { Search, Filter, SlidersHorizontal, MapPin, CheckCircle2 } from 'lucide-
 import PandalCard from '../components/PandalCard';
 import pandalsData from '../data/pandals.json';
 import areasData from '../data/areas.json';
+import PageHeader from '../components/PageHeader';
 
 export default function PandalsPage() {
   const [search, setSearch] = useState('');
@@ -47,20 +48,13 @@ export default function PandalsPage() {
 
   return (
     <div className="space-y-8 pb-12">
-      {/* Page Header */}
-      <div className="space-y-2 border-b border-brand-border/70 pb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <span>Official 2026 Directory</span>
-          <span>•</span>
-          <span className="font-bengali">৮৩টি পুজো প্যান্ডেল</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Siliguri Puja Pandals 2026
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          Browse Siliguri's celebrated community installations. Filter by neighborhood areas, verified administrative records, award-winning craft, and family accessibility.
-        </p>
-      </div>
+      <PageHeader
+        bn="প্যান্ডেল"
+        kicker="Official 2026 directory"
+        title="Siliguri Puja Pandals 2026"
+        description={`Browse ${pandalsData.length} community pujas across Siliguri. Filter by neighbourhood, theme, parking and verified records.`}
+        photo="siliguri-idol-golden"
+      />
 
       {/* Filter and Search Bar */}
       <div className="bg-brand-card rounded-2xl border border-brand-border p-4 sm:p-5 shadow-songi space-y-4">

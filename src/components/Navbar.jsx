@@ -42,7 +42,7 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-header border-b border-brand-gold/30 shadow-songi">
+    <header className="sticky top-0 z-40 w-full glass-header shadow-songi">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo & Title */}
         <div className="flex items-center gap-8 min-w-0">
@@ -59,11 +59,11 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col text-left leading-none min-w-0">
-              <span className="font-extrabold tracking-tight text-brand-gold-light text-base md:text-lg truncate">
-                PUJO PANDAL
+              <span className="font-display font-semibold tracking-tight text-brand-gold-light text-lg md:text-xl truncate">
+                Pujo Pandal
               </span>
-              <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-xs font-semibold text-white/90 font-bengali">
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="text-[13px] text-white/90 font-bengali-serif">
                   পুজো প্যান্ডেল
                 </span>
                 <span className="text-[10px] text-white/60 hidden sm:inline-block tracking-wide">
@@ -143,6 +143,8 @@ export default function Navbar() {
         </div>
       </div>
 
+      <div className="header-trim" aria-hidden="true" />
+
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <>
@@ -150,11 +152,11 @@ export default function Navbar() {
             type="button"
             aria-label="Close menu"
             onClick={() => setMobileMenuOpen(false)}
-            className="lg:hidden fixed inset-0 top-16 bg-brand-maroon-dark/40 backdrop-blur-[2px] cursor-default"
+            className="lg:hidden fixed inset-0 top-[70px] bg-brand-maroon-dark/40 backdrop-blur-[2px] cursor-default"
           />
           <div
             id="mobile-menu"
-            className="lg:hidden relative max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-brand-border bg-brand-card px-4 pt-4 pb-6 space-y-3 shadow-songi-lg animate-menu-in"
+            className="lg:hidden relative max-h-[calc(100vh-70px)] overflow-y-auto border-b border-brand-border bg-brand-card px-4 pt-4 pb-6 space-y-3 shadow-songi-lg animate-menu-in"
           >
             <div className="grid grid-cols-2 gap-2">
               <button

@@ -26,7 +26,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['Inter', '"Hind Siliguri"', 'system-ui', '-apple-system', 'sans-serif'],
         serif: ['Fraunces', 'Georgia', 'serif'],
         bengali: ['"Hind Siliguri"', 'sans-serif'],
         'bengali-serif': ['"Tiro Bangla"', '"Hind Siliguri"', 'serif'],

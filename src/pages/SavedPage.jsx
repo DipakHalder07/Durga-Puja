@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Bookmark, Clock, MapPin, Trash2, ExternalLink, Compass, ArrowRight, Share2 } from 'lucide-react';
 import { usePlan } from '../context/PlanContext';
 import PandalCard from '../components/PandalCard';
+import PageHeader from '../components/PageHeader';
+import { DhakSketch } from '../components/BengalArt';
 
 export default function SavedPage() {
   const { savedPandals, savedPandalIds, toggleSave } = usePlan();
@@ -30,21 +32,13 @@ export default function SavedPage() {
 
   return (
     <div className="space-y-8 pb-16">
-      {/* Header */}
-      <div className="space-y-2 border-b border-brand-border/70 pb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <Bookmark className="w-3.5 h-3.5" />
-          <span>Personal Hopping Plan</span>
-          <span>•</span>
-          <span className="font-bengali">আমার পুজো প্ল্যান</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-primary">
-          Saved Puja Plan
-        </h1>
-        <p className="text-sm sm:text-base text-brand-muted max-w-2xl leading-relaxed">
-          Your bookmarked pandal stops saved privately in local browser memory. Calculate total darshan time and navigate the circuit.
-        </p>
-      </div>
+      <PageHeader
+        bn="আমার পুজো"
+        kicker="Your saved plan"
+        title="My Puja plan"
+        description="Your bookmarked pandals, saved privately on this device. See your total darshan time and navigate the circuit."
+        photo="boron-hands"
+      />
 
       {savedPandals.length > 0 ? (
         <div className="space-y-8">
@@ -100,10 +94,9 @@ export default function SavedPage() {
       ) : (
         /* Empty State */
         <div className="py-20 text-center space-y-4 bg-brand-card rounded-3xl border border-brand-border p-8 shadow-songi max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-full bg-brand-ivory text-brand-muted border border-brand-border flex items-center justify-center mx-auto">
-            <Bookmark className="w-8 h-8 text-brand-vermilion" />
-          </div>
-          <h2 className="text-xl font-black text-brand-primary">No Pandals Saved Yet</h2>
+          <DhakSketch className="w-24 h-24 mx-auto text-brand-crimson" />
+          <p className="font-bengali-serif text-lg text-brand-crimson">এখনও কিছু রাখা হয়নি</p>
+          <h2 className="text-2xl font-bold text-brand-ink">No pandals saved yet</h2>
           <p className="text-xs text-brand-muted max-w-sm mx-auto leading-relaxed">
             Click the bookmark icon on any pandal card or detail page to add it to your custom festival plan.
           </p>

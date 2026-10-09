@@ -22,6 +22,7 @@ import SavedPage from './pages/SavedPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import LegalPage from './pages/LegalPage';
+import PhotoCreditsPage from './pages/PhotoCreditsPage';
 import MandalaDecorations from './components/MandalaDecorations';
 
 function ScrollToTop() {
@@ -37,7 +38,7 @@ export default function App() {
     <PlanProvider>
       <Router>
         <ScrollToTop />
-        <div className="relative min-h-screen flex flex-col bg-brand-ivory text-brand-primary selection:bg-brand-gold selection:text-brand-primary overflow-x-hidden">
+        <div className="relative min-h-screen flex flex-col text-brand-primary selection:bg-brand-gold selection:text-brand-primary overflow-x-hidden">
           <MandalaDecorations />
           <div className="relative z-10 flex-1 flex flex-col">
             <Navbar />
@@ -84,6 +85,7 @@ export default function App() {
               <Route path="/privacy-policy" element={<LegalPage />} />
               <Route path="/terms" element={<LegalPage />} />
               <Route path="/disclaimer" element={<LegalPage />} />
+              <Route path="/photo-credits" element={<PhotoCreditsPage />} />
 
               {/* Fallback */}
               <Route path="*" element={<Home />} />

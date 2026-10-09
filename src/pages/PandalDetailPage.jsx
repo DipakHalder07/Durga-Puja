@@ -117,7 +117,7 @@ export default function PandalDetailPage() {
               </span>
             </div>
 
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black text-brand-primary tracking-tight">
+            <h1 className="text-[2rem] leading-tight sm:text-5xl font-bold text-brand-ink">
               {pandal.name}
             </h1>
 
@@ -136,7 +136,7 @@ export default function PandalDetailPage() {
                   <Sparkles className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-brand-gold fill-brand-gold/40" />
                   <span className="text-lg sm:text-xl font-black">{pandal.pujo_songi_score || '9.5'}</span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-gold tracking-wider block">
+                <span className="text-[10px] sm:text-[10px] uppercase font-bold text-brand-gold tracking-wider block">
                   Pandal Score
                 </span>
               </div>
@@ -146,7 +146,7 @@ export default function PandalDetailPage() {
                   <Star className="w-3.5 sm:w-4 h-3.5 sm:h-4 fill-amber-500 text-amber-500" />
                   <span>{pandal.rating || '4.9'}</span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] text-brand-muted tracking-wider block">
+                <span className="text-[10px] sm:text-[10px] text-brand-muted tracking-wider block">
                   {pandal.rating_count || 500}+ ratings
                 </span>
               </div>
@@ -187,7 +187,7 @@ export default function PandalDetailPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Theme & Architectural Concept */}
           <div className="bg-brand-card rounded-2xl border border-brand-border p-6 shadow-songi space-y-3">
-            <h2 className="text-lg font-black text-brand-primary uppercase tracking-wide">
+            <h2 className="text-xl sm:text-2xl font-bold text-brand-ink">
               Theme &amp; Architectural Concept
             </h2>
             <p className="text-sm text-brand-primary/90 leading-relaxed">
@@ -197,7 +197,7 @@ export default function PandalDetailPage() {
 
           {/* Visitor Transit & Crowd Guide */}
           <div className="bg-brand-card rounded-2xl border border-brand-border p-6 shadow-songi space-y-4">
-            <h2 className="text-lg font-black text-brand-primary uppercase tracking-wide">
+            <h2 className="text-xl sm:text-2xl font-bold text-brand-ink">
               Visitor Transit &amp; Crowd Guide
             </h2>
 
@@ -243,7 +243,7 @@ export default function PandalDetailPage() {
 
           {/* Administrative Details */}
           <div className="bg-brand-card rounded-2xl border border-brand-border p-6 shadow-songi space-y-4">
-            <h2 className="text-lg font-black text-brand-primary uppercase tracking-wide">
+            <h2 className="text-xl sm:text-2xl font-bold text-brand-ink">
               Administrative &amp; Committee Records
             </h2>
 

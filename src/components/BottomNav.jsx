@@ -44,7 +44,7 @@ export default function BottomNav() {
               >
                 <Icon className={`w-5 h-5 ${active ? 'stroke-[2.5]' : 'stroke-2'}`} />
                 {item.badge > 0 && (
-                  <span className="absolute -top-1 right-0.5 min-w-[1.1rem] h-[1.1rem] px-1 inline-flex items-center justify-center bg-brand-crimson text-white text-[9px] font-bold rounded-full ring-2 ring-brand-card">
+                  <span className="absolute -top-1 right-0.5 min-w-[1.1rem] h-[1.1rem] px-1 inline-flex items-center justify-center bg-brand-crimson text-white text-[10px] font-bold rounded-full ring-2 ring-brand-card">
                     {item.badge}
                   </span>
                 )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -18,19 +19,13 @@ export default function ContactPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-12 pb-16">
-      {/* Header */}
-      <div className="space-y-4 text-center">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-card border border-brand-border text-xs font-semibold text-brand-vermilion">
-          <Mail className="w-3.5 h-3.5 text-brand-vermilion" />
-          <span>Siliguri Desk • Local Community Team</span>
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-brand-primary leading-tight">
-          Get in Touch with <span className="text-brand-vermilion">PUJO PANDAL</span>
-        </h1>
-        <p className="text-base text-brand-muted max-w-2xl mx-auto leading-relaxed">
-          Whether you are a Puja committee organizer submitting pandal updates, reporting traffic diversions, or sharing visitor feedback.
-        </p>
-      </div>
+      <PageHeader
+        bn="যোগাযোগ"
+        kicker="Siliguri desk"
+        title="Get in touch"
+        description="Puja committee updates, traffic diversions or visitor feedback — we read every message."
+        photo="dhaki"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Contact Info Card */}
