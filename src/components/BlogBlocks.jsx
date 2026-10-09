@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Clock, Car, Ban, MapPin, Lightbulb } from 'lucide-react';
 import Photo from './Photo';
+import SmartImage from './SmartImage';
 import PandalsMap from './PandalsMap';
 import { DhunuchiSketch } from './BengalArt';
 import pandalsData from '../data/pandals.json';
@@ -38,7 +39,7 @@ export function PostCover({ post, className = '', sizes, eager = false }) {
   }
   return (
     <div className={`relative overflow-hidden bg-brand-maroon ${className}`}>
-      <img src={post.cover?.src} alt={post.coverAlt} loading={eager ? 'eager' : 'lazy'} decoding="async" className="w-full h-full object-cover" />
+      <SmartImage src={post.cover?.src} alt={post.coverAlt} sizes={sizes} loading={eager ? 'eager' : 'lazy'} className="w-full h-full object-cover" />
     </div>
   );
 }

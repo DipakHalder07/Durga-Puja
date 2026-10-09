@@ -74,7 +74,7 @@ function RouteDetail({ route, navigate }) {
 
       {/* Banner */}
       <header className="relative overflow-hidden rounded-[2rem] bg-brand-maroon text-white shadow-songi-lg">
-        <SmartImage src={routeImage(route.slug)} alt={route.title} className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+        <SmartImage src={routeImage(route.slug)} alt={route.title} sizes="100vw" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-maroon-dark via-brand-maroon-dark/70 to-brand-maroon-dark/10" />
         <div className="relative px-5 sm:px-10 pt-40 sm:pt-56 pb-7 sm:pb-10 max-w-3xl">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-xs font-semibold">
@@ -150,7 +150,7 @@ function RouteDetail({ route, navigate }) {
                 )}
                 <Link to={`/pandals/${p.slug}`} className="group flex gap-4 rounded-2xl border border-brand-border bg-brand-card p-3 sm:p-4 hover:border-brand-crimson/40 hover:shadow-songi transition-all">
                   <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-brand-maroon">
-                    <SmartImage src={pandalImage(p)} alt="" className="w-full h-full object-cover" />
+                    <SmartImage src={pandalImage(p)} alt="" sizes="96px" className="w-full h-full object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-display text-h3 font-semibold text-brand-ink group-hover:text-brand-crimson">{p.name}</p>
@@ -190,7 +190,7 @@ function RouteDetail({ route, navigate }) {
           {others.map((r) => (
             <Link key={r.slug} to={`/routes/${r.slug}`} className="group flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-card p-3 sm:p-4 hover:border-brand-crimson/40 transition-colors">
               <div className="w-24 h-20 shrink-0 rounded-xl overflow-hidden bg-brand-maroon">
-                <SmartImage src={routeImage(r.slug)} alt="" className="w-full h-full object-cover" />
+                <SmartImage src={routeImage(r.slug)} alt="" sizes="112px" className="w-full h-full object-cover" />
               </div>
               <div className="min-w-0">
                 <p className="font-display text-h3 font-semibold text-brand-ink group-hover:text-brand-crimson">{r.title}</p>

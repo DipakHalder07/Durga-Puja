@@ -1,24 +1,46 @@
 import React, { useState, useEffect } from 'react';
 
-// Lazy-loaded <img> that removes itself if the file is missing,
-// so the gradient design underneath shows instead of a broken image.
+// Local JPG/PNG illustrations have WebP copies next to them (name.webp at 1600px, name-sm.webp at 800px)
+const OPTIMISED = /^\/images\/.+\.(jpe?g|png)$/i;
+const webpOf = (src) => {
+  const base = src.replace(/\.(jpe?g|png)$/i, '');
+  return { src: `${base}.webp`, srcSet: `${base}-sm.webp 800w, ${base}.webp 1600w` };
+};
+
+// Lazy-loaded <img> that serves the light WebP copy when there is one, falls back to the
+// original file if not, and removes itself if that is missing too, so the gradient design
+// underneath shows instead of a broken image.
 // Pass wrapperClassName + children to add overlays that disappear together with the image.
-export default function SmartImage({ src, alt = '', className = '', wrapperClassName, children, ...rest }) {
-  const [failed, setFailed] = useState(false);
+export default function SmartImage({
+  src,
+  alt = '',
+  className = '',
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  wrapperClassName,
+  children,
+  ...rest
+}) {
+  const [stage, setStage] = useState(0); // 0 WebP copy · 1 original file · 2 hidden
 
   useEffect(() => {
-    setFailed(false);
+    setStage(0);
   }, [src]);
 
-  if (!src || failed) return null;
+  if (!src || stage === 2) return null;
+
+  const optimised = OPTIMISED.test(src);
+  const webp = optimised && stage === 0 ? webpOf(src) : null;
 
   const img = (
     <img
-      src={src}
+      key={webp ? 'webp' : 'original'}
+      src={webp ? webp.src : src}
+      srcSet={webp?.srcSet}
+      sizes={webp ? sizes : undefined}
       alt={alt}
       loading="lazy"
       decoding="async"
-      onError={() => setFailed(true)}
+      onError={() => setStage((s) => (optimised && s === 0 ? 1 : 2))}
       className={className}
       {...rest}
     />

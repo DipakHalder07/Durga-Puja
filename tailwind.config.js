@@ -26,8 +26,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', '"Hind Siliguri"', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['"Inter Variable"', 'Inter', '"Hind Siliguri"', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Fraunces Variable"', 'Fraunces', 'Georgia', 'serif'],
         bengali: ['"Hind Siliguri"', 'sans-serif'],
         'bengali-serif': ['"Tiro Bangla"', '"Hind Siliguri"', 'serif'],
       },

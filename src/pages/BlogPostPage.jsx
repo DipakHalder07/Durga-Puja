@@ -93,7 +93,7 @@ function Post({ post }) {
         <p className="mt-5 text-lead text-brand-muted"><RichText text={post.excerpt} /></p>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-brand-muted">
           <span className="inline-flex items-center gap-2">
-            <img src="/logo-icon.png" alt="" className="w-7 h-7 rounded-full border border-brand-gold" />
+            <img src="/logo-icon.webp" alt="" className="w-7 h-7 rounded-full border border-brand-gold" />
             <span className="font-medium text-brand-ink">{BLOG_AUTHOR}</span>
           </span>
           <span className="inline-flex items-center gap-1.5">

@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { 
   Search, MapPin, Star, Sparkles, Clock, Ban, Check, 
   Bookmark, Navigation, Layers, CheckCircle2 
@@ -10,12 +13,12 @@ import { usePlan } from '../context/PlanContext';
 import pandalsData from '../data/pandals.json';
 import areasData from '../data/areas.json';
 
-// Fix leaflet default icon path
+// Leaflet's default marker images, bundled locally
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
 });
 
 // Custom colored SVG markers with score
@@ -33,7 +36,7 @@ const createCustomIcon = (score, isSelected) => {
       </defs>
       <path d="M16 0C7.16 0 0 7.16 0 16c0 11.2 14.4 24.6 15.2 25.4.4.4 1.1.4 1.5 0C17.6 40.6 32 27.2 32 16 32 7.16 24.84 0 16 0z" fill="${bg}" stroke="${stroke}" stroke-width="1.5" filter="url(#shadow)"/>
       <circle cx="16" cy="15" r="9" fill="#FFFBF5"/>
-      <text x="16" y="19" font-family="'Inter', system-ui, sans-serif" font-weight="bold" font-size="9" fill="${bg}" text-anchor="middle">${score}</text>
+      <text x="16" y="19" font-family="'Inter Variable', system-ui, sans-serif" font-weight="bold" font-size="9" fill="${bg}" text-anchor="middle">${score}</text>
     </svg>
   `;
 
@@ -184,7 +187,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
 
       // Popup Content
       const popupHtml = `
-        <div style="min-width: 230px; max-width: 270px; font-family: 'Inter', system-ui, sans-serif; padding: 12px 14px;">
+        <div style="min-width: 230px; max-width: 270px; font-family: 'Inter Variable', system-ui, sans-serif; padding: 12px 14px;">
           <div style="font-size: 10px; font-weight: 700; color: #820A14; text-transform: uppercase; margin-bottom: 2px;">
             ${pandal.area_name} • ${pandal.zone || 'Siliguri'}
           </div>

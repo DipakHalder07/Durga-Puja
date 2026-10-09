@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   MapPin, Star, Sparkles, Clock, Ban, Check, Bookmark, 
@@ -9,6 +9,7 @@ import pandalsData from '../data/pandals.json';
 import SmartImage from '../components/SmartImage';
 import { pandalImage } from '../lib/images';
 import { useSeo } from '../lib/seo';
+import PandalsMap from '../components/PandalsMap';
 
 export default function PandalDetailPage() {
   const { slug } = useParams();
@@ -16,6 +17,7 @@ export default function PandalDetailPage() {
   const { isSaved, toggleSave } = usePlan();
 
   const pandal = pandalsData.find((p) => p.slug === slug);
+  const locationPin = useMemo(() => (pandal ? [pandal] : []), [pandal]);
 
   useSeo({
     title: pandal ? `${pandal.name} Durga Puja 2026 – ${pandal.area_name}, Siliguri` : 'Pandal not found',
@@ -94,6 +96,7 @@ export default function PandalDetailPage() {
       <SmartImage
         src={pandalImage(pandal)}
         alt={`${pandal.name} — ${pandal.theme || pandal.category}`}
+        sizes="(max-width: 1280px) 100vw, 1216px"
         className="w-full h-52 sm:h-72 md:h-80 object-cover"
         wrapperClassName="relative bg-brand-maroon"
         loading="eager"
@@ -284,29 +287,19 @@ export default function PandalDetailPage() {
 
         {/* Right Column: Directions & Map & Nearby */}
         <div className="space-y-6">
-          {/* Interactive Google Map Location Preview (No Key Needed!) */}
+          {/* Location map */}
           <div className="bg-brand-card rounded-2xl border border-brand-border p-4 sm:p-5 shadow-songi space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-brand-ink flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-brand-vermilion" />
-                <span>Google Maps View</span>
+                <span>Location</span>
               </span>
               <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                 Verified GPS
               </span>
             </div>
 
-            <div className="rounded-xl overflow-hidden border border-brand-border/80 h-56 w-full bg-brand-ivory">
-              <iframe
-                title={`Google Map for ${pandal.name}`}
-                src={`https://maps.google.com/maps?q=${pandal.latitude},${pandal.longitude}&hl=en&z=16&output=embed`}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+            <PandalsMap pandals={locationPin} numbered={false} className="h-56 sm:h-64" />
 
             <a
               href={googleMapsUrl}
