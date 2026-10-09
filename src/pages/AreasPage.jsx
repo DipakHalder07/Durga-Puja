@@ -12,7 +12,7 @@ export default function AreasPage() {
   }, {});
 
   return (
-    <div className="space-y-10 pb-16">
+    <div className="space-y-8 sm:space-y-10">
       <PageHeader
         bn="পাড়ায় পাড়ায়"
         kicker="Neighbourhoods"
@@ -33,22 +33,22 @@ export default function AreasPage() {
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-brand-vermilion uppercase tracking-wide">
+                  <span className="eyebrow text-brand-vermilion">
                     {count} {count === 1 ? 'Pandal' : 'Pandals'}
                   </span>
                   <MapPin className="w-3.5 h-3.5 text-brand-muted group-hover:text-brand-vermilion transition-colors" />
                 </div>
-                <h3 className="font-display text-lg font-semibold text-brand-ink group-hover:text-brand-crimson transition-colors">
+                <h3 className="font-display text-h3 font-semibold text-brand-ink group-hover:text-brand-crimson transition-colors">
                   {area.name}
                 </h3>
                 {area.description && (
-                  <p className="text-xs text-brand-muted line-clamp-2">
+                  <p className="text-sm text-brand-muted line-clamp-2">
                     {area.description}
                   </p>
                 )}
               </div>
 
-              <div className="mt-4 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs font-bold text-brand-primary group-hover:text-brand-vermilion">
+              <div className="mt-4 pt-3 border-t border-brand-border/60 flex items-center justify-between text-sm font-semibold text-brand-primary group-hover:text-brand-vermilion">
                 <span>View Pandals</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>

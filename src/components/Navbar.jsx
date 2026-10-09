@@ -63,10 +63,10 @@ export default function Navbar() {
                 Pujo Pandal
               </span>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-[13px] text-white/90 font-bengali-serif">
+                <span className="text-sm text-white/90 font-bengali-serif">
                   পুজো প্যান্ডেল
                 </span>
-                <span className="text-[10px] text-white/60 hidden sm:inline-block tracking-wide">
+                <span className="text-xs text-white/60 hidden sm:inline-block">
                   • Siliguri Guide
                 </span>
               </div>
@@ -102,7 +102,7 @@ export default function Navbar() {
             type="button"
             onClick={requestUserLocation}
             disabled={isLocating}
-            className={`hidden sm:inline-flex items-center gap-1.5 px-3 h-10 text-xs font-semibold rounded-xl border transition-all active:scale-95 disabled:opacity-70 ${
+            className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 h-10 text-sm font-semibold rounded-xl border transition-all active:scale-95 disabled:opacity-70 ${
               userLocation
                 ? 'border-brand-gold bg-brand-gold/20 text-brand-gold-light'
                 : 'border-white/20 bg-white/10 hover:bg-white/20 text-white'
@@ -117,13 +117,13 @@ export default function Navbar() {
           <Link
             to="/saved"
             aria-current={isActive('/saved') ? 'page' : undefined}
-            className="relative inline-flex items-center gap-1.5 px-3 h-10 text-xs font-semibold rounded-xl transition-all active:scale-95 bg-brand-gold-light text-brand-maroon-dark hover:bg-white shadow-2xs"
+            className="relative inline-flex items-center gap-1.5 px-3.5 h-10 text-sm font-semibold rounded-xl transition-all active:scale-95 bg-brand-gold-light text-brand-maroon-dark hover:bg-white shadow-2xs"
             aria-label={`Saved plan, ${savedPandalIds.length} pandals`}
           >
             <Bookmark className={`w-4 h-4 ${savedPandalIds.length > 0 ? 'fill-brand-crimson text-brand-crimson' : ''}`} />
             <span className="hidden xs:inline">Saved</span>
             {savedPandalIds.length > 0 && (
-              <span className="min-w-[1.25rem] h-5 px-1.5 inline-flex items-center justify-center bg-brand-crimson text-white text-[10px] font-bold rounded-full">
+              <span className="min-w-[1.25rem] h-5 px-1.5 inline-flex items-center justify-center bg-brand-crimson text-white text-2xs font-bold rounded-full">
                 {savedPandalIds.length}
               </span>
             )}
@@ -164,21 +164,21 @@ export default function Navbar() {
                   requestUserLocation();
                   setMobileMenuOpen(false);
                 }}
-                className="flex items-center gap-2 p-3 rounded-xl bg-brand-vermilion-light border border-brand-vermilion/20 text-sm font-semibold text-brand-maroon"
+                className="flex items-center gap-2 min-h-12 px-3.5 rounded-xl bg-brand-vermilion-light border border-brand-vermilion/20 text-sm font-semibold text-brand-maroon"
               >
                 <MapPin className="w-4 h-4 shrink-0" />
                 <span>{userLocation ? 'Location On' : 'Near Me'}</span>
               </button>
               <Link
                 to="/saved"
-                className="flex items-center justify-between p-3 rounded-xl bg-brand-vermilion-light border border-brand-vermilion/20 text-sm font-semibold text-brand-maroon"
+                className="flex items-center justify-between min-h-12 px-3.5 rounded-xl bg-brand-vermilion-light border border-brand-vermilion/20 text-sm font-semibold text-brand-maroon"
               >
                 <span className="flex items-center gap-2">
                   <Bookmark className="w-4 h-4 shrink-0" />
                   <span>Saved Plan</span>
                 </span>
                 {savedPandalIds.length > 0 && (
-                  <span className="min-w-[1.25rem] h-5 px-1.5 inline-flex items-center justify-center bg-brand-crimson text-white text-[10px] font-bold rounded-full">
+                  <span className="min-w-[1.25rem] h-5 px-1.5 inline-flex items-center justify-center bg-brand-crimson text-white text-2xs font-bold rounded-full">
                     {savedPandalIds.length}
                   </span>
                 )}
@@ -194,7 +194,7 @@ export default function Navbar() {
                     key={link.path}
                     to={link.path}
                     aria-current={active ? 'page' : undefined}
-                    className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-[15px] font-medium transition-colors ${
+                    className={`flex items-center gap-3 px-3.5 min-h-12 rounded-xl text-base font-medium transition-colors ${
                       active
                         ? 'bg-brand-crimson text-white font-semibold'
                         : 'text-brand-primary hover:bg-brand-ivory'
@@ -208,7 +208,7 @@ export default function Navbar() {
               })}
               <Link
                 to="/about"
-                className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[15px] font-medium text-brand-muted hover:bg-brand-ivory"
+                className="flex items-center gap-3 px-3.5 min-h-12 rounded-xl text-base font-medium text-brand-muted hover:bg-brand-ivory"
               >
                 <Sparkles className="w-5 h-5 text-brand-gold" />
                 <span className="flex-1">About Pujo Pandal</span>

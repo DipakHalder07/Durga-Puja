@@ -40,7 +40,7 @@ export default function BlogPage() {
   });
 
   return (
-    <div className="space-y-10 sm:space-y-14 pb-6">
+    <div className="space-y-8 sm:space-y-10">
       <PageHeader
         bn="পুজোর খবর"
         kicker="Durga Puja pandal map 2026"
@@ -55,11 +55,11 @@ export default function BlogPage() {
         className="group grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] rounded-3xl overflow-hidden border border-brand-border bg-brand-card hover:shadow-songi-lg transition-shadow"
       >
         <PostCover post={featured} eager sizes="(max-width: 1024px) 100vw, 640px" className="aspect-[16/10] lg:aspect-auto lg:min-h-[22rem]" />
-        <div className="p-6 sm:p-9 flex flex-col justify-center">
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-crimson">Start here · {featured.category}</span>
-          <h2 className="mt-3 text-2xl sm:text-4xl font-bold text-brand-ink leading-tight group-hover:text-brand-crimson transition-colors">{featured.title}</h2>
-          <p className="mt-3 text-brand-muted leading-relaxed"><RichText text={featured.excerpt} /></p>
-          <p className="mt-5 flex items-center gap-3 text-sm text-brand-muted">
+        <div className="p-6 sm:p-10 flex flex-col justify-center">
+          <span className="eyebrow text-brand-crimson">Start here · {featured.category}</span>
+          <h2 className="mt-3 text-h2 font-bold text-brand-ink group-hover:text-brand-crimson transition-colors">{featured.title}</h2>
+          <p className="mt-4 text-lead text-brand-muted"><RichText text={featured.excerpt} /></p>
+          <p className="mt-5 flex items-center gap-4 text-sm text-brand-muted">
             <span>{fmt(featured.dateModified)}</span>
             <span className="inline-flex items-center gap-1"><Clock className="w-4 h-4" />{readingMinutes(featured)} min read</span>
           </p>
@@ -88,7 +88,7 @@ export default function BlogPage() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {rest.map((post) => (
           <Link
             key={post.slug}
@@ -96,11 +96,11 @@ export default function BlogPage() {
             className="group flex flex-col rounded-2xl border border-brand-border bg-brand-card overflow-hidden hover:shadow-songi-lg hover:border-brand-crimson/40 transition-all"
           >
             <PostCover post={post} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="aspect-[16/10]" />
-            <div className="p-5 flex-1 flex flex-col">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-crimson">{post.category}</span>
-              <h3 className="font-display text-xl font-semibold text-brand-ink leading-snug mt-1.5 group-hover:text-brand-crimson transition-colors">{post.title}</h3>
+            <div className="p-5 sm:p-6 flex-1 flex flex-col">
+              <span className="eyebrow text-brand-crimson">{post.category}</span>
+              <h3 className="font-display text-h3 font-semibold text-brand-ink mt-2 group-hover:text-brand-crimson transition-colors">{post.title}</h3>
               <p className="text-sm text-brand-muted mt-2 line-clamp-3">{fillTokens(post.excerpt, STATS)}</p>
-              <p className="mt-auto pt-4 flex items-center gap-3 text-xs text-brand-muted">
+              <p className="mt-auto pt-5 flex items-center gap-4 text-xs text-brand-muted">
                 <span>{fmt(post.dateModified)}</span>
                 <span className="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{readingMinutes(post)} min</span>
               </p>

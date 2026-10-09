@@ -45,11 +45,11 @@ export default function App() {
     <PlanProvider>
       <Router>
         <ScrollToTop />
-        <div className="relative min-h-screen flex flex-col text-brand-primary selection:bg-brand-gold selection:text-brand-primary overflow-x-hidden">
+        <div className="relative min-h-screen flex flex-col text-brand-primary selection:bg-brand-gold selection:text-brand-primary overflow-x-clip">
           <MandalaDecorations />
           <div className="relative z-10 flex-1 flex flex-col">
             <Navbar />
-            <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6 sm:pt-6 lg:pb-12">
+            <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
             <Routes>
               {/* Home & Alternate landing routes */}
               <Route path="/" element={<Home />} />

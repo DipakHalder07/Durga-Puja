@@ -18,7 +18,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12 pb-16">
+    <div className="max-w-4xl mx-auto space-y-section">
       <PageHeader
         bn="যোগাযোগ"
         kicker="Siliguri desk"
@@ -30,11 +30,11 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Contact Info Card */}
         <div className="bg-brand-card rounded-3xl border border-brand-border p-6 sm:p-8 shadow-songi space-y-6">
-          <h2 className="text-lg font-black text-brand-primary uppercase tracking-wide">
+          <h2 className="font-display text-h3 font-semibold text-brand-ink">
             Official Desk
           </h2>
 
-          <div className="space-y-4 text-xs text-brand-muted">
+          <div className="space-y-4 text-sm text-brand-muted">
             <div className="flex items-start gap-3">
               <MapPin className="w-4 h-4 text-brand-vermilion shrink-0 mt-0.5" />
               <div>
@@ -70,14 +70,14 @@ export default function ContactPage() {
               <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-black text-brand-primary">Thank you for your message!</h3>
-              <p className="text-xs text-brand-muted max-w-sm mx-auto">
+              <h3 className="font-display text-h3 font-semibold text-brand-ink">Thank you for your message!</h3>
+              <p className="text-sm text-brand-muted max-w-sm mx-auto">
                 Our Siliguri editorial desk has received your note and will review it promptly.
               </p>
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="text-xs font-bold text-brand-vermilion hover:underline pt-2"
+                className="min-h-11 text-sm font-semibold text-brand-vermilion hover:underline"
               >
                 Send another message
               </button>
@@ -86,7 +86,7 @@ export default function ContactPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-brand-primary uppercase tracking-wide">
+                  <label className="text-sm font-semibold text-brand-ink">
                     Your Name
                   </label>
                   <input
@@ -95,12 +95,12 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Enter your name"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-brand-ivory border border-brand-border text-xs text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
+                    className="w-full px-4 py-3 rounded-xl bg-brand-ivory border border-brand-border text-base text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-brand-primary uppercase tracking-wide">
+                  <label className="text-sm font-semibold text-brand-ink">
                     Email Address
                   </label>
                   <input
@@ -109,19 +109,19 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="you@domain.com"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-brand-ivory border border-brand-border text-xs text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
+                    className="w-full px-4 py-3 rounded-xl bg-brand-ivory border border-brand-border text-base text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-brand-primary uppercase tracking-wide">
+                <label className="text-sm font-semibold text-brand-ink">
                   Subject / Category
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-ivory border border-brand-border text-xs text-brand-primary font-medium focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
+                  className="w-full px-4 py-3 rounded-xl bg-brand-ivory border border-brand-border text-base text-brand-primary font-medium focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
                 >
                   <option value="Committee Registration">Puja Committee Registration</option>
                   <option value="Theme / Details Update">Theme or Detail Correction</option>
@@ -131,7 +131,7 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-brand-primary uppercase tracking-wide">
+                <label className="text-sm font-semibold text-brand-ink">
                   Message
                 </label>
                 <textarea
@@ -140,13 +140,13 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Provide pandal details, address, theme description, or your message..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-ivory border border-brand-border text-xs text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
+                  className="w-full px-4 py-3 rounded-xl bg-brand-ivory border border-brand-border text-base text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3.5 px-6 rounded-2xl bg-brand-vermilion hover:bg-brand-vermilion-hover text-white text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-2 shadow-songi transition-all"
+                className="w-full h-12 px-6 rounded-full bg-brand-vermilion hover:bg-brand-vermilion-hover text-white text-base font-semibold flex items-center justify-center gap-2 shadow-songi transition-all"
               >
                 <Send className="w-4 h-4" />
                 <span>Submit Message</span>

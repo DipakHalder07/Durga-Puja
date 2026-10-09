@@ -20,9 +20,9 @@ export default function LegalPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-16">
+    <div className="max-w-4xl mx-auto space-y-8 sm:space-y-10">
       {/* Back link */}
-      <div className="flex items-center justify-between text-xs text-brand-muted">
+      <div className="flex items-center justify-between gap-4 text-sm text-brand-muted">
         <Link
           to="/"
           className="inline-flex items-center gap-1.5 hover:text-brand-primary transition-colors font-medium"
@@ -35,20 +35,20 @@ export default function LegalPage() {
 
       {/* Header Banner */}
       <div className="bg-brand-card rounded-3xl border border-brand-border p-6 sm:p-10 shadow-songi space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-ivory text-brand-vermilion text-xs font-bold border border-brand-border">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-ivory text-brand-vermilion text-xs font-semibold border border-brand-border">
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>PUJO PANDAL Guidelines</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-brand-primary tracking-tight">
+        <h1 className="text-h1 font-bold text-brand-ink">
           {getPageTitle()}
         </h1>
-        <p className="text-xs text-brand-muted">
+        <p className="text-sm text-brand-muted">
           Last revised for Durga Puja 2026. Applicable across all digital platforms of PUJO PANDAL.
         </p>
       </div>
 
       {/* Content */}
-      <div className="bg-brand-card rounded-3xl border border-brand-border p-6 sm:p-10 shadow-songi space-y-5 text-sm sm:text-base leading-relaxed text-brand-primary/90">
+      <div className="bg-brand-card rounded-3xl border border-brand-border p-6 sm:p-10 shadow-songi space-y-5 text-base text-brand-primary/90">
         {doc.paragraphs && doc.paragraphs.length > 0 ? (
           doc.paragraphs.map((para, i) => (
             <p key={i} className="leading-relaxed">

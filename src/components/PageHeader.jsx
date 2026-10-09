@@ -10,8 +10,8 @@ export function SectionHeading({ bn, title, sub, to, linkLabel, className = '' }
       <div className="flex items-end justify-between gap-4">
         <div className="min-w-0">
           {bn && <p className="font-bengali-serif text-brand-crimson text-lg sm:text-xl leading-none">{bn}</p>}
-          <h2 className="text-[1.65rem] leading-tight sm:text-4xl font-bold text-brand-ink mt-1.5">{title}</h2>
-          {sub && <p className="text-sm text-brand-muted mt-1.5 max-w-xl leading-relaxed">{sub}</p>}
+          <h2 className="text-h2 font-bold text-brand-ink mt-2">{title}</h2>
+          {sub && <p className="text-base text-brand-muted mt-2 max-w-2xl">{sub}</p>}
         </div>
         {to && (
           <Link
@@ -23,7 +23,7 @@ export function SectionHeading({ bn, title, sub, to, linkLabel, className = '' }
           </Link>
         )}
       </div>
-      <div className="mt-4 flex items-center gap-1.5" aria-hidden="true">
+      <div className="mt-5 flex items-center gap-1.5" aria-hidden="true">
         <span className="h-[3px] w-10 rounded-full bg-brand-crimson" />
         <span className="h-[3px] w-2 rounded-full bg-brand-gold" />
         <span className="h-px flex-1 bg-brand-border" />
@@ -31,7 +31,7 @@ export function SectionHeading({ bn, title, sub, to, linkLabel, className = '' }
       {to && (
         <Link
           to={to}
-          className="sm:hidden mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-crimson"
+          className="sm:hidden mt-4 inline-flex items-center gap-1.5 min-h-[2.75rem] text-sm font-semibold text-brand-crimson"
         >
           {linkLabel}
           <ArrowRight className="w-4 h-4" />
@@ -45,15 +45,15 @@ export function SectionHeading({ bn, title, sub, to, linkLabel, className = '' }
 export default function PageHeader({ bn, kicker, title, description, photo, photoAlt, children }) {
   return (
     <header className="relative">
-      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-5 sm:gap-10 items-end">
-        <div className="min-w-0 space-y-3 order-2 sm:order-1">
+      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-6 sm:gap-12 items-end">
+        <div className="min-w-0 space-y-4 order-2 sm:order-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
             {bn && <span className="font-bengali-serif text-base text-brand-crimson leading-none">{bn}</span>}
             {bn && kicker && <span className="w-1 h-1 rounded-full bg-brand-gold" aria-hidden="true" />}
-            {kicker && <span className="font-semibold uppercase tracking-[0.14em] text-brand-muted text-[11px]">{kicker}</span>}
+            {kicker && <span className="eyebrow text-brand-muted">{kicker}</span>}
           </div>
-          <h1 className="text-[2rem] leading-[1.1] sm:text-5xl font-bold text-brand-ink">{title}</h1>
-          {description && <p className="text-[15px] sm:text-base text-brand-muted max-w-2xl leading-relaxed">{description}</p>}
+          <h1 className="text-h1 font-bold text-brand-ink">{title}</h1>
+          {description && <p className="text-lead text-brand-muted max-w-2xl">{description}</p>}
           {children}
         </div>
         {photo && (
@@ -72,7 +72,7 @@ export default function PageHeader({ bn, kicker, title, description, photo, phot
           </div>
         )}
       </div>
-      <div className="laal-paar-thin mt-6 sm:mt-8 rounded-full" aria-hidden="true" />
+      <div className="laal-paar-thin mt-content rounded-full" aria-hidden="true" />
     </header>
   );
 }

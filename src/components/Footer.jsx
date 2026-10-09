@@ -41,12 +41,12 @@ const LINK_GROUPS = [
 
 export default function Footer() {
   return (
-    <footer className="relative w-full mt-14 lg:mt-20 bg-brand-crimson text-white/80 overflow-hidden">
+    <footer className="relative w-full mt-section bg-brand-crimson text-white/80 overflow-hidden">
       <LaalPaar className="-scale-y-100" style={{ backgroundColor: '#FAF5EB' }} />
       <AlpanaSketch className="absolute -right-32 top-10 w-[26rem] h-[26rem] text-white/[0.07] pointer-events-none" />
       <AlpanaSketch className="absolute -left-40 -bottom-40 w-[28rem] h-[28rem] text-white/[0.05] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-28 lg:pb-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-28 lg:pb-12">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-10 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2 space-y-4">
@@ -60,10 +60,10 @@ export default function Footer() {
               </span>
             </Link>
             <p className="font-bengali-serif text-2xl text-white">পুজো ঘোরার সঙ্গী</p>
-            <p className="text-sm leading-relaxed max-w-sm">
+            <p className="text-base max-w-sm">
               A friendly companion for exploring Durga Puja pandals across Siliguri — built with local care and verified committee records.
             </p>
-            <div className="space-y-1.5 text-sm">
+            <div className="space-y-2 text-sm">
               <p className="flex items-center gap-2"><MapPin className="w-4 h-4 text-brand-gold-light shrink-0" /> Collegepara, Siliguri, West Bengal 734005</p>
               <p className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-brand-gold-light shrink-0" />
@@ -74,11 +74,11 @@ export default function Footer() {
 
           {LINK_GROUPS.map((group) => (
             <nav key={group.title} aria-label={group.title} className={group.title === 'About' ? 'col-span-2 sm:col-span-1' : ''}>
-              <h4 className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-gold-light mb-3">{group.title}</h4>
-              <ul className={`space-y-0.5 text-sm ${group.title === 'About' ? 'grid grid-cols-2 sm:block gap-x-6' : ''}`}>
+              <h4 className="eyebrow text-brand-gold-light mb-3">{group.title}</h4>
+              <ul className={`text-sm ${group.title === 'About' ? 'grid grid-cols-2 sm:block gap-x-6' : ''}`}>
                 {group.links.map(([label, to]) => (
                   <li key={to}>
-                    <Link to={to} className="inline-block py-1.5 hover:text-white transition-colors">{label}</Link>
+                    <Link to={to} className="inline-block py-2 hover:text-white transition-colors">{label}</Link>
                   </li>
                 ))}
               </ul>
@@ -86,7 +86,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <div className="mt-12 pt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
           <DurgaEyesSketch className="w-28 h-11 text-brand-gold-light/70 order-first sm:order-none" />
           <p>© 2026 Pujo Pandal · Made with love in Siliguri</p>
           <p className="font-bengali-serif text-sm text-white/70">শুভ শারদীয়া ১৪৩৩</p>

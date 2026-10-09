@@ -38,7 +38,7 @@ export default function Photo({
           href={p.source}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-1.5 right-1.5 max-w-[85%] truncate px-1.5 py-0.5 rounded bg-black/45 text-[10px] leading-tight text-white/85 hover:text-white backdrop-blur-sm"
+          className="absolute bottom-1.5 right-1.5 max-w-[85%] truncate px-1.5 py-0.5 rounded bg-black/45 text-2xs text-white/85 hover:text-white backdrop-blur-sm"
           title={`${p.title} — ${p.author}, ${p.license}`}
         >
           © {p.author} · {p.license}

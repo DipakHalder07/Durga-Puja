@@ -13,7 +13,7 @@ const LICENSE_URL = {
 
 export default function PhotoCreditsPage() {
   return (
-    <div className="space-y-10 pb-8">
+    <div className="space-y-8 sm:space-y-10">
       <PageHeader
         bn="ছবির ঋণ"
         kicker="Photo credits"

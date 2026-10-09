@@ -275,7 +275,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
                 key={key}
                 type="button"
                 onClick={() => setMapType(key)}
-                className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                   mapType === key
                     ? 'bg-brand-primary text-white shadow-2xs'
                     : 'text-brand-muted hover:text-brand-primary'
@@ -336,10 +336,10 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
           <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-96 z-[400] bg-brand-card border border-brand-border rounded-2xl p-4 shadow-songi-lg animate-in fade-in slide-in-from-bottom-2 duration-200">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <span className="text-[10px] font-bold text-brand-vermilion uppercase tracking-wider block">
+                <span className="eyebrow text-brand-vermilion block">
                   {activePandal.area_name} • {activePandal.zone}
                 </span>
-                <h4 className="text-sm font-extrabold text-brand-primary mt-0.5 line-clamp-1">
+                <h4 className="font-display text-h3 font-semibold text-brand-ink mt-1 line-clamp-1">
                   {activePandal.name}
                 </h4>
               </div>

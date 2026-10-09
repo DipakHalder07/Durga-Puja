@@ -31,7 +31,7 @@ export default function SavedPage() {
   };
 
   return (
-    <div className="space-y-8 pb-16">
+    <div className="space-y-8 sm:space-y-10">
       <PageHeader
         bn="আমার পুজো"
         kicker="Your saved plan"
@@ -45,14 +45,14 @@ export default function SavedPage() {
           {/* Summary Ribbon */}
           <div className="bg-brand-card rounded-2xl border border-brand-border p-5 sm:p-6 shadow-songi flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4 text-center sm:text-left">
-              <div className="w-12 h-12 rounded-2xl bg-brand-maroon text-[#FFFBF5] font-black text-lg flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-brand-maroon text-[#FFFBF5] font-bold text-lg flex items-center justify-center shrink-0">
                 {savedPandals.length}
               </div>
               <div>
                 <span className="text-sm font-extrabold text-brand-primary block">
                   {savedPandals.length} Pandals in your itinerary
                 </span>
-                <span className="text-xs text-brand-muted flex items-center gap-1.5 justify-center sm:justify-start">
+                <span className="text-sm text-brand-muted flex items-center gap-1.5 justify-center sm:justify-start">
                   <Clock className="w-3.5 h-3.5 text-brand-vermilion" />
                   <span>Estimated Total Darshan Time: ~{totalHours} hours</span>
                 </span>
@@ -65,7 +65,7 @@ export default function SavedPage() {
                   href={googleMapsRouteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-brand-vermilion hover:bg-brand-vermilion-hover text-white text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition-colors"
+                  className="flex-1 sm:flex-none h-11 px-5 rounded-xl bg-brand-vermilion hover:bg-brand-vermilion-hover text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-xs transition-colors"
                 >
                   <MapPin className="w-3.5 h-3.5" />
                   <span>Open Route in Maps</span>
@@ -76,7 +76,7 @@ export default function SavedPage() {
               <button
                 type="button"
                 onClick={handleShare}
-                className="p-2.5 rounded-xl bg-brand-ivory hover:bg-white text-brand-primary border border-brand-border text-xs transition-colors"
+                className="w-11 h-11 inline-flex items-center justify-center rounded-xl bg-brand-ivory hover:bg-white text-brand-primary border border-brand-border transition-colors"
                 title="Share your plan"
               >
                 <Share2 className="w-4 h-4" />
@@ -97,12 +97,12 @@ export default function SavedPage() {
           <DhakSketch className="w-24 h-24 mx-auto text-brand-crimson" />
           <p className="font-bengali-serif text-lg text-brand-crimson">এখনও কিছু রাখা হয়নি</p>
           <h2 className="text-2xl font-bold text-brand-ink">No pandals saved yet</h2>
-          <p className="text-xs text-brand-muted max-w-sm mx-auto leading-relaxed">
+          <p className="text-sm text-brand-muted max-w-sm mx-auto leading-relaxed">
             Click the bookmark icon on any pandal card or detail page to add it to your custom festival plan.
           </p>
           <Link
             to="/siliguri-puja-pandals"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-brand-vermilion hover:bg-brand-vermilion-hover text-white text-xs font-bold uppercase tracking-wider shadow-songi transition-all"
+            className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-brand-vermilion hover:bg-brand-vermilion-hover text-white text-base font-semibold shadow-songi transition-all"
           >
             <Compass className="w-4 h-4" />
             <span>Discover Pandals Now</span>

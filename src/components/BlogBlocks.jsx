@@ -52,7 +52,7 @@ function PandalList({ query, note, map }) {
       <ol className="divide-y divide-brand-border rounded-2xl border border-brand-border bg-brand-card overflow-hidden">
         {list.map((p, i) => (
           <li key={p.id}>
-            <Link to={`/pandals/${p.slug}`} className="group flex gap-3 sm:gap-4 p-4 hover:bg-brand-ivory transition-colors">
+            <Link to={`/pandals/${p.slug}`} className="group flex gap-3 sm:gap-4 p-4 sm:p-5 hover:bg-brand-ivory transition-colors">
               <span className="font-display text-2xl font-semibold text-brand-crimson/80 w-8 shrink-0 leading-none pt-0.5 tabular-nums">{i + 1}</span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-3">
@@ -62,7 +62,7 @@ function PandalList({ query, note, map }) {
                     {p.pujo_songi_score}
                   </span>
                 </div>
-                <p className="text-sm text-brand-muted mt-0.5">
+                <p className="text-sm text-brand-muted mt-1">
                   {p.area_name} · {p.category}
                   {note === 'distance' && p.distanceKm != null && <> · <strong className="text-brand-ink">{p.distanceKm.toFixed(1)} km</strong> away</>}
                 </p>
@@ -76,8 +76,8 @@ function PandalList({ query, note, map }) {
                 {note === 'access' && p.access_notes && (
                   <p className="text-sm text-brand-ink/80 mt-1 flex gap-1.5"><MapPin className="w-4 h-4 text-brand-crimson shrink-0 mt-0.5" /><span>{p.access_notes}</span></p>
                 )}
-                <p className="text-xs text-brand-muted mt-1.5 flex flex-wrap gap-x-3">
-                  <span className="inline-flex items-center gap-1"><Clock className="w-3 h-3" />~{p.estimated_visit_minutes} min visit</span>
+                <p className="text-sm text-brand-muted mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                  <span className="inline-flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />~{p.estimated_visit_minutes} min visit</span>
                   <span className={p.parking_available ? 'text-emerald-700' : 'text-rose-700'}>{p.parking_available ? 'Parking nearby' : 'Walk-in only'}</span>
                 </p>
               </div>
@@ -123,8 +123,8 @@ function ScheduleList() {
       {eventsData.map((e) => (
         <li key={e.id} className="rounded-2xl border border-brand-border bg-brand-card p-4">
           <p className="font-bengali-serif text-brand-crimson text-lg leading-none">{EVENT_BN[e.event_type]}</p>
-          <p className="font-semibold text-brand-ink mt-1.5">{e.event_name}</p>
-          <p className="text-sm text-brand-muted">
+          <p className="font-semibold text-brand-ink mt-2 leading-snug">{e.event_name}</p>
+          <p className="text-sm text-brand-muted mt-0.5">
             {new Date(e.date).toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}
           </p>
         </li>
@@ -140,15 +140,15 @@ export default function BlogBlocks({ blocks }) {
         return <p key={i} className="my-5"><RichText text={b.text} /></p>;
       case 'h2':
         return (
-          <h2 key={i} id={b.id} className="scroll-mt-28 mt-12 mb-4 text-[1.6rem] sm:text-3xl font-bold text-brand-ink leading-tight">
+          <h2 key={i} id={b.id} className="scroll-mt-28 mt-14 mb-5 text-h2 font-bold text-brand-ink">
             <RichText text={b.text} />
           </h2>
         );
       case 'h3':
-        return <h3 key={i} className="mt-8 mb-2 font-display text-xl font-semibold text-brand-ink">{b.text}</h3>;
+        return <h3 key={i} className="mt-10 mb-3 font-display text-h3 sm:text-[1.375rem] font-semibold text-brand-ink">{b.text}</h3>;
       case 'ul':
         return (
-          <ul key={i} className="my-5 space-y-2.5">
+          <ul key={i} className="my-6 space-y-3">
             {b.items.map((it, k) => (
               <li key={k} className="relative pl-6">
                 <span className="absolute left-0 top-[0.6em] w-2 h-2 rotate-45 bg-brand-crimson/80" aria-hidden="true" />
@@ -159,7 +159,7 @@ export default function BlogBlocks({ blocks }) {
         );
       case 'ol':
         return (
-          <ol key={i} className="my-5 space-y-3">
+          <ol key={i} className="my-6 space-y-3.5">
             {b.items.map((it, k) => (
               <li key={k} className="relative pl-10">
                 <span className="absolute left-0 top-0 w-7 h-7 rounded-full bg-brand-vermilion-light text-brand-crimson text-sm font-bold flex items-center justify-center">{k + 1}</span>
@@ -170,20 +170,20 @@ export default function BlogBlocks({ blocks }) {
         );
       case 'tip':
         return (
-          <aside key={i} className="not-prose my-6 relative overflow-hidden rounded-2xl border border-brand-gold/40 bg-[#FDF6E7] p-5 pl-6">
+          <aside key={i} className="not-prose my-8 relative overflow-hidden rounded-2xl border border-brand-gold/40 bg-[#FDF6E7] p-5 pl-6 sm:p-6 sm:pl-7">
             <span className="absolute inset-y-0 left-0 w-1.5 bg-brand-gold" aria-hidden="true" />
             <DhunuchiSketch className="absolute -right-2 -bottom-2 w-16 h-20 text-brand-gold/40" />
             <p className="flex items-center gap-2 font-semibold text-brand-ink"><Lightbulb className="w-4 h-4 text-brand-gold" />{b.title}</p>
-            <p className="text-[15px] text-brand-ink/85 mt-1 pr-10"><RichText text={b.text} /></p>
+            <p className="text-base text-brand-ink/85 mt-1.5 pr-10"><RichText text={b.text} /></p>
           </aside>
         );
       case 'facts':
         return (
-          <dl key={i} className="not-prose my-6 flex flex-wrap gap-px overflow-hidden rounded-2xl border border-brand-border bg-brand-border">
+          <dl key={i} className="not-prose my-8 flex flex-wrap gap-px overflow-hidden rounded-2xl border border-brand-border bg-brand-border">
             {b.items.map(([k, v]) => (
-              <div key={k} className="flex-1 basis-[45%] sm:basis-[22%] bg-brand-card px-4 py-3">
-                <dt className="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">{k}</dt>
-                <dd className="font-display text-lg font-semibold text-brand-ink mt-0.5 leading-snug">{fillTokens(v, STATS)}</dd>
+              <div key={k} className="flex-1 basis-[45%] sm:basis-[22%] bg-brand-card px-4 py-4 sm:px-5">
+                <dt className="text-xs font-medium text-brand-muted">{k}</dt>
+                <dd className="font-display text-lg font-semibold text-brand-ink mt-1 leading-snug">{fillTokens(v, STATS)}</dd>
               </div>
             ))}
           </dl>
@@ -214,7 +214,7 @@ export default function BlogBlocks({ blocks }) {
           <Link
             key={i}
             to={b.to}
-            className="not-prose group my-7 flex items-center gap-4 rounded-2xl bg-brand-crimson text-white p-5 shadow-songi hover:bg-brand-vermilion-hover transition-colors"
+            className="not-prose group my-8 flex items-center gap-4 rounded-2xl bg-brand-crimson text-white p-5 sm:p-6 shadow-songi hover:bg-brand-vermilion-hover transition-colors"
           >
             <div className="flex-1">
               <p className="font-display text-lg font-semibold">{b.label}</p>
@@ -227,9 +227,9 @@ export default function BlogBlocks({ blocks }) {
         );
       case 'photo':
         return (
-          <figure key={i} className="not-prose my-7">
+          <figure key={i} className="not-prose my-8">
             <Photo slug={b.slug} alt={b.caption} className="w-full aspect-[16/9] rounded-2xl" sizes="(max-width: 768px) 100vw, 720px" />
-            {b.caption && <figcaption className="text-sm text-brand-muted mt-2">{b.caption}</figcaption>}
+            {b.caption && <figcaption className="text-sm text-brand-muted mt-3">{b.caption}</figcaption>}
           </figure>
         );
       default:

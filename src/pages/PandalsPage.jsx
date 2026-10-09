@@ -53,7 +53,7 @@ export default function PandalsPage() {
   const displayedPandals = filteredPandals.slice(0, visibleCount);
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-8 sm:space-y-10">
       <PageHeader
         bn="প্যান্ডেল"
         kicker="Official 2026 directory"
@@ -63,17 +63,17 @@ export default function PandalsPage() {
       />
 
       {/* Filter and Search Bar */}
-      <div className="bg-brand-card rounded-2xl border border-brand-border p-4 sm:p-5 shadow-songi space-y-4">
+      <div className="bg-brand-card rounded-2xl border border-brand-border p-4 sm:p-6 shadow-songi space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Search Box */}
           <div className="relative md:col-span-2">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-brand-muted" />
+            <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-brand-muted" />
             <input
               type="text"
-              placeholder="Search by pandal name, locality, or artistic theme..."
+              placeholder="Search pandal, area or theme…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl bg-brand-ivory border border-brand-border text-brand-primary placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
+              className="w-full h-12 pl-12 pr-4 text-base rounded-xl bg-brand-ivory border border-brand-border text-brand-primary placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
             />
           </div>
 
@@ -82,7 +82,7 @@ export default function PandalsPage() {
             <select
               value={selectedArea}
               onChange={(e) => setSelectedArea(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-brand-ivory border border-brand-border text-brand-primary font-medium focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
+              className="w-full h-12 px-4 text-base rounded-xl bg-brand-ivory border border-brand-border text-brand-primary font-medium focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
             >
               <option value="All">All 28 Areas</option>
               {areasData.map((a) => (
@@ -95,14 +95,14 @@ export default function PandalsPage() {
         </div>
 
         {/* Filter Chips & Sorting */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-brand-border/40">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-brand-border/60">
           <div className="flex flex-wrap items-center gap-2">
             {['All', 'Theme', 'Traditional', 'Verified'].map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all active:scale-95 ${
+                className={`h-10 px-4 rounded-full text-sm font-semibold transition-all active:scale-95 ${
                   selectedCategory === cat
                     ? 'bg-brand-vermilion text-white shadow-xs'
                     : 'bg-brand-ivory text-brand-primary border border-brand-border/80 hover:bg-white'
@@ -115,7 +115,7 @@ export default function PandalsPage() {
             <button
               type="button"
               onClick={() => setParkingOnly(!parkingOnly)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all active:scale-95 border ${
+              className={`h-10 px-4 rounded-full text-sm font-semibold transition-all active:scale-95 border ${
                 parkingOnly
                   ? 'bg-emerald-600 text-white border-emerald-600'
                   : 'bg-brand-ivory text-brand-primary border-brand-border/80 hover:bg-white'
@@ -126,12 +126,13 @@ export default function PandalsPage() {
           </div>
 
           {/* Sort Dropdown */}
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-brand-muted">Sort by:</span>
+          <div className="flex items-center gap-2 text-sm">
+            <label htmlFor="sort" className="text-brand-muted">Sort by</label>
             <select
+              id="sort"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-2.5 py-1.5 rounded-xl bg-brand-ivory border border-brand-border text-brand-primary font-medium focus:outline-none focus:ring-1 focus:ring-brand-vermilion"
+              className="h-10 px-3 text-base sm:text-sm rounded-xl bg-brand-ivory border border-brand-border text-brand-primary font-medium focus:outline-none focus:ring-1 focus:ring-brand-vermilion"
             >
               <option value="score">Highest Pandal Score</option>
               <option value="rating">Highest Rating</option>
@@ -143,7 +144,7 @@ export default function PandalsPage() {
       </div>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs text-brand-muted">
+      <div className="flex items-center justify-between text-sm text-brand-muted -mb-2 sm:-mb-4">
         <span>
           Showing <strong className="text-brand-primary">{displayedPandals.length}</strong> of{' '}
           <strong className="text-brand-primary">{filteredPandals.length}</strong> pandals
@@ -157,7 +158,7 @@ export default function PandalsPage() {
               setSelectedCategory('All');
               setParkingOnly(false);
             }}
-            className="text-brand-vermilion hover:underline font-medium"
+            className="min-h-10 text-brand-vermilion hover:underline font-semibold"
           >
             Clear all filters
           </button>
@@ -166,15 +167,15 @@ export default function PandalsPage() {
 
       {/* Pandals Grid */}
       {displayedPandals.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {displayedPandals.map((pandal) => (
             <PandalCard key={pandal.id} pandal={pandal} />
           ))}
         </div>
       ) : (
-        <div className="py-16 text-center space-y-3 bg-brand-card rounded-2xl border border-brand-border p-8">
-          <p className="text-base font-bold text-brand-primary">No pandals found</p>
-          <p className="text-xs text-brand-muted">
+        <div className="py-16 text-center space-y-2 bg-brand-card rounded-2xl border border-brand-border px-6">
+          <p className="font-display text-h3 font-semibold text-brand-ink">No pandals found</p>
+          <p className="text-base text-brand-muted">
             Try adjusting your search query or reset the filters to see all pandals.
           </p>
         </div>
@@ -182,13 +183,13 @@ export default function PandalsPage() {
 
       {/* Load More Button */}
       {visibleCount < filteredPandals.length && (
-        <div className="pt-6 text-center">
+        <div className="pt-2 text-center">
           <button
             type="button"
             onClick={() => setVisibleCount((prev) => prev + 24)}
-            className="px-8 py-3 rounded-2xl bg-brand-card hover:bg-brand-ivory border border-brand-border font-bold text-xs uppercase tracking-wider text-brand-primary hover:border-brand-vermilion/50 transition-all shadow-songi"
+            className="h-12 px-8 rounded-full bg-brand-card hover:bg-brand-ivory border border-brand-border font-semibold text-base text-brand-primary hover:border-brand-vermilion/50 transition-all shadow-songi"
           >
-            Load More Pandals ({filteredPandals.length - visibleCount} remaining)
+            Show more pandals ({filteredPandals.length - visibleCount} left)
           </button>
         </div>
       )}

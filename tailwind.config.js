@@ -31,6 +31,26 @@ export default {
         bengali: ['"Hind Siliguri"', 'sans-serif'],
         'bengali-serif': ['"Tiro Bangla"', '"Hind Siliguri"', 'serif'],
       },
+      // One type scale for the whole site. Headings are fluid: the same class
+      // reads well on a 360px phone and on a wide desktop, no sm:/lg: steps needed.
+      fontSize: {
+        '2xs': ['0.6875rem', { lineHeight: '1rem' }],
+        xs: ['0.75rem', { lineHeight: '1.125rem' }],
+        sm: ['0.875rem', { lineHeight: '1.4rem' }],
+        base: ['1rem', { lineHeight: '1.65rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        eyebrow: ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.14em', fontWeight: '600' }],
+        lead: ['clamp(1rem, 0.95rem + 0.25vw, 1.125rem)', { lineHeight: '1.65' }],
+        h3: ['clamp(1.125rem, 1.07rem + 0.25vw, 1.25rem)', { lineHeight: '1.35', letterSpacing: '-0.01em' }],
+        h2: ['clamp(1.625rem, 1.38rem + 1.05vw, 2.25rem)', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+        h1: ['clamp(2rem, 1.6rem + 1.75vw, 3rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        display: ['clamp(2.375rem, 1.6rem + 3.4vw, 4.25rem)', { lineHeight: '1.04', letterSpacing: '-0.025em' }],
+      },
+      // Vertical rhythm: gap between page sections, and between a heading and its content
+      spacing: {
+        section: 'clamp(3rem, 2.5rem + 2.2vw, 4.5rem)',
+        content: 'clamp(1.25rem, 1rem + 1vw, 2rem)',
+      },
       screens: {
         'xs': '420px',
       },

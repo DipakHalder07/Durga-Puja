@@ -20,13 +20,13 @@ export default function RouteDetailPage() {
   if (!route) {
     return (
       <div className="py-24 text-center space-y-4">
-        <h2 className="text-2xl font-black text-brand-primary">Route Not Found</h2>
+        <h2 className="text-h2 font-bold text-brand-ink">Route not found</h2>
         <Link
           to="/siliguri-puja-routes"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-vermilion text-white text-xs font-bold"
+          className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-brand-vermilion text-white text-base font-semibold"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Browse All Routes</span>
+          <span>Browse all routes</span>
         </Link>
       </div>
     );
@@ -61,14 +61,14 @@ function RouteDetail({ route, navigate }) {
     distanceKm({ lat: a.latitude, lng: a.longitude }, { lat: b.latitude, lng: b.longitude }) * mode.roadFactor;
 
   return (
-    <div className="space-y-10 sm:space-y-12 pb-6">
-      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-brand-muted">
-        <button type="button" onClick={() => navigate(-1)} className="inline-flex items-center gap-1 hover:text-brand-crimson">
-          <ArrowLeft className="w-3.5 h-3.5" /> Back
+    <div className="space-y-8 sm:space-y-10">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-brand-muted">
+        <button type="button" onClick={() => navigate(-1)} className="inline-flex items-center gap-1 min-h-10 hover:text-brand-crimson">
+          <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <span className="mx-1 text-brand-border">|</span>
         <Link to="/siliguri-puja-routes" className="hover:text-brand-crimson">Smart routes</Link>
-        <ChevronRight className="w-3 h-3" />
+        <ChevronRight className="w-3.5 h-3.5 shrink-0" />
         <span className="text-brand-ink truncate">{route.short_title || route.title}</span>
       </nav>
 
@@ -81,14 +81,14 @@ function RouteDetail({ route, navigate }) {
             <ModeIcon className="w-3.5 h-3.5" /> {route.travel_mode} · Curated circuit
           </span>
           {route.title_bengali && <p className="mt-3 font-bengali-serif text-lg sm:text-xl text-brand-gold-light">{route.title_bengali}</p>}
-          <h1 className="mt-1 text-[2rem] leading-[1.1] sm:text-5xl font-bold">{route.title}</h1>
-          <p className="mt-3 text-white/85 text-[15px] sm:text-base leading-relaxed">{route.description}</p>
+          <h1 className="mt-2 text-h1 font-bold">{route.title}</h1>
+          <p className="mt-4 text-white/85 text-lead">{route.description}</p>
         </div>
         <LaalPaar style={{ backgroundColor: '#FAF5EB' }} className="-scale-y-100 relative" />
       </header>
 
       {/* Stats + actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 lg:gap-6 items-stretch">
         <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px overflow-hidden rounded-2xl border border-brand-border bg-brand-border">
           {[
             ['Pandals', stops.length],
@@ -96,9 +96,9 @@ function RouteDetail({ route, navigate }) {
             ['Distance', est ? formatKm(est.distanceKm) : route.distance_km],
             ['Traffic buffer', est ? `+${est.bufferMinutes} min` : '—'],
           ].map(([k, v]) => (
-            <div key={k} className="bg-brand-card px-4 py-3.5">
-              <dt className="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">{k}</dt>
-              <dd className="font-display text-2xl font-semibold text-brand-ink mt-0.5">{v}</dd>
+            <div key={k} className="bg-brand-card px-4 py-4 sm:px-5">
+              <dt className="text-xs font-medium text-brand-muted">{k}</dt>
+              <dd className="font-display text-2xl font-semibold text-brand-ink mt-1">{v}</dd>
             </div>
           ))}
         </dl>
@@ -126,37 +126,37 @@ function RouteDetail({ route, navigate }) {
       </div>
 
       {/* Map + timeline */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-10 items-start">
         {origin && stops.length > 1 && (
           <div className="lg:sticky lg:top-28">
-            <RouteMap origin={origin} originName={stops[0].name} stops={routeRest} startLabel="1" numberOffset={1} travelMode={route.travel_mode} className="h-80 sm:h-[28rem]" />
+            <RouteMap origin={origin} originName={stops[0].name} stops={routeRest} startLabel="1" numberOffset={1} travelMode={route.travel_mode} title="Circuit map" className="h-80 sm:h-[28rem]" />
           </div>
         )}
 
         <section aria-label="Circuit stops">
           <p className="font-bengali-serif text-brand-crimson">যাত্রাপথ</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-brand-ink mt-1">Stops in order</h2>
-          <ol className="mt-5">
+          <h2 className="text-h2 font-bold text-brand-ink mt-2">Stops in order</h2>
+          <ol className="mt-6">
             {stops.map((p, i) => (
-              <li key={p.id} className="relative pl-12 pb-2">
+              <li key={p.id} className="relative pl-12 pb-3">
                 <span className="absolute left-[15px] top-0 bottom-0 w-0.5 bg-brand-border" aria-hidden="true" />
                 <span className="absolute left-0 top-3 w-8 h-8 rounded-full bg-brand-crimson text-white text-sm font-bold flex items-center justify-center ring-4 ring-brand-ivory">
                   {i + 1}
                 </span>
                 {i > 0 && (
-                  <p className="text-xs text-brand-muted pb-1.5 pl-0.5 flex items-center gap-1">
+                  <p className="text-sm text-brand-muted pb-2 pl-0.5 flex items-center gap-1.5">
                     <ModeIcon className="w-3.5 h-3.5" /> {formatKm(legKm(stops[i - 1], p))} from previous stop
                   </p>
                 )}
-                <Link to={`/pandals/${p.slug}`} className="group flex gap-3 rounded-2xl border border-brand-border bg-brand-card p-3 hover:border-brand-crimson/40 hover:shadow-songi transition-all">
+                <Link to={`/pandals/${p.slug}`} className="group flex gap-4 rounded-2xl border border-brand-border bg-brand-card p-3 sm:p-4 hover:border-brand-crimson/40 hover:shadow-songi transition-all">
                   <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-brand-maroon">
                     <SmartImage src={pandalImage(p)} alt="" className="w-full h-full object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="font-display text-lg font-semibold text-brand-ink leading-snug group-hover:text-brand-crimson">{p.name}</p>
-                    <p className="text-xs text-brand-muted mt-0.5">{p.area_name} · {p.category} · ★ {p.pujo_songi_score}</p>
+                    <p className="font-display text-h3 font-semibold text-brand-ink group-hover:text-brand-crimson">{p.name}</p>
+                    <p className="text-sm text-brand-muted mt-1">{p.area_name} · {p.category} · ★ {p.pujo_songi_score}</p>
                     {p.theme && <p className="text-sm text-brand-ink/75 mt-1 line-clamp-1 italic">“{p.theme}”</p>}
-                    <p className="text-xs text-brand-muted mt-1 inline-flex items-center gap-1"><Clock className="w-3 h-3" /> ~{p.estimated_visit_minutes} min visit</p>
+                    <p className="text-sm text-brand-muted mt-1 inline-flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> ~{p.estimated_visit_minutes} min visit</p>
                   </div>
                 </Link>
               </li>
@@ -169,12 +169,12 @@ function RouteDetail({ route, navigate }) {
       {route.tips?.length > 0 && (
         <section className="relative overflow-hidden rounded-2xl border border-brand-gold/40 bg-[#FDF6E7] p-6 sm:p-8">
           <DhunuchiSketch className="absolute right-2 bottom-0 w-20 h-28 text-brand-gold/40" />
-          <p className="flex items-center gap-2 font-display text-xl font-semibold text-brand-ink">
+          <p className="flex items-center gap-2 font-display text-xl sm:text-2xl font-semibold text-brand-ink">
             <Lightbulb className="w-5 h-5 text-brand-gold" /> Local tips for this circuit
           </p>
-          <ul className="mt-4 space-y-2.5 max-w-2xl">
+          <ul className="mt-5 space-y-3 max-w-2xl">
             {route.tips.map((tip, i) => (
-              <li key={i} className="relative pl-6 text-[15px] text-brand-ink/85">
+              <li key={i} className="relative pl-6 text-base text-brand-ink/85">
                 <span className="absolute left-0 top-[0.55em] w-2 h-2 rotate-45 bg-brand-crimson/80" aria-hidden="true" />
                 {tip}
               </li>
@@ -184,22 +184,22 @@ function RouteDetail({ route, navigate }) {
       )}
 
       {/* Other circuits */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-brand-ink">More circuits</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <section className="space-y-content">
+        <h2 className="text-h2 font-bold text-brand-ink">More circuits</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {others.map((r) => (
-            <Link key={r.slug} to={`/routes/${r.slug}`} className="group flex gap-3 rounded-2xl border border-brand-border bg-brand-card p-3 hover:border-brand-crimson/40 transition-colors">
+            <Link key={r.slug} to={`/routes/${r.slug}`} className="group flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-card p-3 sm:p-4 hover:border-brand-crimson/40 transition-colors">
               <div className="w-24 h-20 shrink-0 rounded-xl overflow-hidden bg-brand-maroon">
                 <SmartImage src={routeImage(r.slug)} alt="" className="w-full h-full object-cover" />
               </div>
               <div className="min-w-0">
-                <p className="font-display text-lg font-semibold text-brand-ink leading-snug group-hover:text-brand-crimson">{r.title}</p>
-                <p className="text-xs text-brand-muted mt-1">{r.travel_mode} · {r.stopping_points.length} pandals</p>
+                <p className="font-display text-h3 font-semibold text-brand-ink group-hover:text-brand-crimson">{r.title}</p>
+                <p className="text-sm text-brand-muted mt-1">{r.travel_mode} · {r.stopping_points.length} pandals</p>
               </div>
             </Link>
           ))}
         </div>
-        <Link to="/siliguri-puja-routes#quick-route-builder" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-crimson">
+        <Link to="/siliguri-puja-routes#quick-route-builder" className="inline-flex items-center gap-2 min-h-11 text-base font-semibold text-brand-crimson">
           <MapPin className="w-4 h-4" /> Or build your own route
         </Link>
       </section>

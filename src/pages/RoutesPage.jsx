@@ -69,16 +69,6 @@ const GOALS = [
   },
 ];
 
-function SectionTitle({ eyebrow, title, sub }) {
-  return (
-    <div className="space-y-1">
-      {eyebrow && <span className="text-[11px] font-bold uppercase tracking-wider text-brand-vermilion">{eyebrow}</span>}
-      <h2 className="text-xl sm:text-2xl font-black text-brand-primary tracking-tight">{title}</h2>
-      {sub && <p className="text-sm text-brand-muted leading-relaxed max-w-2xl">{sub}</p>}
-    </div>
-  );
-}
-
 function CircuitCard({ route }) {
   const { savedPandalIds, toggleSave } = usePlan();
   const stops = route.stopping_points.map((slug) => pandalMap[slug]).filter(Boolean);
@@ -96,11 +86,11 @@ function CircuitCard({ route }) {
       <div className="relative bg-brand-maroon">
         <SmartImage src={routeImage(route.slug)} alt={route.title} className="w-full h-40 object-cover" />
         <div className="absolute top-3 left-3 flex items-center gap-1.5">
-          <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold uppercase tracking-wide">
-            Curated circuit
+          <span className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+            Curated
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-brand-card/95 text-brand-primary text-[11px] font-bold">
-            <ModeIcon className="w-3 h-3 text-brand-vermilion" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-brand-card/95 text-brand-primary text-xs font-semibold">
+            <ModeIcon className="w-3.5 h-3.5 text-brand-vermilion" />
             {MODE_SHORT[route.travel_mode] || route.travel_mode}
           </span>
         </div>
@@ -109,7 +99,7 @@ function CircuitCard({ route }) {
           onClick={saveCircuit}
           aria-pressed={allSaved}
           aria-label={allSaved ? 'Remove circuit pandals from saved plan' : 'Save all circuit pandals'}
-          className={`absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center border shadow-xs transition-all active:scale-90 ${
+          className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center border shadow-xs transition-all active:scale-90 ${
             allSaved ? 'bg-brand-crimson text-white border-brand-crimson' : 'bg-brand-card/95 text-brand-primary border-brand-border'
           }`}
         >
@@ -117,54 +107,54 @@ function CircuitCard({ route }) {
         </button>
       </div>
 
-      <div className="p-5 flex flex-col gap-4 flex-1">
+      <div className="p-5 sm:p-6 flex flex-col gap-5 flex-1">
         <div>
-          <h3 className="text-lg font-black text-brand-primary leading-snug">{route.title}</h3>
-          {route.title_bengali && <p className="text-sm font-semibold text-brand-vermilion font-bengali mt-0.5">{route.title_bengali}</p>}
-          <p className="text-xs text-brand-muted leading-relaxed mt-2 line-clamp-3">{route.description}</p>
+          {route.title_bengali && <p className="font-bengali-serif text-brand-crimson">{route.title_bengali}</p>}
+          <h3 className="font-display text-h3 font-semibold text-brand-ink mt-1">{route.title}</h3>
+          <p className="text-sm text-brand-muted mt-2 line-clamp-3">{route.description}</p>
         </div>
 
         <dl className="grid grid-cols-3 gap-2 text-center">
           {[
-            { label: 'Stops', value: `${stops.length} Pandals` },
+            { label: 'Stops', value: `${stops.length} pandals` },
             { label: 'Duration', value: est ? formatDuration(est.totalMinutes) : route.duration_str },
             { label: 'Distance', value: est ? formatKm(est.distanceKm) : route.distance_km },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl bg-brand-ivory border border-brand-border/70 py-2 px-1">
-              <dt className="text-[10px] font-bold uppercase tracking-wider text-brand-muted">{s.label}</dt>
-              <dd className="text-sm font-black text-brand-primary mt-0.5">{s.value}</dd>
+            <div key={s.label} className="rounded-xl bg-brand-ivory border border-brand-border/70 py-2.5 px-1">
+              <dt className="text-xs text-brand-muted">{s.label}</dt>
+              <dd className="text-base font-semibold text-brand-ink mt-0.5">{s.value}</dd>
             </div>
           ))}
         </dl>
 
-        <div className="space-y-1.5 text-xs">
+        <div className="space-y-2 text-sm">
           <p className="flex gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-brand-gold shrink-0 mt-px" />
+            <Sparkles className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
             <span><strong className="text-brand-primary">Highlight:</strong> <span className="text-brand-muted">{route.highlight}</span></span>
           </p>
           <p className="flex gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-brand-vermilion shrink-0 mt-px" />
+            <MapPin className="w-4 h-4 text-brand-vermilion shrink-0 mt-0.5" />
             <span><strong className="text-brand-primary">Focus:</strong> <span className="text-brand-muted">{route.focus}</span></span>
           </p>
         </div>
 
-        <ol className="space-y-1 text-xs border-t border-brand-border/60 pt-3">
+        <ol className="space-y-2 text-sm border-t border-brand-border/60 pt-4">
           {stops.map((p, i) => (
             <li key={p.id} className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-brand-vermilion-light text-brand-crimson text-[10px] font-black flex items-center justify-center shrink-0">{i + 1}</span>
+              <span className="w-6 h-6 rounded-full bg-brand-vermilion-light text-brand-crimson text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
               <Link to={`/pandals/${p.slug}`} className="font-semibold text-brand-primary hover:text-brand-vermilion truncate">{p.name}</Link>
             </li>
           ))}
         </ol>
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-3 border-t border-brand-border/60">
-          {est && <span className="text-[11px] text-brand-muted">+{est.bufferMinutes} min traffic buffer</span>}
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-brand-border/60">
+          {est && <span className="text-xs text-brand-muted">+{est.bufferMinutes} min traffic buffer</span>}
           <Link
             to={`/routes/${route.slug}`}
-            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl bg-brand-crimson text-white text-xs font-bold hover:bg-brand-vermilion-hover transition-colors"
+            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full bg-brand-crimson text-white text-sm font-semibold hover:bg-brand-vermilion-hover transition-colors"
           >
-            View Circuit
-            <ArrowRight className="w-3.5 h-3.5" />
+            View circuit
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
@@ -179,14 +169,14 @@ export default function RoutesPage() {
     path: '/siliguri-puja-routes',
   });
   return (
-    <div className="space-y-12 sm:space-y-16 pb-8">
+    <div className="space-y-section">
       <div className="space-y-4">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-brand-muted">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-brand-muted">
           <Link to="/" className="inline-flex items-center gap-1 hover:text-brand-primary">
-            <HomeIcon className="w-3.5 h-3.5" /> Home
+            <HomeIcon className="w-4 h-4" /> Home
           </Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-brand-primary font-semibold">Siliguri Puja Routes 2026</span>
+          <ChevronRight className="w-3.5 h-3.5" />
+          <span className="text-brand-primary font-medium truncate">Siliguri Puja Routes 2026</span>
         </nav>
         <PageHeader
           bn="স্মার্ট রুট"
@@ -200,7 +190,7 @@ export default function RoutesPage() {
       <QuickRouteBuilder />
 
       {/* How it works */}
-      <section className="space-y-6">
+      <section className="space-y-content">
         <SectionHeading
           bn="কীভাবে কাজ করে"
           title="How smart routes work"
@@ -214,46 +204,46 @@ export default function RoutesPage() {
                 <span className="relative z-10 w-14 h-14 shrink-0 rounded-full bg-brand-crimson text-white font-bengali-serif text-3xl flex items-center justify-center ring-4 ring-brand-ivory">
                   {['১', '২', '৩'][i]}
                 </span>
-                <h3 className="font-display text-xl font-semibold text-brand-ink leading-snug">{step.title}</h3>
+                <h3 className="font-display text-h3 font-semibold text-brand-ink">{step.title}</h3>
               </div>
-              <p className="text-[15px] text-brand-muted leading-relaxed mt-4">{step.text}</p>
+              <p className="text-base text-brand-muted mt-4">{step.text}</p>
             </li>
           ))}
         </ol>
       </section>
 
       {/* Travel modes & goals */}
-      <section className="space-y-6">
+      <section className="space-y-content">
         <SectionHeading
           bn="যাতায়াত"
           title="Pick the right way to travel"
           sub="Each mode suits a different part of the city — and a different goal."
         />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {TRAVEL_TIPS.map(({ icon: Icon, title, text }, i) => (
-            <div key={title} className={`rounded-2xl border p-5 ${i === 0 ? 'bg-brand-vermilion-light border-brand-crimson/25' : 'bg-brand-card border-brand-border'}`}>
+            <div key={title} className={`rounded-2xl border p-5 sm:p-6 ${i === 0 ? 'bg-brand-vermilion-light border-brand-crimson/25' : 'bg-brand-card border-brand-border'}`}>
               <span className={`w-11 h-11 rounded-full flex items-center justify-center ${i === 0 ? 'bg-brand-crimson text-white' : 'bg-brand-paper text-brand-crimson'}`}>
                 <Icon className="w-5 h-5" />
               </span>
-              <h3 className="font-display text-lg font-semibold text-brand-ink mt-3">{title}</h3>
-              <p className="text-[15px] text-brand-muted leading-relaxed mt-1.5">{text}</p>
+              <h3 className="font-display text-h3 font-semibold text-brand-ink mt-4">{title}</h3>
+              <p className="text-base text-brand-muted mt-2">{text}</p>
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.1fr] gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.1fr] gap-4 sm:gap-6">
           {GOALS.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="rounded-2xl border border-brand-border bg-brand-card p-5">
-              <h3 className="flex items-center gap-2 font-display text-lg font-semibold text-brand-ink">
+            <div key={title} className="rounded-2xl border border-brand-border bg-brand-card p-5 sm:p-6">
+              <h3 className="flex items-center gap-2 font-display text-h3 font-semibold text-brand-ink">
                 <Icon className="w-5 h-5 text-brand-gold" /> {title}
               </h3>
-              <p className="text-[15px] text-brand-muted leading-relaxed mt-1.5">{text}</p>
+              <p className="text-base text-brand-muted mt-2">{text}</p>
             </div>
           ))}
-          <div className="relative overflow-hidden rounded-2xl bg-brand-crimson text-white p-5">
+          <div className="relative overflow-hidden rounded-2xl bg-brand-crimson text-white p-5 sm:p-6">
             <DhakSketch className="absolute -right-3 -bottom-3 w-24 h-24 text-white/15" />
             <p className="font-bengali-serif text-brand-gold-light">টিপস</p>
-            <p className="font-display text-lg font-semibold mt-1">Start before 6 PM</p>
-            <p className="text-sm text-white/80 leading-relaxed mt-1.5 pr-10">
+            <p className="font-display text-h3 font-semibold mt-1">Start before 6 PM</p>
+            <p className="text-base text-white/85 mt-2 pr-10">
               Venus More, Sevoke Road and Hill Cart Road are busiest from 7 PM to midnight on Saptami–Navami.
             </p>
           </div>
@@ -261,7 +251,7 @@ export default function RoutesPage() {
       </section>
 
       {/* Curated circuits */}
-      <section className="space-y-6">
+      <section className="space-y-content">
         <SectionHeading
           bn="চেনা পথ"
           title="Curated Siliguri Puja circuits"
@@ -269,7 +259,7 @@ export default function RoutesPage() {
           to="/blog/durga-puja-pandal-map-2026-walking-routes"
           linkLabel="Walking routes guide"
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {routesData.map((route) => (
             <CircuitCard key={route.id} route={route} />
           ))}

@@ -15,10 +15,10 @@ export default function AreaDetailPage() {
   if (!area) {
     return (
       <div className="py-24 text-center space-y-4">
-        <h2 className="text-2xl font-black text-brand-primary">Area Not Found</h2>
+        <h2 className="text-h2 font-bold text-brand-ink">Area not found</h2>
         <Link
           to="/areas"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-vermilion text-white text-xs font-bold"
+          className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-brand-vermilion text-white text-base font-semibold"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Browse All Areas</span>
@@ -28,9 +28,9 @@ export default function AreaDetailPage() {
   }
 
   return (
-    <div className="space-y-8 pb-16">
+    <div className="space-y-8 sm:space-y-10">
       {/* Back button */}
-      <div className="flex items-center justify-between text-xs text-brand-muted">
+      <div className="flex items-center justify-between gap-4 text-sm text-brand-muted">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -44,12 +44,12 @@ export default function AreaDetailPage() {
 
       {/* Header Banner */}
       <div className="bg-brand-card rounded-3xl border border-brand-border p-6 sm:p-8 md:p-10 shadow-songi space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-ivory text-brand-vermilion text-xs font-bold border border-brand-border">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-ivory text-brand-vermilion text-xs font-semibold border border-brand-border">
           <MapPin className="w-3.5 h-3.5" />
           <span>{areaPandals.length} Pandals Registered</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-black text-brand-primary">
+        <h1 className="text-h1 font-bold text-brand-ink">
           {area.name} Durga Puja Pandals
         </h1>
 
@@ -61,7 +61,7 @@ export default function AreaDetailPage() {
 
       {/* Pandals Grid */}
       <div className="space-y-6">
-        <h2 className="text-xl font-black text-brand-primary">
+        <h2 className="text-xl sm:text-2xl leading-tight font-bold text-brand-ink">
           Pandals in {area.name} ({areaPandals.length})
         </h2>
 

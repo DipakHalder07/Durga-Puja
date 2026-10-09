@@ -11,7 +11,7 @@ export default function SchedulePage() {
     path: '/puja-schedule',
   });
   return (
-    <div className="space-y-12 pb-16">
+    <div className="space-y-section">
       <PageHeader
         bn="পুজোর নির্ঘণ্ট"
         kicker="Bengali almanac 1433"
@@ -30,24 +30,24 @@ export default function SchedulePage() {
           return (
             <div
               key={ev.id}
-              className="bg-brand-card rounded-2xl border border-brand-border p-6 shadow-songi space-y-4 hover:border-brand-vermilion/50 transition-all"
+              className="bg-brand-card rounded-2xl border border-brand-border p-5 sm:p-6 shadow-songi space-y-4 hover:border-brand-vermilion/50 transition-all"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-border/60 pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-brand-maroon text-[#FFFBF5] font-black text-sm flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-brand-maroon text-[#FFFBF5] font-bold text-sm flex items-center justify-center shrink-0">
                     {idx + 1}
                   </div>
                   <div>
-                    <h2 className="text-xl font-black text-brand-primary">
+                    <h2 className="text-xl sm:text-2xl leading-tight font-bold text-brand-ink">
                       {ev.event_name}
                     </h2>
-                    <span className="text-xs font-bold text-brand-vermilion">
+                    <span className="text-sm font-semibold text-brand-vermilion">
                       {dayName}, {dateFormatted}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-brand-muted self-start sm:self-center">
+                <div className="flex items-center gap-2 text-sm text-brand-muted self-start sm:self-center">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span>Panjika Verified</span>
                 </div>
@@ -58,7 +58,7 @@ export default function SchedulePage() {
               </p>
 
               {ev.notes && (
-                <div className="p-3.5 rounded-xl bg-brand-ivory border border-brand-border/60 text-xs text-brand-muted flex items-center gap-2">
+                <div className="p-3.5 rounded-xl bg-brand-ivory border border-brand-border/60 text-sm text-brand-muted flex items-center gap-2">
                   <Clock className="w-4 h-4 text-brand-vermilion shrink-0" />
                   <span>{ev.notes}</span>
                 </div>
@@ -69,8 +69,8 @@ export default function SchedulePage() {
       </div>
 
       {/* Source Citation */}
-      <div className="p-6 rounded-2xl bg-brand-card border border-brand-border text-xs text-brand-muted space-y-2">
-        <h3 className="font-bold text-brand-primary uppercase tracking-wider">
+      <div className="p-6 rounded-2xl bg-brand-card border border-brand-border text-sm text-brand-muted space-y-2">
+        <h3 className="font-semibold text-sm text-brand-ink">
           Almanac &amp; Theological Source Citation
         </h3>
         <p className="leading-relaxed">

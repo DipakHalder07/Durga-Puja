@@ -168,12 +168,20 @@ export function buildRoute({ origin, originName, travelMode, minutes, goal, circ
   }
 
   route = twoOpt(origin, route, mode, goal, circular);
-  const totals = evaluate(origin, route, mode, goal, circular);
+  return timeRoute({
+    origin, originName, travelMode, goal, circular, budgetMin: minutes, pandals: route, fromMyLocation, searchRadiusKm: radius,
+  });
+}
 
-  // 3. Timeline for each stop
+// Timeline and totals for a fixed, ordered list of pandals.
+// Also used when the visitor removes or reorders stops, so times and links stay correct.
+export function timeRoute({ origin, originName, travelMode, goal, circular, budgetMin, pandals, fromMyLocation = false, searchRadiusKm }) {
+  const mode = TRAVEL_MODES[travelMode] || TRAVEL_MODES['Bike / Scooty'];
+  const totals = evaluate(origin, pandals, mode, goal, circular);
+
   let prev = origin;
   let clock = 0;
-  const stops = route.map((p) => {
+  const stops = pandals.map((p) => {
     const legKm = roadKm(prev, pt(p), mode);
     const legMin = travelMin(legKm, mode) + mode.parkMin;
     clock += legMin;
@@ -183,6 +191,7 @@ export function buildRoute({ origin, originName, travelMode, minutes, goal, circ
     prev = pt(p);
     return { pandal: p, legKm, legMin: Math.round(legMin), arriveMin: Math.round(arrive), stayMin: stay };
   });
+  const backKm = circular && pandals.length ? roadKm(prev, origin, mode) : 0;
 
   return {
     origin,
@@ -190,14 +199,16 @@ export function buildRoute({ origin, originName, travelMode, minutes, goal, circ
     travelMode,
     goal,
     circular,
-    budgetMin: minutes,
+    budgetMin,
+    fromMyLocation,
     stops,
+    returnLeg: backKm ? { legKm: backKm, legMin: Math.round(travelMin(backKm, mode)) } : null,
     distanceKm: totals.km,
     travelMinutes: Math.round(totals.move),
     viewingMinutes: Math.round(totals.view),
     totalMinutes: Math.round(totals.total),
-    searchRadiusKm: radius,
-    googleMapsUrl: googleMapsUrl(origin, route, mode, circular, fromMyLocation),
+    searchRadiusKm,
+    googleMapsUrl: googleMapsUrl(origin, pandals, mode, circular, fromMyLocation),
   };
 }
 
