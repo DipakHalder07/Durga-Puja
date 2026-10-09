@@ -1,13 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Bookmark, Clock, MapPin, Trash2, ExternalLink, Compass, ArrowRight, Share2 } from 'lucide-react';
+import { Clock, MapPin, ExternalLink, Compass, Share2 } from 'lucide-react';
 import { usePlan } from '../context/PlanContext';
+import pandalsData from '../data/pandals.json';
+import { useSeo } from '../lib/seo';
 import PandalCard from '../components/PandalCard';
 import PageHeader from '../components/PageHeader';
 import { DhakSketch } from '../components/BengalArt';
 
 export default function SavedPage() {
-  const { savedPandals, savedPandalIds, toggleSave } = usePlan();
+  const { savedPandalIds } = usePlan();
+  const savedPandals = pandalsData.filter((p) => savedPandalIds.includes(p.id));
+
+  useSeo({
+    title: 'My Saved Puja Plan',
+    description: 'Your saved Siliguri Durga Puja 2026 pandals, total visit time and a one-tap Google Maps route — stored privately on this device.',
+    path: '/saved',
+    noindex: true,
+  });
 
   const totalMinutes = savedPandals.reduce((acc, p) => acc + (p.estimated_visit_minutes || 30), 0);
   const totalHours = (totalMinutes / 60).toFixed(1);
@@ -23,9 +33,9 @@ export default function SavedPage() {
         title: 'My Siliguri Puja 2026 Plan — Pujo Pandal',
         text: `I have saved ${savedPandals.length} pandals for Durga Puja 2026 in Siliguri!`,
         url: window.location.href,
-      });
+      }).catch(() => {});
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard?.writeText(window.location.href);
       alert('Plan link copied to clipboard!');
     }
   };

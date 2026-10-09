@@ -1,20 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShieldCheck, MapPin, Compass, Sparkles, ArrowRight } from 'lucide-react';
-import legalData from '../data/legal.json';
+import { ShieldCheck, Compass, Sparkles, ArrowRight } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { STATS } from '../components/BlogBlocks';
+import { useSeo } from '../lib/seo';
+import { breadcrumbs, organization } from '../lib/schema';
 
 export default function AboutPage() {
-  const paragraphs = legalData.about?.paragraphs || [];
+  useSeo({
+    title: 'About Pujo Pandal – Siliguri Durga Puja Guide',
+    description: `Pujo Pandal is a free, locally made Siliguri Durga Puja 2026 guide: ${STATS.total} pandals on one map, smart pandal-hopping routes and the Puja schedule.`,
+    path: '/about',
+    image: '/images/photos/kumartuli-idol.webp',
+    imageAlt: 'An artisan shaping a Durga idol',
+    jsonLd: [breadcrumbs([['Home', '/'], ['About', '/about']]), organization()],
+  });
 
   return (
     <div className="max-w-4xl mx-auto space-y-section">
+      <Breadcrumbs items={[['Home', '/'], ['About']]} />
       <PageHeader
         bn="আমাদের কথা"
         kicker="Born in Siliguri"
         title="Made in Siliguri for every pandal hopper"
         description="Pujo Pandal (পুজো প্যান্ডেল) is built with love, local reverence and on-ground verification to make festival travel easier."
         photo="kumartuli-idol"
+        photoAlt="An artisan shaping a Durga idol"
       />
 
       {/* Main Philosophy Card */}
@@ -27,7 +39,7 @@ export default function AboutPage() {
             However, pandal hoppers frequently face severe bottlenecks, confusing police one-way restrictions, and missing queue information. Traditional navigation applications struggle with temporary festive pedestrian cordons.
           </p>
           <p>
-            <strong>PUJO PANDAL</strong> was created to bridge this gap: a digital festival companion with 100% verified entrance coordinates, genuine crowd estimations, and smart travel-mode circuits built without simulated or artificial data.
+            <strong>Pujo Pandal</strong> was created to bridge this gap: a free festival companion for Siliguri with entrance-level pandal pins, realistic visit times, parking notes and smart circuits for walking, bikes and cars. It works in any phone browser — no app, no sign-up.
           </p>
         </div>
 
@@ -66,7 +78,7 @@ export default function AboutPage() {
             Ready to explore Siliguri Durga Puja 2026?
           </h3>
           <p className="text-sm text-brand-muted">
-            Start discovering 83 verified pandals or build a custom route right now.
+            Start discovering {STATS.total} pandals across {STATS.areas} neighbourhoods or build a custom route right now.
           </p>
         </div>
 

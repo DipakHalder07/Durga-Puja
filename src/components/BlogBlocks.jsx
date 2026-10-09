@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Clock, Car, Ban, MapPin, Lightbulb } from 'lucide-react';
 import Photo from './Photo';
 import SmartImage from './SmartImage';
-import PandalsMap from './PandalsMap';
+import { PandalsMap } from './Maps';
 import { DhunuchiSketch } from './BengalArt';
 import pandalsData from '../data/pandals.json';
 import eventsData from '../data/events.json';
 import { queryPandals, zoneTable, fillTokens, blogStats } from '../lib/blogQueries';
+import { formatDate } from '../lib/dates';
 
 export const STATS = blogStats(pandalsData);
 
@@ -33,9 +34,10 @@ export function RichText({ text }) {
   });
 }
 
-export function PostCover({ post, className = '', sizes, eager = false }) {
+// Covers usually sit inside a card link, so the photo credit link is off by default (no <a> in <a>)
+export function PostCover({ post, className = '', sizes, eager = false, credit = 'none' }) {
   if (post.cover?.photo) {
-    return <Photo slug={post.cover.photo} alt={post.coverAlt} sizes={sizes} eager={eager} className={className} />;
+    return <Photo slug={post.cover.photo} alt={post.coverAlt} sizes={sizes} eager={eager} credit={credit} className={className} />;
   }
   return (
     <div className={`relative overflow-hidden bg-brand-maroon ${className}`}>
@@ -126,7 +128,7 @@ function ScheduleList() {
           <p className="font-bengali-serif text-brand-crimson text-lg leading-none">{EVENT_BN[e.event_type]}</p>
           <p className="font-semibold text-brand-ink mt-2 leading-snug">{e.event_name}</p>
           <p className="text-sm text-brand-muted mt-0.5">
-            {new Date(e.date).toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}
+            <time dateTime={e.date}>{formatDate(e.date, { weekday: 'short', month: 'short' })}</time>
           </p>
         </li>
       ))}

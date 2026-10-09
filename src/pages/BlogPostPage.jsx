@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, Clock, CalendarDays, Share2, ChevronDown, Route as RouteIcon, MapPin, ArrowRight } from 'lucide-react';
 import BlogBlocks, { PostCover, RichText, STATS } from '../components/BlogBlocks';
 import { BLOG_POSTS, BLOG_AUTHOR, getPost } from '../data/blog';
@@ -8,8 +8,10 @@ import { postJsonLd, postImage } from '../lib/blogSchema';
 import { useSeo } from '../lib/seo';
 import { PHOTOS } from '../components/Photo';
 import { LotusSketch, DurgaEyesSketch } from '../components/BengalArt';
+import { formatDate } from '../lib/dates';
+import NotFoundPage from './NotFoundPage';
 
-const fmtDate = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+const fmtDate = (d) => formatDate(d);
 
 function PostCard({ post }) {
   return (
@@ -41,7 +43,7 @@ function Toc({ items }) {
 export default function BlogPostPage() {
   const { slug } = useParams();
   const post = getPost(slug);
-  if (!post) return <Navigate to="/blog" replace />;
+  if (!post) return <NotFoundPage />;
   return <Post post={post} />;
 }
 
@@ -50,7 +52,7 @@ function Post({ post }) {
   const toc = post.body.filter((b) => b.type === 'h2');
   const related = post.related.map(getPost).filter(Boolean);
   const jsonLd = useMemo(
-    () => postJsonLd(post, { origin: window.location.origin, stats: STATS, photosBySlug: PHOTOS, author: BLOG_AUTHOR }),
+    () => postJsonLd(post, { stats: STATS, photosBySlug: PHOTOS, author: BLOG_AUTHOR }),
     [post]
   );
 
@@ -59,7 +61,9 @@ function Post({ post }) {
     description: fillTokens(post.metaDescription, STATS),
     path: `/blog/${post.slug}`,
     image: postImage(post, PHOTOS),
+    imageAlt: post.coverAlt,
     type: 'article',
+    article: { publishedTime: `${post.datePublished}T08:00:00+05:30`, modifiedTime: `${post.dateModified}T08:00:00+05:30`, section: post.category },
     jsonLd,
   });
 
@@ -93,7 +97,7 @@ function Post({ post }) {
         <p className="mt-5 text-lead text-brand-muted"><RichText text={post.excerpt} /></p>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-brand-muted">
           <span className="inline-flex items-center gap-2">
-            <img src="/logo-icon.webp" alt="" className="w-7 h-7 rounded-full border border-brand-gold" />
+            <img src="/logo-icon.webp" alt="" width="28" height="28" className="w-7 h-7 rounded-full border border-brand-gold" />
             <span className="font-medium text-brand-ink">{BLOG_AUTHOR}</span>
           </span>
           <span className="inline-flex items-center gap-1.5">
@@ -107,7 +111,7 @@ function Post({ post }) {
         </div>
       </header>
 
-      <PostCover post={post} eager sizes="(max-width: 1024px) 100vw, 1100px" className="mt-8 aspect-[16/9] sm:aspect-[21/9] rounded-2xl sm:rounded-3xl shadow-songi" />
+      <PostCover post={post} eager credit="corner" sizes="(max-width: 1024px) 100vw, 1100px" className="mt-8 aspect-[16/9] sm:aspect-[21/9] rounded-2xl sm:rounded-3xl shadow-songi" />
 
       <div className="mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_17.5rem] gap-10 lg:gap-16">
         <div className="min-w-0 max-w-3xl">

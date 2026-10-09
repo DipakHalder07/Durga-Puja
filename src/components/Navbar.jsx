@@ -49,12 +49,14 @@ export default function Navbar() {
           <Link
             to="/"
             className="group flex items-center gap-2.5 rounded-lg transition-transform active:scale-95 min-w-0"
-            aria-label="PUJO PANDAL Homepage"
+            aria-label="Pujo Pandal home"
           >
             <div className="relative flex items-center justify-center shrink-0 w-11 h-11 rounded-full border-2 border-brand-gold overflow-hidden shadow-songi bg-brand-crimson group-hover:scale-105 transition-transform duration-300">
               <img
                 src="/logo-icon.webp"
-                alt="Pujo Pandal Durga Logo"
+                alt="Pujo Pandal logo"
+                width="44"
+                height="44"
                 className="w-full h-full object-cover"
               />
             </div>

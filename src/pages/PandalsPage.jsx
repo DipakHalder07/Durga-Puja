@@ -1,16 +1,52 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, SlidersHorizontal, MapPin, CheckCircle2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import PandalCard from '../components/PandalCard';
 import pandalsData from '../data/pandals.json';
 import areasData from '../data/areas.json';
 import PageHeader from '../components/PageHeader';
+import Breadcrumbs from '../components/Breadcrumbs';
+import Faq from '../components/Faq';
+import { STATS } from '../components/BlogBlocks';
 import { useSeo } from '../lib/seo';
+import { breadcrumbs, itemList, faqPage } from '../lib/schema';
+import { AREA_STATS } from '../lib/geo';
+
+const BY_SCORE = [...pandalsData].sort((a, b) => b.pujo_songi_score - a.pujo_songi_score || a.name.localeCompare(b.name));
+const AREAS_AZ = [...AREA_STATS].sort((a, b) => a.name.localeCompare(b.name));
+const CRUMBS = [['Home', '/'], ['Siliguri Puja pandals', '/siliguri-puja-pandals']];
+
+const FAQS = [
+  {
+    q: 'How many pandals are listed for Siliguri Durga Puja 2026?',
+    a: `${STATS.total} pandals in ${STATS.areas} neighbourhoods: ${STATS.theme} theme pujas, ${STATS.traditional} traditional, ${STATS.heritage} heritage, ${STATS.community} community and ${STATS.eco} eco-friendly pujas.`,
+  },
+  {
+    q: 'Which Siliguri pandals have parking?',
+    a: `${STATS.parking} pandals have parking nearby. Tap **Parking Available** above to see only those, or read the [bike, car and parking guide](/blog/durga-puja-pandal-map-2026-bike-car-parking).`,
+  },
+  {
+    q: 'What is the pandal score?',
+    a: 'The score (out of 10) is Pujo Pandal’s own editorial rating. It sorts this list and helps the route planner choose stops when time is short. Treat it as a guide — smaller paras often have the loveliest traditional idols.',
+  },
+  {
+    q: 'My pandal is missing or the details are wrong. How do I fix it?',
+    a: 'Send the committee name, 2026 venue and theme through the [contact page](/contact) and we will check and add it.',
+  },
+];
 
 export default function PandalsPage() {
   useSeo({
-    title: 'Siliguri Puja Pandals 2026 – All Pandals List',
-    description: `All ${pandalsData.length} Siliguri Durga Puja pandals for 2026 with themes, scores, parking and areas. Filter and save pandals to your Puja plan.`,
+    title: 'Siliguri Durga Puja Pandals 2026 – Full List with Themes',
+    description: `All ${pandalsData.length} Siliguri Durga Puja pandals for 2026 by area: themes, pandal scores, visit times and parking. Filter, search and save pandals to your Puja plan.`,
     path: '/siliguri-puja-pandals',
+    image: '/images/photos/siliguri-idol-golden.webp',
+    imageAlt: 'Durga idol at a Siliguri pandal',
+    jsonLd: [
+      breadcrumbs(CRUMBS),
+      itemList('Siliguri Durga Puja pandals 2026', BY_SCORE.map((p) => ({ name: p.name, path: `/pandals/${p.slug}` }))),
+      faqPage(FAQS),
+    ],
   });
   const [search, setSearch] = useState('');
   const [selectedArea, setSelectedArea] = useState('All');
@@ -54,12 +90,14 @@ export default function PandalsPage() {
 
   return (
     <div className="space-y-8 sm:space-y-10">
+      <Breadcrumbs items={CRUMBS} />
       <PageHeader
         bn="প্যান্ডেল"
-        kicker="Official 2026 directory"
-        title="Siliguri Puja Pandals 2026"
-        description={`Browse ${pandalsData.length} community pujas across Siliguri. Filter by neighbourhood, theme, parking and verified records.`}
+        kicker="2026 directory"
+        title="Siliguri Durga Puja Pandals 2026"
+        description={`Browse all ${pandalsData.length} community pujas across ${STATS.areas} Siliguri neighbourhoods. Filter by area, theme and parking, then save the ones you want to see.`}
         photo="siliguri-idol-golden"
+        photoAlt="Durga idol at a Siliguri pandal"
       />
 
       {/* Filter and Search Bar */}
@@ -69,7 +107,8 @@ export default function PandalsPage() {
           <div className="relative md:col-span-2">
             <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-brand-muted" />
             <input
-              type="text"
+              type="search"
+              aria-label="Search pandals"
               placeholder="Search pandal, area or theme…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -80,11 +119,12 @@ export default function PandalsPage() {
           {/* Area Dropdown */}
           <div>
             <select
+              aria-label="Filter by area"
               value={selectedArea}
               onChange={(e) => setSelectedArea(e.target.value)}
               className="w-full h-12 px-4 text-base rounded-xl bg-brand-ivory border border-brand-border text-brand-primary font-medium focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
             >
-              <option value="All">All 28 Areas</option>
+              <option value="All">All {areasData.length} areas</option>
               {areasData.map((a) => (
                 <option key={a.id} value={a.name}>
                   {a.name}
@@ -193,6 +233,39 @@ export default function PandalsPage() {
           </button>
         </div>
       )}
+
+      {/* Every pandal as a plain link, grouped by area — quick to scan and easy for search engines to follow */}
+      <section aria-labelledby="pandals-by-area" className="space-y-content pt-6">
+        <div>
+          <p className="font-bengali-serif text-brand-crimson text-lg sm:text-xl leading-none">পাড়া অনুযায়ী</p>
+          <h2 id="pandals-by-area" className="text-h2 font-bold text-brand-ink mt-2">All Siliguri pandals by area (A–Z)</h2>
+          <p className="text-base text-brand-muted mt-2 max-w-2xl">
+            The full 2026 list in one place. Open an area for its map, parking notes and nearby neighbourhoods.
+          </p>
+        </div>
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 sm:gap-8">
+          {AREAS_AZ.map((a) => (
+            <div key={a.slug} className="break-inside-avoid mb-6 rounded-2xl border border-brand-border bg-brand-card p-4 sm:p-5">
+              <h3 className="font-display text-h3 font-semibold text-brand-ink">
+                <Link to={`/areas/${a.slug}`} className="hover:text-brand-crimson">{a.name}</Link>
+                <span className="ml-2 text-sm font-sans font-medium text-brand-muted">{a.count}</span>
+              </h3>
+              <ul className="mt-2 space-y-1.5 text-sm">
+                {a.pandals.map((p) => (
+                  <li key={p.slug}>
+                    <Link to={`/pandals/${p.slug}`} className="text-brand-ink/85 hover:text-brand-crimson">
+                      {p.name}
+                    </Link>
+                    <span className="text-brand-muted"> · {p.category}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Faq faqs={FAQS} title="Siliguri pandal list: FAQs" />
     </div>
   );
 }

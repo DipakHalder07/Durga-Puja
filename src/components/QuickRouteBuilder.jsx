@@ -6,7 +6,7 @@ import {
   ChevronUp, ChevronDown, Trash2, BadgeCheck, Undo2,
 } from 'lucide-react';
 import { usePlan } from '../context/PlanContext';
-import RouteMap from './RouteMap';
+import { RouteMap } from './Maps';
 import { LotusSketch } from './BengalArt';
 import {
   STARTING_POINTS, AREA_STARTING_POINTS, buildRoute, timeRoute, formatDuration, formatKm,

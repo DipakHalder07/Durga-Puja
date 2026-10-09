@@ -1,39 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Radio, Waves, Palette, Calendar, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { Radio, Waves, Palette, ArrowRight } from 'lucide-react';
 import Photo from '../components/Photo';
 import PageHeader from '../components/PageHeader';
+import Breadcrumbs from '../components/Breadcrumbs';
+import Faq from '../components/Faq';
+import { useSeo } from '../lib/seo';
+import { breadcrumbs, mahalaya2026, faqPage } from '../lib/schema';
+
+const MAHALAYA_AT = new Date('2026-10-10T04:00:00+05:30').getTime();
+const CRUMBS = [['Home', '/'], ['Mahalaya 2026', '/mahalaya']];
+
+const FAQS = [
+  {
+    q: 'When is Mahalaya in 2026?',
+    a: 'Mahalaya 2026 is on **Saturday, 10 October 2026**. It marks the end of Pitri Paksha and the start of Devi Paksha; Maha Shashti follows a week later on Saturday, 17 October.',
+  },
+  {
+    q: 'What time is the Mahishasuramardini broadcast on Mahalaya?',
+    a: 'All India Radio (Akashvani) broadcasts Mahishasuramardini, with Birendra Krishna Bhadra’s Chandi Path, at 4 AM on Mahalaya morning. Many Siliguri homes still tune in on the radio.',
+  },
+  {
+    q: 'Where is tarpan done in Siliguri on Mahalaya?',
+    a: 'People offer tarpan to their ancestors at dawn on the ghats of the Mahananda river. Go early — the ghats are busiest just after sunrise.',
+  },
+  {
+    q: 'Are the pandals open on Mahalaya?',
+    a: 'Most pandals are still being finished on Mahalaya; a few open early with an inauguration. The main pandal hopping days are Shashti to Navami (17–20 October 2026). See the [Puja schedule](/puja-schedule).',
+  },
+];
 
 export default function MahalayaPage() {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  useSeo({
+    title: 'Mahalaya 2026 in Siliguri – Date, Time & Tarpan',
+    description: 'Mahalaya 2026 is on Saturday, 10 October. The 4 AM Mahishasuramardini broadcast, Chandi Path, tarpan on the Mahananda ghats and how Siliguri welcomes Durga Puja.',
+    path: '/mahalaya',
+    image: '/images/photos/kash-sunset.webp',
+    imageAlt: 'Kash flowers at sunset — the season of Mahalaya',
+    jsonLd: [breadcrumbs(CRUMBS), mahalaya2026(), faqPage(FAQS)],
+  });
 
+  // null until mounted, so the prerendered page and the first client render match
+  const [now, setNow] = useState(null);
   useEffect(() => {
-    const target = new Date('2026-10-10T04:00:00+05:30').getTime();
-    const update = () => {
-      const now = new Date().getTime();
-      const diff = target - now;
-      if (diff > 0) {
-        setTimeLeft({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((diff / 1000 / 60) % 60),
-          seconds: Math.floor((diff / 1000) % 60),
-        });
-      }
-    };
-    update();
-    const timer = setInterval(update, 1000);
+    setNow(Date.now());
+    const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
+  const diff = now == null ? null : MAHALAYA_AT - now;
+  const passed = diff != null && diff <= 0;
+  const timeLeft = {
+    days: diff > 0 ? Math.floor(diff / 86400000) : 0,
+    hours: diff > 0 ? Math.floor((diff / 3600000) % 24) : 0,
+    minutes: diff > 0 ? Math.floor((diff / 60000) % 60) : 0,
+    seconds: diff > 0 ? Math.floor((diff / 1000) % 60) : 0,
+  };
 
   return (
     <div className="space-y-section">
+      <Breadcrumbs items={[['Home', '/'], ['Mahalaya 2026']]} />
       <PageHeader
         bn="মহালয়া"
         kicker="The dawn before Pujo"
         title="Mahalaya 2026 in Siliguri"
         description="From the 4 AM radio voice of Birendra Krishna Bhadra to tarpan on the Mahananda ghats — the morning Pujo truly begins."
         photo="kash-sunset"
+        photoAlt="Kash flowers at sunset"
       />
 
       {/* Countdown Card */}
@@ -50,14 +82,14 @@ export default function MahalayaPage() {
             Saturday, October 10, 2026 • 04:00 AM IST
           </span>
           <h2 className="text-h2 font-bold">
-            Countdown to the Sacred Dawn
+            {passed ? 'Mahalaya has dawned — Pujo is here' : 'Countdown to the Sacred Dawn'}
           </h2>
           <p className="text-sm text-white/80 font-bengali">
             বীরেন্দ্রকৃষ্ণ ভদ্রের চণ্ডীপাঠ ও বোধন সঙ্গীত
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className={`flex flex-wrap items-center justify-center gap-3 ${passed ? 'hidden' : ''}`} role="timer" aria-label="Time until Mahalaya">
           {[
             { val: timeLeft.days, label: 'Days' },
             { val: timeLeft.hours, label: 'Hours' },
@@ -69,7 +101,7 @@ export default function MahalayaPage() {
               className="flex flex-col items-center justify-center bg-white/10 backdrop-blur-md rounded-2xl px-5 py-3 min-w-[75px] border border-white/15"
             >
               <span className="text-3xl font-bold text-brand-gold font-mono">
-                {String(unit.val).padStart(2, '0')}
+                {now == null ? '--' : String(unit.val).padStart(2, '0')}
               </span>
               <span className="text-xs font-medium text-white/75 mt-1">
                 {unit.label}
@@ -148,6 +180,8 @@ export default function MahalayaPage() {
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
+
+      <Faq faqs={FAQS} title="Mahalaya 2026: FAQs" />
     </div>
   );
 }

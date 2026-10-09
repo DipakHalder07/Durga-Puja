@@ -3,12 +3,14 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin, Footprints, Bike, Car, Navigation, Bookmark, ChevronRight, Lightbulb, Route as RouteIcon } from 'lucide-react';
 import routesData from '../data/routes.json';
 import pandalsData from '../data/pandals.json';
-import RouteMap from '../components/RouteMap';
+import { RouteMap } from '../components/Maps';
 import { estimateCircuit, formatDuration, formatKm, TRAVEL_MODES, distanceKm } from '../lib/routeEngine';
 import SmartImage from '../components/SmartImage';
 import { routeImage, pandalImage } from '../lib/images';
 import { usePlan } from '../context/PlanContext';
 import { useSeo } from '../lib/seo';
+import { breadcrumbs, touristTrip } from '../lib/schema';
+import NotFoundPage from './NotFoundPage';
 import { DhunuchiSketch, LaalPaar } from '../components/BengalArt';
 
 export default function RouteDetailPage() {
@@ -17,20 +19,7 @@ export default function RouteDetailPage() {
 
   const route = routesData.find((r) => r.slug === slug);
 
-  if (!route) {
-    return (
-      <div className="py-24 text-center space-y-4">
-        <h2 className="text-h2 font-bold text-brand-ink">Route not found</h2>
-        <Link
-          to="/siliguri-puja-routes"
-          className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-brand-vermilion text-white text-base font-semibold"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Browse all routes</span>
-        </Link>
-      </div>
-    );
-  }
+  if (!route) return <NotFoundPage />;
 
   return <RouteDetail route={route} navigate={navigate} />;
 }
@@ -52,9 +41,14 @@ function RouteDetail({ route, navigate }) {
 
   useSeo({
     title: `${route.title} – Siliguri Puja Route 2026`,
-    description: route.description.slice(0, 160),
+    description: `${route.travel_mode} Durga Puja circuit in Siliguri: ${stops.length} pandals${est ? ` in about ${formatDuration(est.totalMinutes)}` : ''} — ${stops.slice(0, 3).map((p) => p.name).join(', ')}. Map, stop order and local tips.`.slice(0, 160),
     path: `/routes/${route.slug}`,
     image: routeImage(route.slug),
+    imageAlt: route.title,
+    jsonLd: [
+      breadcrumbs([['Home', '/'], ['Siliguri Puja routes', '/siliguri-puja-routes'], [route.title, `/routes/${route.slug}`]]),
+      touristTrip(route, stops, routeImage(route.slug)),
+    ],
   });
 
   const legKm = (a, b) =>
@@ -116,9 +110,8 @@ function RouteDetail({ route, navigate }) {
           <button
             type="button"
             onClick={() => stops.forEach((p) => (allSaved || !savedPandalIds.includes(p.id)) && toggleSave(p.id))}
-            className={`h-12 lg:h-full rounded-2xl border font-semibold inline-flex items-center justify-center gap-2 transition-colors ${
-              allSaved ? 'bg-brand-vermilion-light border-brand-crimson/30 text-brand-crimson' : 'bg-brand-card border-brand-border text-brand-ink hover:border-brand-crimson/40'
-            }`}
+            className={`h-12 lg:h-full rounded-2xl border font-semibold inline-flex items-center justify-center gap-2 transition-colors ${allSaved ? 'bg-brand-vermilion-light border-brand-crimson/30 text-brand-crimson' : 'bg-brand-card border-brand-border text-brand-ink hover:border-brand-crimson/40'
+              }`}
           >
             <Bookmark className={`w-4 h-4 ${allSaved ? 'fill-brand-crimson' : ''}`} /> {allSaved ? 'Saved' : 'Save all'}
           </button>

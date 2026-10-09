@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Route, Footprints, Bike, Car, ArrowRight, Sparkles, MapPin, Home as HomeIcon, ChevronRight,
-  Filter, Timer, Siren, Trophy, Layers, Bookmark, BookOpen,
+  Filter, Timer, Siren, Trophy, Layers, Bookmark,
 } from 'lucide-react';
 import QuickRouteBuilder from '../components/QuickRouteBuilder';
 import routesData from '../data/routes.json';
@@ -14,6 +14,7 @@ import { usePlan } from '../context/PlanContext';
 import PageHeader, { SectionHeading } from '../components/PageHeader';
 import { DhakSketch } from '../components/BengalArt';
 import { useSeo } from '../lib/seo';
+import { breadcrumbs, itemList } from '../lib/schema';
 
 const pandalMap = Object.fromEntries(pandalsData.map((p) => [p.slug, p]));
 
@@ -99,9 +100,8 @@ function CircuitCard({ route }) {
           onClick={saveCircuit}
           aria-pressed={allSaved}
           aria-label={allSaved ? 'Remove circuit pandals from saved plan' : 'Save all circuit pandals'}
-          className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center border shadow-xs transition-all active:scale-90 ${
-            allSaved ? 'bg-brand-crimson text-white border-brand-crimson' : 'bg-brand-card/95 text-brand-primary border-brand-border'
-          }`}
+          className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center border shadow-xs transition-all active:scale-90 ${allSaved ? 'bg-brand-crimson text-white border-brand-crimson' : 'bg-brand-card/95 text-brand-primary border-brand-border'
+            }`}
         >
           <Bookmark className={`w-4 h-4 ${allSaved ? 'fill-white' : ''}`} />
         </button>
@@ -164,9 +164,15 @@ function CircuitCard({ route }) {
 
 export default function RoutesPage() {
   useSeo({
-    title: 'Siliguri Puja Routes 2026 – Smart Pandal Route Planner',
-    description: 'Plan Durga Puja 2026 pandal hopping in Siliguri: pick a start point, walking, bike or car and your time — get an ordered route on the pandal map.',
+    title: 'Siliguri Puja Routes 2026 – Pandal Hopping Route Planner',
+    description: 'Plan Durga Puja 2026 pandal hopping in Siliguri: pick a start point, walk, bike or car and your time, and get an ordered route with map and Google Maps navigation.',
     path: '/siliguri-puja-routes',
+    image: '/images/photos/lights-temple.webp',
+    imageAlt: 'Lit-up Durga Puja pandal at night',
+    jsonLd: [
+      breadcrumbs([['Home', '/'], ['Siliguri Puja routes', '/siliguri-puja-routes']]),
+      itemList('Curated Siliguri Durga Puja routes 2026', routesData.map((r) => ({ name: r.title, path: `/routes/${r.slug}` }))),
+    ],
   });
   return (
     <div className="space-y-section">

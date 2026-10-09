@@ -1,11 +1,11 @@
 {
-  "name": "pujo-songi",
+  "name": "pujo-pandal",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -30,5 +30,8 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "vite": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=18.18"
   }
 }

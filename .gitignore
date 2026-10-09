@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output (Vercel builds it from source)
+dist/
+dist-ssr/
+.vercel/
+
+# OS / editor
+.DS_Store
+*.log
+.vscode/
+.idea/

@@ -474,12 +474,3 @@ export const BLOG_POSTS = [
 ];
 
 export const getPost = (slug) => BLOG_POSTS.find((p) => p.slug === slug);
-
-// Old guide URLs → new blog posts (keeps existing links and search results working)
-export const LEGACY_GUIDE_REDIRECTS = {
-  'best-durga-puja-pandals-in-siliguri': 'best-theme-pandals-durga-puja-pandal-map-2026',
-  'central-colony-durga-puja-2026': 'durga-puja-pandal-map-2026-near-njp-siliguri-junction',
-  'mahalaya-siliguri-traditions': 'durga-puja-2026-dates-pandal-map-day-wise-plan',
-  'siliguri-pandal-hopping-guide': 'durga-puja-pandal-map-2026-walking-routes',
-  'siliguri-puja-map-guide': 'durga-puja-pandal-map-2026',
-};

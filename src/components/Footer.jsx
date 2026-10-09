@@ -52,7 +52,7 @@ export default function Footer() {
           <div className="col-span-2 space-y-4">
             <Link to="/" className="inline-flex items-center gap-3">
               <span className="w-12 h-12 rounded-full border-2 border-brand-gold overflow-hidden bg-brand-maroon shrink-0">
-                <img src="/logo-icon.webp" alt="" className="w-full h-full object-cover" />
+                <img src="/logo-icon.webp" alt="" width="48" height="48" loading="lazy" className="w-full h-full object-cover" />
               </span>
               <span className="leading-tight">
                 <span className="block font-display text-xl font-semibold text-white">Pujo Pandal</span>

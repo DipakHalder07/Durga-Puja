@@ -6,8 +6,11 @@ import { PostCover, RichText, STATS } from '../components/BlogBlocks';
 import { BLOG_POSTS } from '../data/blog';
 import { readingMinutes, fillTokens } from '../lib/blogQueries';
 import { useSeo } from '../lib/seo';
+import { formatDate } from '../lib/dates';
+import { SITE_URL } from '../lib/site';
+import { breadcrumbs } from '../lib/schema';
 
-const fmt = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+const fmt = (d) => formatDate(d, { month: 'short' });
 
 export default function BlogPage() {
   const [category, setCategory] = useState('All');
@@ -16,26 +19,32 @@ export default function BlogPage() {
   const rest = BLOG_POSTS.filter((p) => p !== featured && (category === 'All' || p.category === category));
 
   const jsonLd = useMemo(
-    () => ({
-      '@context': 'https://schema.org',
-      '@type': 'Blog',
-      name: 'Pujo Pandal Blog — Durga Puja pandal map 2026',
-      url: `${window.location.origin}/blog`,
-      blogPost: BLOG_POSTS.map((p) => ({
-        '@type': 'BlogPosting',
-        headline: p.title,
-        url: `${window.location.origin}/blog/${p.slug}`,
-        datePublished: p.datePublished,
-        dateModified: p.dateModified,
-      })),
-    }),
+    () => [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: 'Pujo Pandal Blog — Siliguri Durga Puja 2026 guides',
+        url: `${SITE_URL}/blog`,
+        inLanguage: 'en-IN',
+        publisher: { '@id': `${SITE_URL}/#organization` },
+        blogPost: BLOG_POSTS.map((p) => ({
+          '@type': 'BlogPosting',
+          headline: p.title,
+          url: `${SITE_URL}/blog/${p.slug}`,
+          datePublished: p.datePublished,
+          dateModified: p.dateModified,
+        })),
+      },
+      breadcrumbs([['Home', '/'], ['Blog', '/blog']]),
+    ],
     []
   );
 
   useSeo({
-    title: 'Durga Puja Pandal Map 2026 Blog – Siliguri Guides',
+    title: 'Siliguri Durga Puja 2026 Blog – Pandal Map Guides & Tips',
     description: `Guides to the Durga Puja pandal map 2026 for Siliguri: ${STATS.total} pandals by zone, walking clusters, parking, theme and traditional pujas, dates and travel tips.`,
     path: '/blog',
+    image: '/images/photos/artisan-silhouette.webp',
     jsonLd,
   });
 
@@ -60,7 +69,7 @@ export default function BlogPage() {
           <h2 className="mt-3 text-h2 font-bold text-brand-ink group-hover:text-brand-crimson transition-colors">{featured.title}</h2>
           <p className="mt-4 text-lead text-brand-muted"><RichText text={featured.excerpt} /></p>
           <p className="mt-5 flex items-center gap-4 text-sm text-brand-muted">
-            <span>{fmt(featured.dateModified)}</span>
+            <time dateTime={featured.dateModified}>{fmt(featured.dateModified)}</time>
             <span className="inline-flex items-center gap-1"><Clock className="w-4 h-4" />{readingMinutes(featured)} min read</span>
           </p>
           <span className="mt-6 inline-flex items-center gap-2 font-semibold text-brand-crimson">
@@ -101,7 +110,7 @@ export default function BlogPage() {
               <h3 className="font-display text-h3 font-semibold text-brand-ink mt-2 group-hover:text-brand-crimson transition-colors">{post.title}</h3>
               <p className="text-sm text-brand-muted mt-2 line-clamp-3">{fillTokens(post.excerpt, STATS)}</p>
               <p className="mt-auto pt-5 flex items-center gap-4 text-xs text-brand-muted">
-                <span>{fmt(post.dateModified)}</span>
+                <time dateTime={post.dateModified}>{fmt(post.dateModified)}</time>
                 <span className="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{readingMinutes(post)} min</span>
               </p>
             </div>

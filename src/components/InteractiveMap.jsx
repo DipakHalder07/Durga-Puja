@@ -2,24 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { 
-  Search, MapPin, Star, Sparkles, Clock, Ban, Check, 
-  Bookmark, Navigation, Layers, CheckCircle2 
-} from 'lucide-react';
+import { Search, Bookmark, Navigation } from 'lucide-react';
 import { usePlan } from '../context/PlanContext';
 import pandalsData from '../data/pandals.json';
 import areasData from '../data/areas.json';
-
-// Leaflet's default marker images, bundled locally
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-});
 
 // Custom colored SVG markers with score
 const createCustomIcon = (score, isSelected) => {
@@ -49,7 +35,7 @@ const createCustomIcon = (score, isSelected) => {
   });
 };
 
-// Map Tile Layers (All working without any API key!)
+// Map tile layers
 const TILE_LAYERS = {
   'google-streets': {
     name: 'Google Maps',
@@ -118,7 +104,6 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
         zoomControl: true,
       });
 
-      // Default to Google Maps layer (100% Free, NO API KEY NEEDED)
       const tileConfig = TILE_LAYERS['google-streets'];
       const tileLayer = L.tileLayer(tileConfig.url, {
         attribution: tileConfig.attribution,
@@ -246,7 +231,8 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
           <div className="relative w-full sm:w-72">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted" />
             <input
-              type="text"
+              type="search"
+              aria-label="Search pandals on the map"
               placeholder="Search pandal, area, or theme..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -256,11 +242,12 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
 
           {/* Area Dropdown */}
           <select
+            aria-label="Filter map by area"
             value={selectedArea}
             onChange={(e) => setSelectedArea(e.target.value)}
             className="w-full sm:w-auto px-3.5 py-2 text-xs rounded-xl bg-brand-ivory border border-brand-border text-brand-primary font-medium focus:outline-none focus:ring-2 focus:ring-brand-vermilion"
           >
-            <option value="All">All 28 Areas ({pandalsData.length} Pandals)</option>
+            <option value="All">All {areasData.length} areas ({pandalsData.length} pandals)</option>
             {areasData.map((a) => (
               <option key={a.id} value={a.name}>
                 {a.name}
@@ -283,7 +270,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
                     ? 'bg-brand-primary text-white shadow-2xs'
                     : 'text-brand-muted hover:text-brand-primary'
                 }`}
-                title={`Switch to ${cfg.name} (No API Key Required)`}
+                title={`Switch to ${cfg.name}`}
               >
                 {cfg.name}
               </button>
@@ -309,6 +296,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
           <button
             type="button"
             onClick={requestUserLocation}
+            aria-label="Show my location on the map"
             className="p-2 rounded-xl bg-brand-ivory border border-brand-border text-brand-vermilion hover:bg-white active:scale-95 transition-all shadow-xs shrink-0"
             title="Locate my position on map"
           >
@@ -327,11 +315,6 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span><strong className="text-brand-vermilion">{filteredPandals.length}</strong> pandals</span>
           </div>
-
-          <div className="hidden xs:flex bg-brand-card/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-brand-border shadow-songi text-xs font-semibold text-brand-primary items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Google Maps Engine (No Key Needed)</span>
-          </div>
         </div>
 
         {/* Active Pandal Drawer when marker is clicked */}
@@ -349,6 +332,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
               <button
                 type="button"
                 onClick={() => setActivePandal(null)}
+                aria-label="Close pandal details"
                 className="text-brand-muted hover:text-brand-primary text-xs p-1"
               >
                 ✕
@@ -378,6 +362,7 @@ export default function InteractiveMap({ initialSelectedPandal = null, height = 
                       : 'bg-brand-ivory text-brand-primary border-brand-border'
                   }`}
                   title="Save to plan"
+                  aria-label={`Save ${activePandal.name} to plan`}
                 >
                   <Bookmark className="w-3.5 h-3.5" />
                 </button>

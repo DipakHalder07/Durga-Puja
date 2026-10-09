@@ -1,173 +1,276 @@
 #!/usr/bin/env node
-// Runs after `vite build`. For every important URL it writes dist/<path>/index.html with the
-// right <title>, meta description, canonical, Open Graph tags and JSON-LD — and, for blog posts,
-// the article text inside #root — so search engines and link previews see real content.
-// Also writes sitemap.xml and robots.txt. Set your domain in site.config.json (or SITE_URL env).
+// Runs after the client build (dist/) and the server build (dist-ssr/).
+// 1. Renders every URL with React on the server and writes dist/<path>/index.html with the real
+//    page content, title, meta description, canonical, Open Graph tags, JSON-LD and preloads.
+// 2. Writes 404.html, sitemap.xml, robots.txt, llms.txt, llms-full.txt and feed.xml.
+// The domain comes from site.config.json.
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { BLOG_POSTS, BLOG_AUTHOR } from '../src/data/blog.js';
-import { queryPandals, blogStats, fillTokens, zoneTable } from '../src/lib/blogQueries.js';
-import { postJsonLd, postImage } from '../src/lib/blogSchema.js';
+import { blogStats, fillTokens, plainText, queryPandals, zoneTable } from '../src/lib/blogQueries.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
-const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+const SSR_DIR = path.join(ROOT, 'dist-ssr');
+const readJson = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 
-const config = fs.existsSync(path.join(ROOT, 'site.config.json')) ? read('site.config.json') : {};
-const SITE_URL = (process.env.SITE_URL || config.siteUrl || '').replace(/\/$/, '');
-const SITE_NAME = 'Pujo Pandal';
+const { render, headHtml, buildHead, SITE_URL, DATA_UPDATED } = await import(pathToFileURL(path.join(SSR_DIR, 'entry-server.js')).href);
 
-const pandals = read('src/data/pandals.json');
-const routes = read('src/data/routes.json');
-const areas = read('src/data/areas.json');
-const events = read('src/data/events.json');
-const photos = read('src/data/photos.json');
-const photosBySlug = Object.fromEntries(photos.map((p) => [p.slug, p]));
+const pandals = readJson('src/data/pandals.json');
+const routes = readJson('src/data/routes.json');
+const areas = readJson('src/data/areas.json');
+const events = readJson('src/data/events.json');
+const legal = readJson('src/data/legal.json');
 const stats = blogStats(pandals);
+const manifest = JSON.parse(fs.readFileSync(path.join(DIST, '.vite', 'manifest.json'), 'utf8'));
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
-const today = new Date().toISOString().slice(0, 10);
-
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const inline = (t) =>
-  esc(fillTokens(t, stats))
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+const abs = (u) => (/^https?:/.test(u) ? u : `${SITE_URL}${u}`);
 
-function blocksToHtml(blocks) {
+// ── Preloads ──────────────────────────────────────────────────────────────────
+const entryChunk = Object.values(manifest).find((c) => c.isEntry);
+function chunkFiles(key, seen = new Set()) {
+  const c = manifest[key];
+  if (!c || seen.has(key)) return seen;
+  seen.add(key);
+  (c.imports || []).forEach((k) => chunkFiles(k, seen));
+  return seen;
+}
+function pagePreloads(file) {
+  if (!file || !manifest[file]) return [];
+  const entryDeps = chunkFiles(Object.keys(manifest).find((k) => manifest[k] === entryChunk));
+  return [...chunkFiles(file)]
+    .filter((k) => !entryDeps.has(k))
+    .map((k) => `<link rel="modulepreload" crossorigin href="/${manifest[k].file}" />`);
+}
+// Latin Inter (body) and Fraunces (headings) are needed for the first paint
+const fonts = fs
+  .readdirSync(path.join(DIST, 'assets'))
+  .filter((f) => /^(inter-latin-wght-normal|fraunces-latin-opsz-normal)-.*\.woff2$/.test(f))
+  .map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${f}" />`);
+
+// ── Pages ─────────────────────────────────────────────────────────────────────
+const urls = [
+  '/', '/siliguri-puja-pandals', '/siliguri-puja-map', '/siliguri-puja-routes', '/puja-schedule', '/mahalaya',
+  '/areas', '/blog', '/about', '/contact', '/privacy-policy', '/terms', '/disclaimer', '/photo-credits', '/saved',
+  ...pandals.map((p) => `/pandals/${p.slug}`),
+  ...routes.map((r) => `/routes/${r.slug}`),
+  ...areas.map((a) => `/areas/${a.slug}`),
+  ...BLOG_POSTS.map((p) => `/blog/${p.slug}`),
+];
+
+const rendered = [];
+async function writePage(url, outFile) {
+  const { html, meta, file } = await render(url);
+  if (!meta.title || !meta.description) console.warn(`⚠ ${url}: missing title or description`);
+  const head = [headHtml(meta), ...fonts, ...pagePreloads(file)].join('\n    ');
+  const page = template
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(buildHead(meta).title)}</title>`)
+    .replace('</head>', `    ${head}\n  </head>`)
+    .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, page);
+  return { url, meta };
+}
+
+for (const url of urls) {
+  rendered.push(await writePage(url, url === '/' ? path.join(DIST, 'index.html') : path.join(DIST, url, 'index.html')));
+}
+await writePage('/404', path.join(DIST, '404.html'));
+
+// ── sitemap.xml ───────────────────────────────────────────────────────────────
+const postBySlug = Object.fromEntries(BLOG_POSTS.map((p) => [`/blog/${p.slug}`, p]));
+const lastmod = (url) =>
+  postBySlug[url]?.dateModified ||
+  legal[url.slice(1)]?.updated ||
+  (url === '/blog' ? BLOG_POSTS.map((p) => p.dateModified).sort().at(-1) : DATA_UPDATED);
+const indexable = rendered.filter((r) => !r.meta.noindex);
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${indexable
+  .map(({ url, meta }) => {
+    const img = meta.image ? `\n    <image:image><image:loc>${esc(abs(meta.image))}</image:loc></image:image>` : '';
+    return `  <url>\n    <loc>${SITE_URL}${url}</loc>\n    <lastmod>${lastmod(url)}</lastmod>${img}\n  </url>`;
+  })
+  .join('\n')}
+</urlset>
+`;
+fs.writeFileSync(path.join(DIST, 'sitemap.xml'), sitemap);
+
+// ── robots.txt ────────────────────────────────────────────────────────────────
+const AI_BOTS = [
+  'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot',
+  'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Bingbot', 'CCBot', 'meta-externalagent', 'Amazonbot', 'DuckAssistBot',
+];
+fs.writeFileSync(
+  path.join(DIST, 'robots.txt'),
+  `# Pujo Pandal — Siliguri Durga Puja 2026 guide
+# ${SITE_URL}
+
+User-agent: *
+Allow: /
+Disallow: /saved
+
+# Search engines and AI assistants are welcome to read and cite the guide
+${AI_BOTS.map((b) => `User-agent: ${b}`).join('\n')}
+Allow: /
+Disallow: /saved
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
+);
+
+// ── llms.txt / llms-full.txt (https://llmstxt.org) ───────────────────────────
+const fmt = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const dateLines = events.map((e) => `- ${e.event_name}: ${fmt(e.date)} — ${e.description}`).join('\n');
+const byScore = [...pandals].sort((a, b) => b.pujo_songi_score - a.pujo_songi_score || a.name.localeCompare(b.name));
+const areaCounts = Object.values(
+  pandals.reduce((acc, p) => ((acc[p.area_slug] ||= { name: p.area_name, slug: p.area_slug, n: 0 }).n++, acc), {})
+).sort((a, b) => a.name.localeCompare(b.name));
+
+const llms = `# Pujo Pandal — Siliguri Durga Puja 2026 guide
+
+> Pujo Pandal (${SITE_URL}) is a free, independent guide to Durga Puja in Siliguri, West Bengal, India. It maps ${stats.total} community Durga Puja pandals across ${stats.areas} Siliguri neighbourhoods for 2026, with a smart pandal-hopping route planner, the festival schedule and local guides.
+
+Key facts:
+- Durga Puja 2026 in Siliguri runs from Maha Shashti (Saturday, 17 October 2026) to Bijoya Dashami (Wednesday, 21 October 2026). Mahalaya is on Saturday, 10 October 2026.
+- ${stats.total} pandals: ${stats.theme} theme, ${stats.traditional} traditional, ${stats.heritage} heritage, ${stats.community} community and ${stats.eco} eco-friendly pujas; ${stats.parking} have parking nearby.
+- Busiest evenings: Ashtami and Navami, especially around Hill Cart Road, Sevoke Road and Venus More from 7 PM to midnight.
+- Contact: pujopandal@gmail.com · Collegepara, Siliguri, West Bengal 734005.
+
+## Core pages
+- [Siliguri Durga Puja 2026 guide](${SITE_URL}/): overview, countdown, featured pandals, zones and FAQs
+- [All Siliguri pandals 2026](${SITE_URL}/siliguri-puja-pandals): full list with themes, scores, parking and areas
+- [Siliguri Durga Puja pandal map](${SITE_URL}/siliguri-puja-map): interactive map of every pandal with GPS pins
+- [Siliguri Puja routes](${SITE_URL}/siliguri-puja-routes): route planner and curated walking, bike and car circuits
+- [Durga Puja 2026 schedule](${SITE_URL}/puja-schedule): dates and rituals from Mahalaya to Bijoya Dashami
+- [Mahalaya 2026](${SITE_URL}/mahalaya): date, 4 AM broadcast and tarpan in Siliguri
+- [Pandals by area](${SITE_URL}/areas): all ${stats.areas} neighbourhoods
+
+## Guides
+${BLOG_POSTS.map((p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}): ${plainText(fillTokens(p.excerpt, stats))}`).join('\n')}
+
+## Neighbourhoods
+${areaCounts.map((a) => `- [${a.name}](${SITE_URL}/areas/${a.slug}): ${a.n} pandal${a.n === 1 ? '' : 's'}`).join('\n')}
+
+## Curated routes
+${routes.map((r) => `- [${r.title}](${SITE_URL}/routes/${r.slug}): ${r.travel_mode}, ${r.stopping_points.length} pandals`).join('\n')}
+
+## Optional
+- [Full text of the guide for language models](${SITE_URL}/llms-full.txt)
+- [Sitemap](${SITE_URL}/sitemap.xml)
+- [About Pujo Pandal](${SITE_URL}/about)
+`;
+fs.writeFileSync(path.join(DIST, 'llms.txt'), llms);
+
+// Blog body blocks → Markdown
+const md = (t) => plainText(fillTokens(t, stats)).replace(/\s+/g, ' ').trim();
+const mdLinks = (t) => fillTokens(t, stats).replace(/\]\(\//g, `](${SITE_URL}/`);
+function blocksToMd(blocks) {
   return blocks
     .map((b) => {
       switch (b.type) {
-        case 'p': return `<p>${inline(b.text)}</p>`;
-        case 'h2': return `<h2 id="${b.id || ''}">${inline(b.text)}</h2>`;
-        case 'h3': return `<h3>${esc(b.text)}</h3>`;
-        case 'ul': return `<ul>${b.items.map((i) => `<li>${inline(i)}</li>`).join('')}</ul>`;
-        case 'ol': return `<ol>${b.items.map((i) => `<li>${inline(i)}</li>`).join('')}</ol>`;
-        case 'tip': return `<aside><strong>${esc(b.title)}</strong> ${inline(b.text)}</aside>`;
-        case 'facts': return `<dl>${b.items.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(fillTokens(v, stats))}</dd>`).join('')}</dl>`;
-        case 'cta': return `<p><a href="${b.to}">${esc(b.label)}</a></p>`;
+        case 'p': return mdLinks(b.text);
+        case 'h2': return `## ${md(b.text)}`;
+        case 'h3': return `### ${md(b.text)}`;
+        case 'ul': return b.items.map((i) => `- ${mdLinks(i)}`).join('\n');
+        case 'ol': return b.items.map((i, n) => `${n + 1}. ${mdLinks(i)}`).join('\n');
+        case 'tip': return `> **${b.title}** ${mdLinks(b.text)}`;
+        case 'facts': return b.items.map(([k, v]) => `- ${k}: ${fillTokens(v, stats)}`).join('\n');
         case 'pandals':
-          return `<ol>${queryPandals(pandals, b.query)
-            .map((p) => `<li><a href="/pandals/${p.slug}">${esc(p.name)}</a> — ${esc(p.area_name)}, ${esc(p.category)}, score ${p.pujo_songi_score}${p.theme ? `. Theme: ${esc(p.theme)}` : ''}</li>`)
-            .join('')}</ol>`;
+          return queryPandals(pandals, b.query)
+            .map((p, n) => `${n + 1}. [${p.name}](${SITE_URL}/pandals/${p.slug}) — ${p.area_name}, ${p.category}, score ${p.pujo_songi_score}${p.theme ? `; theme “${p.theme}”` : ''}${p.distanceKm != null ? `; ${p.distanceKm.toFixed(1)} km away` : ''}`)
+            .join('\n');
         case 'zones':
-          return `<table><tr><th>Zone</th><th>Pandals</th><th>With parking</th></tr>${zoneTable(pandals)
-            .map((z) => `<tr><td>${esc(z.name)}</td><td>${z.count}</td><td>${z.parking}</td></tr>`)
-            .join('')}</table>`;
-        case 'schedule':
-          return `<ul>${events.map((e) => `<li>${esc(e.event_name)}: ${e.date}</li>`).join('')}</ul>`;
-        case 'table':
-          return `<table><tr>${b.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr>${b.rows
-            .map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`)
-            .join('')}</table>`;
+          return `| Zone | Pandals | With parking |\n|---|---|---|\n${zoneTable(pandals).map((z) => `| ${z.name} | ${z.count} | ${z.parking} |`).join('\n')}`;
+        case 'schedule': return dateLines;
+        case 'table': return `| ${b.head.join(' | ')} |\n|${b.head.map(() => '---').join('|')}|\n${b.rows.map((r) => `| ${r.join(' | ')} |`).join('\n')}`;
+        case 'cta': return `[${b.label}](${SITE_URL}${b.to})`;
         default: return '';
       }
     })
-    .join('\n');
+    .filter(Boolean)
+    .join('\n\n');
 }
 
-function page({ url, title, description, image, type = 'website', jsonLd = [], body = '' }) {
-  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-  const abs = (u) => (SITE_URL ? SITE_URL + u : u);
-  const img = abs(image || '/images/og/og-image.jpg');
-  let html = template
-    .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(fullTitle)}</title>`)
-    .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(description)}" />`)
-    .replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${esc(fullTitle)}" />`)
-    .replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${esc(description)}" />`)
-    .replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="${esc(img)}" />`)
-    .replace(/<meta property="og:type"[^>]*>/, `<meta property="og:type" content="${type}" />`);
-  const extra = [
-    SITE_URL && `<link rel="canonical" href="${esc(SITE_URL + url)}" />`,
-    SITE_URL && `<meta property="og:url" content="${esc(SITE_URL + url)}" />`,
-    `<meta name="twitter:title" content="${esc(fullTitle)}" />`,
-    `<meta name="twitter:description" content="${esc(description)}" />`,
-    ...jsonLd.map((d) => `<script type="application/ld+json" data-seo-jsonld>${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`),
-  ].filter(Boolean);
-  html = html.replace('</head>', `    ${extra.join('\n    ')}\n  </head>`);
-  if (body) html = html.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
-  const out = url === '/' ? path.join(DIST, 'index.html') : path.join(DIST, url, 'index.html');
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, html);
-  return url;
-}
+const pandalMd = byScore
+  .map(
+    (p) => `### ${p.name}
+- Page: ${SITE_URL}/pandals/${p.slug}
+- Area: ${p.area_name} (${p.zone}), Siliguri
+- Venue 2026: ${p.venue_name_2026 || p.address_2026}
+- Style: ${p.category} · Theme 2026: ${p.theme}
+- Pandal score: ${p.pujo_songi_score}/10 · Visit time: ~${p.estimated_visit_minutes} min
+- Parking: ${p.parking_available ? 'available' : 'walk-in only'} — ${p.parking_notes}
+- Access: ${p.access_notes}
+- GPS: ${p.latitude}, ${p.longitude}
+- ${p.description}`
+  )
+  .join('\n\n');
 
-const pages = [];
-const origin = SITE_URL || '';
+const llmsFull = `${llms}
+---
 
-// Core pages
-const CORE = [
-  ['/', 'Siliguri Durga Puja 2026 – Pandal Map & Smart Routes', `Durga Puja pandal map 2026 for Siliguri: ${stats.total} verified pandals, smart walking, bike and car routes, Puja dates and local guides.`],
-  ['/siliguri-puja-map', 'Durga Puja Pandal Map 2026 – Siliguri Live Map', 'Live Durga Puja pandal map 2026 for Siliguri: every verified pandal with GPS pins, search, area filters, parking info and one-tap Google Maps directions.'],
-  ['/siliguri-puja-routes', 'Siliguri Puja Routes 2026 – Smart Pandal Route Planner', 'Plan Durga Puja 2026 pandal hopping in Siliguri: pick a start point, walking, bike or car and your time — get an ordered route on the pandal map.'],
-  ['/siliguri-puja-pandals', 'Siliguri Puja Pandals 2026 – All Pandals List', `All ${stats.total} Siliguri Durga Puja pandals for 2026 with themes, scores, parking and areas. Filter and save pandals to your Puja plan.`],
-  ['/puja-schedule', 'Durga Puja 2026 Schedule – Siliguri Dates & Timings', 'Durga Puja 2026 dates and ritual timings for Siliguri: Mahalaya 10 Oct, Shashti 17 Oct to Vijaya Dashami 21 Oct, pushpanjali, Sandhi Puja and visarjan.'],
-  ['/mahalaya', 'Mahalaya 2026 in Siliguri – Date, Chandi Path & Tarpan', 'Mahalaya 2026 falls on 10 October. The 4 AM Mahishasuramardini broadcast, tarpan on the Mahananda ghats and how Siliguri welcomes Pujo.'],
-  ['/areas', 'Siliguri Puja Areas 2026 – Pandals by Neighbourhood', `Explore Siliguri Durga Puja 2026 pandals across ${stats.areas} neighbourhoods and paras, with maps and lists for each area.`],
-  ['/about', 'About Pujo Pandal – Siliguri Durga Puja Guide', 'Pujo Pandal is a free, locally built guide to Siliguri’s Durga Puja: the pandal map, smart routes, schedule and blog.'],
-  ['/contact', 'Contact Pujo Pandal – Siliguri Puja Desk', 'Contact the Pujo Pandal team with pandal updates, corrections or feedback about Siliguri Durga Puja 2026.'],
-  ['/photo-credits', 'Photo Credits – Pujo Pandal', 'Credits for the openly licensed Durga Puja photographs used on Pujo Pandal.'],
-];
-CORE.forEach(([url, title, description]) => pages.push(page({ url, title, description })));
+# Durga Puja 2026 dates (Siliguri, West Bengal)
+${dateLines}
 
-// Blog index
-pages.push(page({
-  url: '/blog',
-  title: 'Durga Puja Pandal Map 2026 Blog – Siliguri Guides',
-  description: `Guides to the Durga Puja pandal map 2026 for Siliguri: ${stats.total} pandals by zone, walking clusters, parking, theme and traditional pujas, dates and travel tips.`,
-  body: `<h1>The Pujo Pandal blog</h1><ul>${BLOG_POSTS.map((p) => `<li><a href="/blog/${p.slug}">${esc(p.title)}</a> — ${esc(fillTokens(p.excerpt, stats))}</li>`).join('')}</ul>`,
-}));
+# All ${stats.total} Siliguri Durga Puja pandals (2026), highest score first
+${pandalMd}
 
-// Blog posts
-for (const post of BLOG_POSTS) {
-  const body = `<article><h1>${esc(post.title)}</h1><p>${inline(post.excerpt)}</p>${blocksToHtml(post.body)}<h2>Frequently asked questions</h2>${post.faqs
-    .map((f) => `<h3>${esc(fillTokens(f.q, stats))}</h3><p>${inline(f.a)}</p>`)
-    .join('')}</article>`;
-  pages.push(page({
-    url: `/blog/${post.slug}`,
-    title: post.metaTitle,
-    description: fillTokens(post.metaDescription, stats),
-    image: postImage(post, photosBySlug),
-    type: 'article',
-    jsonLd: postJsonLd(post, { origin, stats, photosBySlug, author: BLOG_AUTHOR }),
-    body,
-  }));
-}
+# Curated routes
+${routes
+  .map((r) => `## ${r.title}\n${SITE_URL}/routes/${r.slug}\n${r.travel_mode} · ${r.description}\nStops: ${r.stopping_points.map((s) => pandals.find((p) => p.slug === s)?.name).filter(Boolean).join(' → ')}\nTips:\n${(r.tips || []).map((t) => `- ${t}`).join('\n')}`)
+  .join('\n\n')}
 
-// Pandal pages
-for (const p of pandals) {
-  pages.push(page({
-    url: `/pandals/${p.slug}`,
-    title: `${p.name} Durga Puja 2026 – ${p.area_name}, Siliguri`,
-    description: `${p.name} (${p.area_name}) on the Siliguri Durga Puja pandal map 2026: theme “${p.theme}”, visit time, parking and directions.`.slice(0, 160),
-    image: p.image_url || undefined,
-    body: `<h1>${esc(p.name)}</h1><p>${esc(p.area_name)}, Siliguri · ${esc(p.category)}</p><p>${esc(p.description)}</p>`,
-  }));
-}
+# Guides
+${BLOG_POSTS.map(
+  (p) => `## ${p.title}
+${SITE_URL}/blog/${p.slug} · Updated ${p.dateModified} · ${BLOG_AUTHOR}
 
-// Curated routes
-for (const r of routes) {
-  pages.push(page({ url: `/routes/${r.slug}`, title: `${r.title} – Siliguri Puja Route 2026`, description: r.description.slice(0, 160), image: `/images/routes/${r.slug}.jpg` }));
-}
+${md(p.excerpt)}
 
-// Areas
-for (const a of areas) {
-  pages.push(page({ url: `/areas/${a.slug}`, title: `${a.name} Durga Puja Pandals 2026 – Siliguri`, description: `Durga Puja 2026 pandals in ${a.name}, Siliguri — list, map and directions.` }));
-}
+${blocksToMd(p.body)}
 
-// robots.txt + sitemap.xml
-let robots = 'User-agent: *\nAllow: /\n';
-if (SITE_URL) {
-  const lastmod = (u) => BLOG_POSTS.find((p) => u === `/blog/${p.slug}`)?.dateModified || today;
-  const prio = (u) => (u === '/' ? '1.0' : u.startsWith('/blog/durga-puja-pandal-map-2026') || u === '/siliguri-puja-map' ? '0.9' : u.startsWith('/blog') ? '0.8' : '0.6');
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages
-    .map((u) => `  <url><loc>${SITE_URL}${u === '/' ? '/' : u}</loc><lastmod>${lastmod(u)}</lastmod><priority>${prio(u)}</priority></url>`)
-    .join('\n')}\n</urlset>\n`;
-  fs.writeFileSync(path.join(DIST, 'sitemap.xml'), xml);
-  robots += `\nSitemap: ${SITE_URL}/sitemap.xml\n`;
-} else {
-  console.warn('⚠ prerender: no siteUrl in site.config.json — skipped canonical URLs and sitemap.xml');
-}
-fs.writeFileSync(path.join(DIST, 'robots.txt'), robots);
+### FAQs
+${p.faqs.map((f) => `**${md(f.q)}**\n${md(f.a)}`).join('\n\n')}`
+).join('\n\n---\n\n')}
+`;
+fs.writeFileSync(path.join(DIST, 'llms-full.txt'), llmsFull);
 
-console.log(`✓ prerendered ${pages.length} pages${SITE_URL ? ` + sitemap.xml for ${SITE_URL}` : ''}`);
+// ── feed.xml (RSS 2.0) ────────────────────────────────────────────────────────
+const rfc822 = (iso) => new Date(`${iso}T08:00:00+05:30`).toUTCString();
+const posts = [...BLOG_POSTS].sort((a, b) => b.dateModified.localeCompare(a.dateModified));
+fs.writeFileSync(
+  path.join(DIST, 'feed.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pujo Pandal — Siliguri Durga Puja 2026 guides</title>
+    <link>${SITE_URL}/blog</link>
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Local guides to Siliguri Durga Puja 2026: the pandal map, zones, walking routes, parking, dates and the best pujas.</description>
+    <language>en-in</language>
+    <lastBuildDate>${rfc822(posts[0].dateModified)}</lastBuildDate>
+${posts
+  .map(
+    (p) => `    <item>
+      <title>${esc(p.title)}</title>
+      <link>${SITE_URL}/blog/${p.slug}</link>
+      <guid isPermaLink="true">${SITE_URL}/blog/${p.slug}</guid>
+      <pubDate>${rfc822(p.datePublished)}</pubDate>
+      <category>${esc(p.category)}</category>
+      <description>${esc(md(p.excerpt))}</description>
+    </item>`
+  )
+  .join('\n')}
+  </channel>
+</rss>
+`
+);
+
+// The manifest and server bundle were only needed for this step
+fs.rmSync(path.join(DIST, '.vite'), { recursive: true, force: true });
+fs.rmSync(SSR_DIR, { recursive: true, force: true });
+
+console.log(`✓ prerendered ${rendered.length} pages + 404.html, sitemap.xml (${indexable.length} URLs), robots.txt, llms.txt, llms-full.txt, feed.xml for ${SITE_URL}`);

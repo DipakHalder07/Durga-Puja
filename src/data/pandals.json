@@ -29,7 +29,7 @@
     "venue_name_2026": "Dada Bhai Sporting Club Ground, Deshbandhu Para",
     "address_2026": "Deshbandhu Para, Siliguri",
     "map_confidence": 0.98,
-    "image_url": null,
+    "image_url": "/images/pandals/dada-bhai-sporting-club.jpg",
     "description": "A premier flagship puja of North Bengal, Dada Bhai Sporting Club consistently wins top honors for jaw-dropping pandal architecture, innovative thematic craftsmanship, and dazzling illumination towers that draw hundreds of thousands of visitors.",
     "committee_name": "Dada Bhai Sporting Club"
   },
@@ -63,7 +63,7 @@
     "venue_name_2026": "Shaktigarh High School Ground / Main Road, Ward 31",
     "address_2026": "Shaktigarh Main Road, Ward 31, Siliguri",
     "map_confidence": 0.98,
-    "image_url": null,
+    "image_url": "/images/pandals/shaktigarh-sarbajanin-durga-utsav.jpg",
     "description": "Celebrating its historic 75th year milestone edition, Shaktigarh Sarbajanin is an undisputed megastar of Siliguri Durga Puja. Features a monumental Hawa Mahal architectural replica, spectacular laser light presentations, and an expansive festive fairground.",
     "committee_name": "Shaktigarh Sarbajanin Durga Utsav Puja Committee"
   },
@@ -97,7 +97,7 @@
     "venue_name_2026": "Barrack Colony Ground adjacent to NJP Police Station",
     "address_2026": "Barrack Colony Ground, adjacent to NJP Police Station, Siliguri",
     "map_confidence": 0.85,
-    "image_url": null,
+    "image_url": "/images/pandals/central-colony-durga-puja-committee.jpg",
     "description": "One of Siliguri's largest and most iconic pujas, relocated for 2026 to the expansive Barrack Colony Ground near NJP Police Station. Famous for colossal architectural pandals, an extensive festive fairground (mela), and magnificent lighting displays.",
     "committee_name": "Central Colony Durga Puja Committee"
   },
@@ -131,14 +131,14 @@
     "venue_name_2026": "Subrata Sangha Club Ground, Deshbandhu Para",
     "address_2026": "Deshbandhu Para, Ward 30, Siliguri",
     "map_confidence": 0.87,
-    "image_url": null,
+    "image_url": "/images/pandals/subrata-sangha-durgapuja-committee.jpg",
     "description": "One of Siliguri's most consistently celebrated and prestigious community pujas, Subrata Sangha draws huge queues for its intricate conceptual design, innovative use of indigenous materials, and masterful idol sculpture.",
     "committee_name": "Subrata Sangha Durgapuja Committee"
   },
   {
     "id": "7b3c1d5c-e3ab-43db-a1ff-ad3d100941ed",
     "name": "Haiderpara Sporting Club",
-    "name_bengali": "\u09b9\u09be\u09af\u09bc\u09a6\u09be\u09b0\u09aa\u09be\u09a1\u09bc\u09be \u09b8\u09cd\u09aa\u09cb\u09b0\u09cd\u099f\u09bf\u0982 \u0995\u09cd\u09b2\u09be\u09ac",
+    "name_bengali": "হায়দারপাড়া স্পোর্টিং ক্লাব",
     "slug": "haiderpara-sarbojanin-samiti",
     "latitude": 26.7285,
     "longitude": 88.4385,
@@ -165,14 +165,14 @@
     "venue_name_2026": "Haiderpara Sporting Club Ground, Ward 39",
     "address_2026": "Haiderpara Main Road, Siliguri",
     "map_confidence": 0.93,
-    "image_url": "/images/pandals/cosmic.jpg",
+    "image_url": "/images/pandals/haiderpara-sarbojanin-samiti.jpg",
     "description": "Haiderpara Sporting Club is the undisputed crown jewel of Siliguri's Eastern Corridor, acclaimed for breathtaking conceptual themes, towering 80-foot facade structures, and immersive lighting systems that create an unforgettable festival spectacle.",
     "committee_name": "Haiderpara Sporting Club Committee"
   },
   {
     "id": "9f80f7d5-58f0-4994-8cd4-b192402c889f",
     "name": "Hakimpara Yuvak Sangha",
-    "name_bengali": "\u09b9\u09be\u0995\u09bf\u09ae\u09aa\u09be\u09a1\u09bc\u09be \u09af\u09c1\u09ac \u09b8\u0982\u0998",
+    "name_bengali": "হাকিমপাড়া যুব সংঘ",
     "slug": "hakimpara-yuvak-sangha",
     "latitude": 26.71852,
     "longitude": 88.42814,
@@ -199,7 +199,7 @@
     "venue_name_2026": "Hakimpara Yuvak Sangha Ground, Ward 15",
     "address_2026": "Hakimpara, Siliguri",
     "map_confidence": 0.92,
-    "image_url": "/images/pandals/traditional.jpg",
+    "image_url": "/images/pandals/hakimpara-yuvak-sangha.jpg",
     "description": "Steeped in aristocrat heritage, Hakimpara Yuvak Sangha features a resplendent Ekchala Pratima crafted in timeless Daaker Saaj, accompanied by continuous dhak recitals and traditional evening aarti that draw devotees seeking authentic devotion.",
     "committee_name": "Hakimpara Yuvak Sangha"
   },
@@ -218,7 +218,7 @@
     "rating_count": 580,
     "pujo_songi_score": 9.5,
     "estimated_visit_minutes": 45,
-    "theme": "AI & Future Horizons \u2014 Technology Meets Divinity",
+    "theme": "AI & Future Horizons — Technology Meets Divinity",
     "parking_available": true,
     "parking_notes": "Expansive club field parking for both two-wheelers and four-wheelers.",
     "access_notes": "Prime connectivity via NH10 / Asian Highway 2 at Matigara.",
@@ -233,7 +233,7 @@
     "venue_name_2026": null,
     "address_2026": "Matigara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/maya-devi-club.jpg",
     "description": "Matigara's Maya Devi Club is one of Siliguri's most talked-about theme innovators, famous for pushing creative boundaries. For 2026, the club presents an AI and futuristic technology concept, blending digital art with sacred devotion.",
     "committee_name": "Matigara Maya Devi Club Committee"
   },
@@ -267,7 +267,7 @@
     "venue_name_2026": "Jatiya Tarun Sangha Club Ground, Ashrampara",
     "address_2026": "Ashrampara, Siliguri",
     "map_confidence": 0.98,
-    "image_url": null,
+    "image_url": "/images/pandals/jatiya-tarun-sangha.jpg",
     "description": "A heavyweight institution of Central Siliguri, Jatiya Tarun Sangha is famous across Bengal for its breathtaking multi-tiered lighting displays from Chandannagar and innovative architectural theme pavilions that draw enormous night-time crowds.",
     "committee_name": "Jatiya Tarun Sangha"
   },
@@ -301,7 +301,7 @@
     "venue_name_2026": "Rabindra Sangha Club Ground, Rabindra Sarani, Hakimpara",
     "address_2026": "Rabindra Sarani, Hakimpara, Siliguri",
     "map_confidence": 0.98,
-    "image_url": null,
+    "image_url": "/images/pandals/rabindra-sangha.jpg",
     "description": "One of Siliguri's most revered cultural institutions, Rabindra Sangha presents an elegant, soul-stirring tribute to Rabindranath Tagore's aesthetic vision, featuring classical alpona, serene earthen clay idols, and evening cultural soirees.",
     "committee_name": "Rabindra Sangha Club"
   },
@@ -335,7 +335,7 @@
     "venue_name_2026": "Ujjwal Sangha Club Ground, Shaktigarh, Ward 31",
     "address_2026": "Shaktigarh, Ward 31, Siliguri",
     "map_confidence": 0.97,
-    "image_url": null,
+    "image_url": "/images/pandals/ujjwal-sangha.jpg",
     "description": "A crown jewel of Shaktigarh celebrating its 73rd edition, Ujjwal Sangha captivates thousands with an intricate, magnificent replica of the Ayodhya Ram Mandir hand-sculpted by master artisans from Jharkhand.",
     "committee_name": "Ujjwal Sangha Club"
   },
@@ -369,14 +369,14 @@
     "venue_name_2026": null,
     "address_2026": "Uttarayon Township, Matigara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/uttarayon-durga-puja.jpg",
     "description": "Held within North Bengal's premier modern township, Uttarayon Durga Puja is recognized for its sophisticated artistic taste, sprawling manicured grounds, musical concerts by renowned artists, and family-friendly carnival atmosphere.",
     "committee_name": "Uttarayon Puja Committee"
   },
   {
     "id": "dbd22e1c-dc56-4629-9b03-85225bc6cd87",
     "name": "Babupara Sarbojanin Durga Puja",
-    "name_bengali": "\u09ac\u09be\u09ac\u09c1Region \u09b8\u09be\u09b0\u09cd\u09ac\u099c\u09a8\u09c0\u09a8 \u09a6\u09c1\u09b0\u09cd\u0997\u09be\u09aa\u09c2\u099c\u09be",
+    "name_bengali": "বাবুRegion সার্বজনীন দুর্গাপূজা",
     "slug": "babupara-club-sarbojanin",
     "latitude": 26.715,
     "longitude": 88.425,
@@ -388,7 +388,7 @@
     "rating_count": 342,
     "pujo_songi_score": 9.5,
     "estimated_visit_minutes": 40,
-    "theme": "Terracotta Echoes of Bengal \u2014 Architectural Heritage",
+    "theme": "Terracotta Echoes of Bengal — Architectural Heritage",
     "parking_available": false,
     "parking_notes": "Limited 2-wheeler parking only; strictly pedestrian access after 4:00 PM.",
     "access_notes": "Pedestrian barricade lane from Subhash Pally route.",
@@ -403,7 +403,7 @@
     "venue_name_2026": "Babupara Club Ground, Ward 27",
     "address_2026": "Babupara Main Road, Ward 27, Siliguri",
     "map_confidence": 0.9,
-    "image_url": "/images/pandals/terracotta.jpg",
+    "image_url": "/images/pandals/babupara-club-sarbojanin.jpg",
     "description": "Historic central Siliguri puja venue celebrated for architectural craftsmanship and heritage aesthetics. Thousands gather annually to witness master artisans sculpt classical forms inspired by Bishnupur and regional terracotta temples.",
     "committee_name": "Babupara Club & Puja Committee"
   },
@@ -437,7 +437,7 @@
     "venue_name_2026": null,
     "address_2026": "Champasari, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/jatiya-shakti-sangha-pathagar.jpg",
     "description": "A powerhouse of North Siliguri's puja scene, Jatiya Shakti Sangha & Pathagar is celebrated for monumental temple replicas, intricate wooden and clay craftwork, and dramatic illumination arches spanning the entire Champasari thoroughfare.",
     "committee_name": "Jatiya Shakti Sangha & Pathagar"
   },
@@ -471,7 +471,7 @@
     "venue_name_2026": "Swastik Club Premises, Rathkhola",
     "address_2026": "Rathkhola, Siliguri",
     "map_confidence": 0.96,
-    "image_url": null,
+    "image_url": "/images/pandals/swastika-yubak-sangha.jpg",
     "description": "A premier flagship puja of Central Siliguri, Swastika Yubak Sangha is famous for its grand classical temple structures, sparkling chandeliers, and deep-rooted community traditions that draw immense crowds night after night.",
     "committee_name": "Swastik Club"
   },
@@ -505,7 +505,7 @@
     "venue_name_2026": null,
     "address_2026": "Babupara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/babupara-yma-club.jpg",
     "description": "Babupara YMA (Young Men's Association) Club is one of Babupara's biggest crowd-pullers, renowned across Siliguri for massive architectural pandals replicating historic palaces and grand temple complexes with dynamic synchronized illumination.",
     "committee_name": "Babupara Young Men's Association"
   },
@@ -539,7 +539,7 @@
     "venue_name_2026": "Baghajatin Park, Subhas Pally",
     "address_2026": "Baghajatin Park, Subhas Pally, Siliguri",
     "map_confidence": 0.95,
-    "image_url": null,
+    "image_url": "/images/pandals/baghajatin-park-durgotsab-committee.jpg",
     "description": "Anchored in Siliguri's premier municipal park, Baghajatin Park Durgotsab is a cornerstone of central Siliguri celebrations, featuring expansive park grounds, artisanal installations, vibrant food fairs, and nightly cultural performances.",
     "committee_name": "Baghajatin Park Durgotsab Committee"
   },
@@ -573,7 +573,7 @@
     "venue_name_2026": null,
     "address_2026": "Punjabi Para, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/jewels-athletic-club.jpg",
     "description": "Situated in vibrant Punjabi Para near Sevoke Road, Jewels Athletic Club lives up to its name with glittering glass, mirror, and crystal artwork, creating a luminous jewel-box mandap complemented by high-tech kinetic illumination.",
     "committee_name": "Jewels Athletic Club"
   },
@@ -607,7 +607,7 @@
     "venue_name_2026": "Shiv Mandir Complex Ground, Matigara",
     "address_2026": "Shiv Mandir, NH10, Matigara, Siliguri",
     "map_confidence": 0.94,
-    "image_url": null,
+    "image_url": "/images/pandals/shiv-mandir-durga-puja-committee.jpg",
     "description": "The grand western gateway puja of Siliguri at the historic Shiv Mandir complex. Features massive open-air pavilions, a vibrant multi-day mela, high-decibel dhak beats, and profound spiritual devotion.",
     "committee_name": "Shiv Mandir Complex Ground & Puja Committee"
   },
@@ -641,7 +641,7 @@
     "venue_name_2026": null,
     "address_2026": "Surya Nagar, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/surya-nagar-friends-union.jpg",
     "description": "Celebrating over 70 years of heritage, Surya Nagar Friends Union is a major Eastern Siliguri attraction, renowned for rural folk architecture sculpted from organic hogla leaves, bamboo weaves, and traditional clay art.",
     "committee_name": "Surya Nagar Friends Union Club"
   },
@@ -675,14 +675,14 @@
     "venue_name_2026": null,
     "address_2026": "Bharat Nagar / Dabgram, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/tarun-tirtha-club.jpg",
     "description": "Tarun Tirtha Club in Bharat Nagar is a standout participant in Siliguri's annual Puja Parikrama, famed for ambitious global themes (including Mayan and Egyptian architectural recreations) and grand Khuti Puja celebrations.",
     "committee_name": "Tarun Tirtha Club"
   },
   {
     "id": "3461d71e-32f2-4762-aac2-b1b437bf1265",
     "name": "Champasari Milan Sangha",
-    "name_bengali": "\u099a\u09ae\u09cd\u09aa\u09be\u09b8\u09be\u09b0\u09bf \u09ae\u09bf\u09b2\u09a8 \u09b8\u0982\u0998",
+    "name_bengali": "চম্পাসারি মিলন সংঘ",
     "slug": "champasari-pujabarir-theme",
     "latitude": 26.738,
     "longitude": 88.411,
@@ -709,7 +709,7 @@
     "venue_name_2026": "Champasari Milan Sangha Ground, Ward 46",
     "address_2026": "Champasari Main Road, Ward 46, Siliguri",
     "map_confidence": null,
-    "image_url": "/images/pandals/bamboo.jpg",
+    "image_url": "/images/pandals/champasari-pujabarir-theme.jpg",
     "description": "A marquee northern Siliguri destination organized by Champasari Milan Sangha, presenting an immersive Himalayan biodiversity sanctuary constructed with natural pine cones, bamboo weaves, and living plants emphasizing conservation of the Eastern Himalayas.",
     "committee_name": "Champasari Milan Sangha Puja Committee"
   },
@@ -743,7 +743,7 @@
     "venue_name_2026": null,
     "address_2026": "Pradhan Nagar, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/pradhannagar-durga-puja.jpg",
     "description": "The premier community showcase of Pradhan Nagar, this major commercial-hub puja features expansive architectural facade replicas, a bustling food street, and nightly cultural extravaganzas.",
     "committee_name": "Pradhannagar Sarbojanin Durga Puja Committee"
   },
@@ -777,7 +777,7 @@
     "venue_name_2026": null,
     "address_2026": "Subhas Pally, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/sanghashree-club.jpg",
     "description": "A premier centerpiece of Subhas Pally, Sanghashree Club is renowned for its magnificent temple-style pavilion, passionate evening Dhunuchi Naach performances, and a warm community bhog that unites thousands of residents.",
     "committee_name": "Siliguri Sanghashree Club"
   },
@@ -811,7 +811,7 @@
     "venue_name_2026": "Mallaguri Community Ground, Champasari / Mallaguri More",
     "address_2026": "Mallaguri More, Ward 46, Siliguri",
     "map_confidence": 0.88,
-    "image_url": null,
+    "image_url": "/images/pandals/uttar-mallaguri-sarbojanin-durga-puja-committee.jpg",
     "description": "Anchoring the northern junction portal of Siliguri at Mallaguri More, this major community puja features massive multi-pillared palace architecture, dynamic LED gates, and a bustling festive carnival.",
     "committee_name": "Uttar Mallaguri Sarbojanin Durga Puja Committee"
   },
@@ -845,7 +845,7 @@
     "venue_name_2026": "Rathkhola Sporting Ground, Ward 22",
     "address_2026": "Rathkhola Sporting Ground, Ward 22, Siliguri",
     "map_confidence": 0.94,
-    "image_url": null,
+    "image_url": "/images/pandals/rathkhola-sporting-club.jpg",
     "description": "Rathkhola Sporting Club is one of Siliguri's prominent community Durga Pujas located in Rathkhola. Known for Tradition Meets Innovation in Subhas Pally Corridor."
   },
   {
@@ -878,7 +878,7 @@
     "venue_name_2026": "Bharat Sevashram Sangha Ashram & Mandap, Milanpally",
     "address_2026": "Milanpally, Station Feeder Road, Siliguri",
     "map_confidence": 0.95,
-    "image_url": null,
+    "image_url": "/images/pandals/bharat-sevashram-sangha.jpg",
     "description": "Bharat Sevashram Sangha is one of Siliguri's prominent community Durga Pujas located in Milanpally. Known for Vedic Shastric Puja & Spiritual Chanting."
   },
   {
@@ -911,7 +911,7 @@
     "venue_name_2026": "Battala Ground, Fulbari",
     "address_2026": "Battala, Fulbari, Siliguri Suburban Area",
     "map_confidence": 0.96,
-    "image_url": null,
+    "image_url": "/images/pandals/fulbari-battala-durga-puja-committee.jpg",
     "description": "Fulbari Battala Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Fulbari. Known for Asun Ektu Bhabna Niye Jaan (Environmental Conservation)."
   },
   {
@@ -944,7 +944,7 @@
     "venue_name_2026": null,
     "address_2026": "Sevoke Road, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/mansarovar-club.jpg",
     "description": "Mansarovar Club is one of Siliguri's prominent community Durga Pujas located in Sevoke Road. Known for Sacred Mount Kailash & Lake Mansarovar."
   },
   {
@@ -977,7 +977,7 @@
     "venue_name_2026": null,
     "address_2026": "Milanpally / SF Road vicinity, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/milanpally-sarbojanin-durga-puja-committee.jpg",
     "description": "Milanpally Sarbojanin Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Milanpally. Known for Heritage Silk Weaves & Tant of Bengal."
   },
   {
@@ -1010,7 +1010,7 @@
     "venue_name_2026": null,
     "address_2026": "Hakimpara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/arunoday-sangha.jpg",
     "description": "Arunoday Sangha is one of Siliguri's prominent community Durga Pujas located in Hakimpara. Known for Temple Architecture of Ancient Bengal."
   },
   {
@@ -1028,7 +1028,7 @@
     "rating_count": 260,
     "pujo_songi_score": 9.1,
     "estimated_visit_minutes": 35,
-    "theme": "River Mahananda \u2014 Lifeline of North Bengal",
+    "theme": "River Mahananda — Lifeline of North Bengal",
     "parking_available": true,
     "parking_notes": "Roadside parking along riverbank promenade.",
     "access_notes": "Walkable from Airview More and Mahananda Bridge.",
@@ -1043,8 +1043,8 @@
     "venue_name_2026": null,
     "address_2026": "Mahananda Para, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Mahananda Sporting Club is one of Siliguri's prominent community Durga Pujas located in Mahananda Para. Known for River Mahananda \u2014 Lifeline of North Bengal."
+    "image_url": "/images/pandals/mahananda-sporting-club.jpg",
+    "description": "Mahananda Sporting Club is one of Siliguri's prominent community Durga Pujas located in Mahananda Para. Known for River Mahananda — Lifeline of North Bengal."
   },
   {
     "id": "b5b9fdea-23ed-47e8-9bf2-69de6ac8b6ae",
@@ -1076,7 +1076,7 @@
     "venue_name_2026": null,
     "address_2026": "Mallaguri, Pradhan Nagar, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/mallaguri-athletic-club.jpg",
     "description": "Mallaguri Athletic Club is one of Siliguri's prominent community Durga Pujas located in Pradhannagar. Known for Royal Rajasthan Fortress & Folk Traditions."
   },
   {
@@ -1109,7 +1109,7 @@
     "venue_name_2026": null,
     "address_2026": "Amtala, Ashrampara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/amtala-yuba-samity.jpg",
     "description": "Amtala Yuba Samity is one of Siliguri's prominent community Durga Pujas located in Ashrampara. Known for Traditional Rajbari Pratima & Sacred Chandi Path."
   },
   {
@@ -1142,13 +1142,13 @@
     "venue_name_2026": "Bandhab Sangha Ground, Ashutosh Mukherjee Road",
     "address_2026": "Ashutosh Mukherjee Road, College Para, Siliguri",
     "map_confidence": 0.92,
-    "image_url": null,
+    "image_url": "/images/pandals/bandhab-sangha.jpg",
     "description": "Bandhab Sangha is one of Siliguri's prominent community Durga Pujas located in College Para. Known for Classical Sabeki Pujo & Youth Cultural Fest."
   },
   {
     "id": "a159296a-a6af-4a55-93fc-149b6ee9e7ca",
     "name": "Deshbandhupara Friends Union",
-    "name_bengali": "\u09a6\u09c7\u09b6\u09ac\u09a8\u09cd\u09a7\u09c1Region \u09ab\u09cd\u09b0\u09c7\u09a8\u09cd\u09a1\u09b8 \u0987\u0989\u09a8\u09bf\u09af\u09bc\u09a8",
+    "name_bengali": "দেশবন্ধুRegion ফ্রেন্ডস ইউনিয়ন",
     "slug": "deshbandhupara-sarbojanin",
     "latitude": 26.70525,
     "longitude": 88.43125,
@@ -1175,7 +1175,7 @@
     "venue_name_2026": "Deshbandhupara Friends Union Ground",
     "address_2026": "Deshbandhupara Main Road, Siliguri",
     "map_confidence": 0.9,
-    "image_url": "/images/pandals/bellmetal.jpg",
+    "image_url": "/images/pandals/deshbandhupara-sarbojanin.jpg",
     "description": "Deshbandhupara Friends Union is one of Siliguri's prominent community Durga Pujas located in Deshbandhupara. Known for Heritage Bell Metal (Kansa) Craft of Bengal."
   },
   {
@@ -1208,7 +1208,7 @@
     "venue_name_2026": null,
     "address_2026": "Deshbandhupara / Purbanchal, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/kabi-sukanta-sisu-uddyan.jpg",
     "description": "Kabi Sukanta Sisu Uddyan is one of Siliguri's prominent community Durga Pujas located in Deshbandhupara. Known for Wonderland of Childhood & Fairy Tales."
   },
   {
@@ -1241,7 +1241,7 @@
     "venue_name_2026": null,
     "address_2026": "Milanpally, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/milanpally-yubak-brinda.jpg",
     "description": "Milanpally Yubak Brinda is one of Siliguri's prominent community Durga Pujas located in Milanpally. Known for Modern Kinetic Lighting & Temple Architecture."
   },
   {
@@ -1274,7 +1274,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/netaji-yuba-sangha.jpg",
     "description": "Netaji Yuba Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Patriotism & The Spirit of Azad Hind."
   },
   {
@@ -1292,7 +1292,7 @@
     "rating_count": 235,
     "pujo_songi_score": 9.1,
     "estimated_visit_minutes": 35,
-    "theme": "Strength & Spirituality \u2014 Swami Vivekananda's Call",
+    "theme": "Strength & Spirituality — Swami Vivekananda's Call",
     "parking_available": true,
     "parking_notes": "Paid parking stands around Panitanki More.",
     "access_notes": "Immediate access from Panitanki More.",
@@ -1307,8 +1307,8 @@
     "venue_name_2026": null,
     "address_2026": "Panitanki More vicinity, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Ramkrishna Byam Siksha Samiti is one of Siliguri's prominent community Durga Pujas located in Hakimpara. Known for Strength & Spirituality \u2014 Swami Vivekananda's Call."
+    "image_url": "/images/pandals/ramkrishna-byam-siksha-samiti.jpg",
+    "description": "Ramkrishna Byam Siksha Samiti is one of Siliguri's prominent community Durga Pujas located in Hakimpara. Known for Strength & Spirituality — Swami Vivekananda's Call."
   },
   {
     "id": "a4b363ed-92c5-4dcd-811d-f9d985c2a5db",
@@ -1325,7 +1325,7 @@
     "rating_count": 320,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 40,
-    "theme": "Gateway to the Hills \u2014 North-East Cultural Synthesis",
+    "theme": "Gateway to the Hills — North-East Cultural Synthesis",
     "parking_available": true,
     "parking_notes": "Expansive bazaar ground parking available for both four-wheelers and two-wheelers.",
     "access_notes": "Direct highway accessibility along Sevoke Road (NH10).",
@@ -1340,8 +1340,8 @@
     "venue_name_2026": "Salugara Bazaar Ground, Sevoke Road",
     "address_2026": "Salugara Bazaar Ground, Ward 42, Siliguri",
     "map_confidence": 0.88,
-    "image_url": null,
-    "description": "Salugara Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Salugara. Known for Gateway to the Hills \u2014 North-East Cultural Synthesis."
+    "image_url": "/images/pandals/salugara-durga-puja-committee.jpg",
+    "description": "Salugara Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Salugara. Known for Gateway to the Hills — North-East Cultural Synthesis."
   },
   {
     "id": "88ee2240-083b-49e7-8c14-4c1fe2b0c15c",
@@ -1373,7 +1373,7 @@
     "venue_name_2026": null,
     "address_2026": "Sevoke Road, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/sarada-sevok-sangha.jpg",
     "description": "Sarada Sevok Sangha is one of Siliguri's prominent community Durga Pujas located in Sevoke Road. Known for Holy Mother Sarada Devi's Compassion & Grace."
   },
   {
@@ -1406,7 +1406,7 @@
     "venue_name_2026": null,
     "address_2026": "Shreepally, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/shreepally-nagarik-committee.jpg",
     "description": "Shreepally Nagarik Committee is one of Siliguri's prominent community Durga Pujas located in Shreepally. Known for Royal Rajbari Courtyard & Classical Alpona."
   },
   {
@@ -1439,7 +1439,7 @@
     "venue_name_2026": null,
     "address_2026": "South Colony, New Jalpaiguri / Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/south-colony-sporting-club.jpg",
     "description": "South Colony Sporting Club is one of Siliguri's prominent community Durga Pujas located in South Colony. Known for South Bengal Royal Architecture & Illumination Gates."
   },
   {
@@ -1472,7 +1472,7 @@
     "venue_name_2026": null,
     "address_2026": "Haiderpara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/surja-sikha-samiti.jpg",
     "description": "Surja Sikha Samiti is one of Siliguri's prominent community Durga Pujas located in Haiderpara. Known for Solar Energy & The Divine Sun God (Surya Dev)."
   },
   {
@@ -1505,7 +1505,7 @@
     "venue_name_2026": "College Para Ground, Satinath Bhaduri Sarani",
     "address_2026": "College Para, Siliguri",
     "map_confidence": 0.88,
-    "image_url": null,
+    "image_url": "/images/pandals/college-para-puja-committee.jpg",
     "description": "College Para Puja Committee is one of Siliguri's prominent community Durga Pujas located in College Para. Known for Bengal Literary Renaissance & Traditional Ekchala."
   },
   {
@@ -1538,7 +1538,7 @@
     "venue_name_2026": null,
     "address_2026": "Ghogomali / Subhas Pally Border, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/janashree-club.jpg",
     "description": "Janashree Club is one of Siliguri's prominent community Durga Pujas located in Ghogomali. Known for Terracotta Temple of Bishnupur."
   },
   {
@@ -1571,7 +1571,7 @@
     "venue_name_2026": null,
     "address_2026": "Kachari Road / Court More, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/kachari-road-yubak-sangha.jpg",
     "description": "Kachari Road Yubak Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Heritage Judiciary & Rule of Dharma."
   },
   {
@@ -1589,7 +1589,7 @@
     "rating_count": 205,
     "pujo_songi_score": 9,
     "estimated_visit_minutes": 35,
-    "theme": "Golden Bengal \u2014 Handcrafted Sholapith Architecture",
+    "theme": "Golden Bengal — Handcrafted Sholapith Architecture",
     "parking_available": false,
     "parking_notes": "Bidhan Market parking zone.",
     "access_notes": "Central city location near Bidhan Road.",
@@ -1604,8 +1604,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Nava Jagriti Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Golden Bengal \u2014 Handcrafted Sholapith Architecture."
+    "image_url": "/images/pandals/nava-jagriti-sangha.jpg",
+    "description": "Nava Jagriti Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Golden Bengal — Handcrafted Sholapith Architecture."
   },
   {
     "id": "03bc4732-e6f5-47aa-8cce-d9825a037cdf",
@@ -1622,7 +1622,7 @@
     "rating_count": 220,
     "pujo_songi_score": 9,
     "estimated_visit_minutes": 35,
-    "theme": "The Temple of Knowledge \u2014 Books & Enlightenment",
+    "theme": "The Temple of Knowledge — Books & Enlightenment",
     "parking_available": true,
     "parking_notes": "Club field parking for two-wheelers.",
     "access_notes": "Approach via Shaktigarh Main Road.",
@@ -1637,8 +1637,8 @@
     "venue_name_2026": null,
     "address_2026": "Shaktigarh, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Saktigarh Pathagar is one of Siliguri's prominent community Durga Pujas located in Shaktigarh. Known for The Temple of Knowledge \u2014 Books & Enlightenment."
+    "image_url": "/images/pandals/saktigarh-pathagar.jpg",
+    "description": "Saktigarh Pathagar is one of Siliguri's prominent community Durga Pujas located in Shaktigarh. Known for The Temple of Knowledge — Books & Enlightenment."
   },
   {
     "id": "a75faebb-5bc8-4d26-b221-0c95117b34af",
@@ -1670,7 +1670,7 @@
     "venue_name_2026": null,
     "address_2026": "Shaktigarh, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/saktisong-club.jpg",
     "description": "Saktisong Club is one of Siliguri's prominent community Durga Pujas located in Shaktigarh. Known for Royal Bengal Folk Architecture & Puppet Craft."
   },
   {
@@ -1688,7 +1688,7 @@
     "rating_count": 210,
     "pujo_songi_score": 9,
     "estimated_visit_minutes": 35,
-    "theme": "Abode of Peace \u2014 Buddhist & Shastric Synthesis",
+    "theme": "Abode of Peace — Buddhist & Shastric Synthesis",
     "parking_available": true,
     "parking_notes": "Open field parking on adjacent community school grounds.",
     "access_notes": "Connected via Eastern Bypass and Shanti Nagar main road.",
@@ -1703,8 +1703,8 @@
     "venue_name_2026": null,
     "address_2026": "Shanti Nagar, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Shanti Nagar Sporting Club is one of Siliguri's prominent community Durga Pujas located in Shanti Nagar. Known for Abode of Peace \u2014 Buddhist & Shastric Synthesis."
+    "image_url": "/images/pandals/shanti-nagar-sporting-club.jpg",
+    "description": "Shanti Nagar Sporting Club is one of Siliguri's prominent community Durga Pujas located in Shanti Nagar. Known for Abode of Peace — Buddhist & Shastric Synthesis."
   },
   {
     "id": "00c88f8d-eb89-45b1-aa96-7ed73b15f0bb",
@@ -1736,7 +1736,7 @@
     "venue_name_2026": "Sukanta Sarani Ground, Vidyasagar Pally",
     "address_2026": "Sukanta Sarani, Vidyasagar Pally, Siliguri",
     "map_confidence": 0.87,
-    "image_url": null,
+    "image_url": "/images/pandals/sukanta-sporting-union-club.jpg",
     "description": "Sukanta Sporting Union Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Poet Sukanta's Vision of a Better Tomorrow."
   },
   {
@@ -1754,7 +1754,7 @@
     "rating_count": 215,
     "pujo_songi_score": 9,
     "estimated_visit_minutes": 35,
-    "theme": "Dawn of Knowledge \u2014 The Upanishadic Path",
+    "theme": "Dawn of Knowledge — The Upanishadic Path",
     "parking_available": false,
     "parking_notes": "Two-wheeler parking at Vivekananda Pally corner.",
     "access_notes": "Walkable from Ashrampara and Panitanki More.",
@@ -1769,8 +1769,8 @@
     "venue_name_2026": null,
     "address_2026": "East Vivekananda Pally / Hakimpara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Udayan Samiti is one of Siliguri's prominent community Durga Pujas located in Hakimpara. Known for Dawn of Knowledge \u2014 The Upanishadic Path."
+    "image_url": "/images/pandals/udayan-samiti.jpg",
+    "description": "Udayan Samiti is one of Siliguri's prominent community Durga Pujas located in Hakimpara. Known for Dawn of Knowledge — The Upanishadic Path."
   },
   {
     "id": "5f12a13c-1a93-448c-bd09-fb963526eda4",
@@ -1802,7 +1802,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/agragami-sangha.jpg",
     "description": "Agragami Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Bengal Terracotta & Rural Folk Artistry."
   },
   {
@@ -1820,7 +1820,7 @@
     "rating_count": 165,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Harmony of Nature \u2014 Green Earth Eco Mandap",
+    "theme": "Harmony of Nature — Green Earth Eco Mandap",
     "parking_available": false,
     "parking_notes": "Limited roadside parking on Hill Cart Road; visitors advised to walk.",
     "access_notes": "Short walk from Court More or Hill Cart Road.",
@@ -1835,8 +1835,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Agrani Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Harmony of Nature \u2014 Green Earth Eco Mandap."
+    "image_url": "/images/pandals/agrani-sangha.jpg",
+    "description": "Agrani Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Harmony of Nature — Green Earth Eco Mandap."
   },
   {
     "id": "ea5f8e95-5dbd-4e7b-b870-71bc38307c35",
@@ -1868,7 +1868,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/balaka-club.jpg",
     "description": "Balaka Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Shantiniketan Alpona & Classical Rabindrik Heritage."
   },
   {
@@ -1886,7 +1886,7 @@
     "rating_count": 180,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Sabeki Parampara \u2014 Traditional Bengal Pratima",
+    "theme": "Sabeki Parampara — Traditional Bengal Pratima",
     "parking_available": false,
     "parking_notes": "Two-wheeler parking on nearby side lanes; four-wheelers not recommended.",
     "access_notes": "Approach via Deshbandhupara Main Road.",
@@ -1901,8 +1901,8 @@
     "venue_name_2026": null,
     "address_2026": "Deshbandhu Para, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Desh Bandhu Sporting Union is one of Siliguri's prominent community Durga Pujas located in Deshbandhupara. Known for Sabeki Parampara \u2014 Traditional Bengal Pratima."
+    "image_url": "/images/pandals/desh-bandhu-sporting-union.jpg",
+    "description": "Desh Bandhu Sporting Union is one of Siliguri's prominent community Durga Pujas located in Deshbandhupara. Known for Sabeki Parampara — Traditional Bengal Pratima."
   },
   {
     "id": "e8de673d-7a50-4424-be83-cc8704d8bdc5",
@@ -1934,7 +1934,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/himachal-sangha.jpg",
     "description": "Himachal Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Himalayan Serenity & Alpine Monasteries."
   },
   {
@@ -1967,7 +1967,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/jagriti-sangha.jpg",
     "description": "Jagriti Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Women Empowerment & Devi Shakti."
   },
   {
@@ -1985,7 +1985,7 @@
     "rating_count": 160,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Sprouting Life \u2014 Environmental Renaissance",
+    "theme": "Sprouting Life — Environmental Renaissance",
     "parking_available": false,
     "parking_notes": "Roadside parking in residential sectors before evening rush.",
     "access_notes": "Short walk from Siliguri Junction station.",
@@ -2000,8 +2000,8 @@
     "venue_name_2026": null,
     "address_2026": "Pradhan Nagar, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Nabankur Sangha is one of Siliguri's prominent community Durga Pujas located in Pradhannagar. Known for Sprouting Life \u2014 Environmental Renaissance."
+    "image_url": "/images/pandals/nabankur-sangha.jpg",
+    "description": "Nabankur Sangha is one of Siliguri's prominent community Durga Pujas located in Pradhannagar. Known for Sprouting Life — Environmental Renaissance."
   },
   {
     "id": "32e8b666-13a9-4162-b5fd-6db9bc734827",
@@ -2033,7 +2033,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/renaissance-club.jpg",
     "description": "Renaissance Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Bengal Renaissance & Social Enlightenment."
   },
   {
@@ -2051,7 +2051,7 @@
     "rating_count": 175,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Dignity of Labor \u2014 The Industrial Crafts of Bengal",
+    "theme": "Dignity of Labor — The Industrial Crafts of Bengal",
     "parking_available": true,
     "parking_notes": "Generous industrial complex parking available.",
     "access_notes": "Direct transit access from Eastern Bypass.",
@@ -2066,8 +2066,8 @@
     "venue_name_2026": null,
     "address_2026": "Shilpanchal, Dabgram, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Shilpanchal Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Dabgram. Known for Dignity of Labor \u2014 The Industrial Crafts of Bengal."
+    "image_url": "/images/pandals/shilpanchal-durga-puja-committee.jpg",
+    "description": "Shilpanchal Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Dabgram. Known for Dignity of Labor — The Industrial Crafts of Bengal."
   },
   {
     "id": "44def94f-30c9-49d1-8156-67bd8c148440",
@@ -2084,7 +2084,7 @@
     "rating_count": 175,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Sunrise Over the Himalayas \u2014 The Golden Dawn",
+    "theme": "Sunrise Over the Himalayas — The Golden Dawn",
     "parking_available": false,
     "parking_notes": "Park at Stadium complex and walk into Babupara.",
     "access_notes": "Walking corridor from Church Road.",
@@ -2099,8 +2099,8 @@
     "venue_name_2026": null,
     "address_2026": "Babupara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Sunrise Club is one of Siliguri's prominent community Durga Pujas located in Babupara. Known for Sunrise Over the Himalayas \u2014 The Golden Dawn."
+    "image_url": "/images/pandals/sunrise-club.jpg",
+    "description": "Sunrise Club is one of Siliguri's prominent community Durga Pujas located in Babupara. Known for Sunrise Over the Himalayas — The Golden Dawn."
   },
   {
     "id": "b76f4f04-c0b1-40e3-9d18-2d97c9abbb85",
@@ -2117,7 +2117,7 @@
     "rating_count": 165,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Triumph of Goodness \u2014 Victory of Light Over Darkness",
+    "theme": "Triumph of Goodness — Victory of Light Over Darkness",
     "parking_available": false,
     "parking_notes": "Walk-in venue; park at Kanchenjunga Stadium complex.",
     "access_notes": "Pedestrian route from Subhas Pally and Church Road.",
@@ -2132,8 +2132,8 @@
     "venue_name_2026": null,
     "address_2026": "Babupara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Winners Club is one of Siliguri's prominent community Durga Pujas located in Babupara. Known for Triumph of Goodness \u2014 Victory of Light Over Darkness."
+    "image_url": "/images/pandals/winners-club.jpg",
+    "description": "Winners Club is one of Siliguri's prominent community Durga Pujas located in Babupara. Known for Triumph of Goodness — Victory of Light Over Darkness."
   },
   {
     "id": "05039d81-43ff-4673-a95c-54bab605ecf1",
@@ -2165,7 +2165,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/abahani-chakra-sports-cultural-club.jpg",
     "description": "Abahani Chakra Sports & Cultural Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Sabeki Durga with Traditional Daker Saaj & Classical Rhythms."
   },
   {
@@ -2198,7 +2198,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri Town",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/aurobinda-yubak-sangha.jpg",
     "description": "Aurobinda Yubak Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Dokra Metal Art & Tribal Folklore."
   },
   {
@@ -2231,7 +2231,7 @@
     "venue_name_2026": null,
     "address_2026": "Champasari / Circuit House vicinity, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/ganesh-ghosh-colony.jpg",
     "description": "Ganesh Ghosh Colony is one of Siliguri's prominent community Durga Pujas located in Champasari. Known for Rural Bengal Craft & Patachitra Storytelling."
   },
   {
@@ -2264,7 +2264,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/gts-club.jpg",
     "description": "G.T.S. Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Classical Shastric Sanctum with Brass Illumination."
   },
   {
@@ -2297,7 +2297,7 @@
     "venue_name_2026": null,
     "address_2026": "Hill Cart Road / Pradhan Nagar, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/hotel-mainak.jpg",
     "description": "Hotel Mainak is one of Siliguri's prominent community Durga Pujas located in Pradhannagar. Known for Bengal Tourism Heritage & Folk Festivities."
   },
   {
@@ -2330,7 +2330,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/mitra-samilani.jpg",
     "description": "Mitra Samilani is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for The Golden Age of Bengali Theater (Jatra & Natok)."
   },
   {
@@ -2348,7 +2348,7 @@
     "rating_count": 145,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Warrior Goddess \u2014 Devi Durga's Celestial Armory",
+    "theme": "Warrior Goddess — Devi Durga's Celestial Armory",
     "parking_available": false,
     "parking_notes": "Roadside parking restricted; use Bidhan Market stand.",
     "access_notes": "Walkable from Bidhan Road.",
@@ -2363,8 +2363,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Sabyasachi Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Warrior Goddess \u2014 Devi Durga's Celestial Armory."
+    "image_url": "/images/pandals/sabyasachi-sangha.jpg",
+    "description": "Sabyasachi Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Warrior Goddess — Devi Durga's Celestial Armory."
   },
   {
     "id": "88aec9ff-8568-4419-a789-beb11e0257db",
@@ -2381,7 +2381,7 @@
     "rating_count": 145,
     "pujo_songi_score": 8.8,
     "estimated_visit_minutes": 30,
-    "theme": "Resurgent Youth \u2014 Protecting Bengal's Heritage",
+    "theme": "Resurgent Youth — Protecting Bengal's Heritage",
     "parking_available": false,
     "parking_notes": "Park near Town Club or Mahananda riverfront.",
     "access_notes": "Walkable from Airview More.",
@@ -2396,8 +2396,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Siliguri Jatiyo Yubak Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Resurgent Youth \u2014 Protecting Bengal's Heritage."
+    "image_url": "/images/pandals/siliguri-jatiyo-yubak-sangha.jpg",
+    "description": "Siliguri Jatiyo Yubak Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Resurgent Youth — Protecting Bengal's Heritage."
   },
   {
     "id": "03259ad3-5934-419e-aff2-025e4d5860a4",
@@ -2414,7 +2414,7 @@
     "rating_count": 140,
     "pujo_songi_score": 8.9,
     "estimated_visit_minutes": 30,
-    "theme": "Eternal Shaktism \u2014 The Ten Mahavidyas",
+    "theme": "Eternal Shaktism — The Ten Mahavidyas",
     "parking_available": false,
     "parking_notes": "Bidhan Market public stand.",
     "access_notes": "Located in central Siliguri Town.",
@@ -2429,8 +2429,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "S.N.N.A.Y. Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Eternal Shaktism \u2014 The Ten Mahavidyas."
+    "image_url": "/images/pandals/snnay-sangha.jpg",
+    "description": "S.N.N.A.Y. Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Eternal Shaktism — The Ten Mahavidyas."
   },
   {
     "id": "16d4b0e9-eb6e-43ef-a1f7-9ae98dfb947f",
@@ -2447,7 +2447,7 @@
     "rating_count": 145,
     "pujo_songi_score": 8.8,
     "estimated_visit_minutes": 30,
-    "theme": "Fragrance of Shiuli \u2014 Autumn in Bengal",
+    "theme": "Fragrance of Shiuli — Autumn in Bengal",
     "parking_available": false,
     "parking_notes": "Bidhan Road outer parking.",
     "access_notes": "Walkable from Venus More.",
@@ -2462,8 +2462,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Surabhi Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Fragrance of Shiuli \u2014 Autumn in Bengal."
+    "image_url": "/images/pandals/surabhi-sangha.jpg",
+    "description": "Surabhi Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Fragrance of Shiuli — Autumn in Bengal."
   },
   {
     "id": "9ee59abd-a7f2-4f3a-a9bb-6111fbedca63",
@@ -2480,7 +2480,7 @@
     "rating_count": 135,
     "pujo_songi_score": 8.8,
     "estimated_visit_minutes": 30,
-    "theme": "Spiritual Radiance \u2014 Sri Aurobindo's Vision of Peace",
+    "theme": "Spiritual Radiance — Sri Aurobindo's Vision of Peace",
     "parking_available": false,
     "parking_notes": "Limited two-wheeler parking near Town Club ground.",
     "access_notes": "Approach via Bidhan Road or SF Road.",
@@ -2495,8 +2495,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Aurobinda Inter Union is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Spiritual Radiance \u2014 Sri Aurobindo's Vision of Peace."
+    "image_url": "/images/pandals/aurobinda-inter-union.jpg",
+    "description": "Aurobinda Inter Union is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Spiritual Radiance — Sri Aurobindo's Vision of Peace."
   },
   {
     "id": "cf9c9b1c-4930-4d2c-8361-8eaab78cc2f6",
@@ -2528,7 +2528,7 @@
     "venue_name_2026": "Railway Institute Ground (Superseded for 2026)",
     "address_2026": "Central Colony, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/central-colony-rly-inst.jpg",
     "description": "Central Colony (Rly. Inst.) is one of Siliguri's prominent community Durga Pujas located in Central Colony. Known for Railway Heritage & Golden Jubilee Commemoration."
   },
   {
@@ -2546,7 +2546,7 @@
     "rating_count": 125,
     "pujo_songi_score": 8.8,
     "estimated_visit_minutes": 30,
-    "theme": "Golden Harvest \u2014 Celebration of Bengal's Agriculture",
+    "theme": "Golden Harvest — Celebration of Bengal's Agriculture",
     "parking_available": false,
     "parking_notes": "Two-wheeler parking on club approach lane.",
     "access_notes": "Walkable from Mahananda riverbank.",
@@ -2561,8 +2561,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Gitalpara Sporting Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Golden Harvest \u2014 Celebration of Bengal's Agriculture."
+    "image_url": "/images/pandals/gitalpara-sporting-club.jpg",
+    "description": "Gitalpara Sporting Club is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Golden Harvest — Celebration of Bengal's Agriculture."
   },
   {
     "id": "eeb9d3d0-5d8d-42bd-a347-76a203548dc3",
@@ -2594,7 +2594,7 @@
     "venue_name_2026": null,
     "address_2026": "Matigara, Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/himalayan-kanya-housing-society.jpg",
     "description": "Himalayan Kanya Housing Society is one of Siliguri's prominent community Durga Pujas located in Matigara. Known for Community Warmth & Cultural Amity."
   },
   {
@@ -2612,7 +2612,7 @@
     "rating_count": 140,
     "pujo_songi_score": 8.8,
     "estimated_visit_minutes": 30,
-    "theme": "Unity in Diversity \u2014 The Cultural Mosaic of India",
+    "theme": "Unity in Diversity — The Cultural Mosaic of India",
     "parking_available": false,
     "parking_notes": "Two-wheeler parking at club boundary.",
     "access_notes": "Convenient walk from SF Road.",
@@ -2627,8 +2627,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Jogajog Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Unity in Diversity \u2014 The Cultural Mosaic of India."
+    "image_url": "/images/pandals/jogajog-sangha.jpg",
+    "description": "Jogajog Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Unity in Diversity — The Cultural Mosaic of India."
   },
   {
     "id": "3cdbdb08-4af7-474d-9b8c-f0190e1ac826",
@@ -2645,7 +2645,7 @@
     "rating_count": 140,
     "pujo_songi_score": 8.8,
     "estimated_visit_minutes": 30,
-    "theme": "Mother's Grace \u2014 The Sanctum of Compassion",
+    "theme": "Mother's Grace — The Sanctum of Compassion",
     "parking_available": false,
     "parking_notes": "Walk-in venue; park at nearby municipal stands.",
     "access_notes": "Accessible from Church Road.",
@@ -2660,8 +2660,8 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
-    "description": "Mayer Ichcha Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Mother's Grace \u2014 The Sanctum of Compassion."
+    "image_url": "/images/pandals/mayer-ichcha-durga-puja-committee.jpg",
+    "description": "Mayer Ichcha Durga Puja Committee is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Mother's Grace — The Sanctum of Compassion."
   },
   {
     "id": "9bce8106-bc00-457d-b637-5e162a1ba69c",
@@ -2693,7 +2693,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/nabin-sangha.jpg",
     "description": "Nabin Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Youth Dynamism & Traditional Sabeki Idol."
   },
   {
@@ -2726,7 +2726,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/sanghati-durgotsab-committee.jpg",
     "description": "Sanghati Durgotsab Committee is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Solidarity & Community Harmony."
   },
   {
@@ -2759,7 +2759,7 @@
     "venue_name_2026": null,
     "address_2026": "Siliguri",
     "map_confidence": 0,
-    "image_url": null,
+    "image_url": "/images/pandals/siliguri-kishore-sangha.jpg",
     "description": "Siliguri Kishore Sangha is one of Siliguri's prominent community Durga Pujas located in Siliguri Town. Known for Joy of Childhood & Traditional Clay Toys."
   }
 ]

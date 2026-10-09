@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-// Local JPG/PNG illustrations have WebP copies next to them (name.webp at 1600px, name-sm.webp at 800px)
-const OPTIMISED = /^\/images\/.+\.(jpe?g|png)$/i;
+// Local images have WebP copies next to them (name.webp and name-sm.webp at 800px)
+const OPTIMISED = /^\/images\/.+\.(jpe?g|png|webp)$/i;
 const webpOf = (src) => {
-  const base = src.replace(/\.(jpe?g|png)$/i, '');
+  const base = src.replace(/(-sm)?\.(jpe?g|png|webp)$/i, '');
   return { src: `${base}.webp`, srcSet: `${base}-sm.webp 800w, ${base}.webp 1600w` };
 };
 

@@ -1,45 +1,51 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import pandalsData from '../data/pandals.json';
+import React, { createContext, useContext, useState, useEffect, startTransition } from 'react';
 
 const PlanContext = createContext();
+const STORAGE_KEY = 'pujo_pandal_saved';
+
+const persist = (ids) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  } catch {
+    // storage blocked (private mode) — the plan just won't persist
+  }
+};
 
 export function PlanProvider({ children }) {
-  const [savedPandalIds, setSavedPandalIds] = useState(() => {
-    try {
-      const stored = localStorage.getItem('pujo_pandal_saved') || localStorage.getItem('pujo_songi_saved');
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  });
+  // Starts empty on the server and on the first client render (so hydration matches),
+  // then loads the visitor's saved pandals from this device.
+  const [savedPandalIds, setSavedPandalIds] = useState([]);
 
   const [userLocation, setUserLocation] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
-  const [locationError, setLocationError] = useState(null);
 
   useEffect(() => {
+    let stored = null;
     try {
-      localStorage.setItem('pujo_pandal_saved', JSON.stringify(savedPandalIds));
-    } catch (e) {
-      console.error(e);
+      stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || localStorage.getItem('pujo_songi_saved') || 'null');
+    } catch {
+      // ignore unreadable storage
     }
-  }, [savedPandalIds]);
+    // A transition lets React finish hydrating the page before the saved state lands
+    if (Array.isArray(stored) && stored.length) startTransition(() => setSavedPandalIds(stored));
+  }, []);
 
   const toggleSave = (pandalId) => {
-    setSavedPandalIds((prev) =>
-      prev.includes(pandalId) ? prev.filter((id) => id !== pandalId) : [...prev, pandalId]
-    );
+    setSavedPandalIds((prev) => {
+      const next = prev.includes(pandalId) ? prev.filter((id) => id !== pandalId) : [...prev, pandalId];
+      persist(next);
+      return next;
+    });
   };
 
   const isSaved = (pandalId) => savedPandalIds.includes(pandalId);
 
   const requestUserLocation = () => {
     if (!navigator.geolocation) {
-      setLocationError('Geolocation is not supported by your browser.');
+      setUserLocation({ lat: 26.7271, lng: 88.4289, isSimulated: true });
       return;
     }
     setIsLocating(true);
-    setLocationError(null);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setIsLocating(false);
@@ -48,49 +54,28 @@ export function PlanProvider({ children }) {
           lng: pos.coords.longitude,
         });
       },
-      (err) => {
+      () => {
         setIsLocating(false);
-        // Default to Siliguri center if denied
-        setLocationError(err.message || 'Location access denied. Using Siliguri center.');
+        // Default to Siliguri centre if denied
         setUserLocation({
           lat: 26.7271,
           lng: 88.4289,
-          isSimulated: true
+          isSimulated: true,
         });
       },
       { timeout: 10000 }
     );
   };
 
-  // Helper to calculate distance in km using Haversine formula
-  const getDistanceKm = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Earth's radius in km
-    const dLat = ((lat2 - lat1) * Math.PI) / 180;
-    const dLon = ((lon2 - lon1) * Math.PI) / 180;
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  };
-
-  const savedPandals = pandalsData.filter((p) => savedPandalIds.includes(p.id));
-
   return (
     <PlanContext.Provider
       value={{
         savedPandalIds,
-        savedPandals,
         toggleSave,
         isSaved,
         userLocation,
         isLocating,
-        locationError,
         requestUserLocation,
-        getDistanceKm,
       }}
     >
       {children}

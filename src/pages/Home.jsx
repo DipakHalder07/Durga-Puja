@@ -15,8 +15,13 @@ import pandalsData from '../data/pandals.json';
 import eventsData from '../data/events.json';
 import routesData from '../data/routes.json';
 import { BLOG_POSTS } from '../data/blog';
-import { PostCover } from '../components/BlogBlocks';
+import { PostCover, STATS } from '../components/BlogBlocks';
+import Faq from '../components/Faq';
 import { useSeo } from '../lib/seo';
+import { organization, website, festival2026, faqPage } from '../lib/schema';
+import { formatDate, eventStart } from '../lib/dates';
+import { zoneTable } from '../lib/blogQueries';
+import { AREA_STATS, LANDMARKS, distanceKm } from '../lib/geo';
 
 const HERO_PHOTOS = ['siliguri-palace-night', 'siliguri-pandal-red', 'siliguri-idol-golden'];
 
@@ -49,36 +54,71 @@ const SILIGURI_GALLERY = [
   { slug: 'siliguri-mahananda', span: '', caption: 'Mahananda & Balason rivers' },
 ];
 
-const ZONES = [
-  { name: 'South-Central Siliguri', bn: 'দক্ষিণ-মধ্য', areas: 'Deshbandhupara, Subhas Pally, Babupara, Ashrampara', count: 28, Sketch: PandalSketch },
-  { name: 'Sevoke Road & East', bn: 'সেবক রোড', areas: 'Haiderpara, Salugara, Punjabi Para, Ghogomali', count: 18, Sketch: DhakSketch },
-  { name: 'North & Junction', bn: 'উত্তর', areas: 'Champasari, Pradhannagar, Mallaguri, Central Colony', count: 22, Sketch: KashSketch },
-  { name: 'Matigara & West', bn: 'মাটিগাড়া', areas: 'Uttarayon, Matigara, Shiv Mandir', count: 15, Sketch: DhunuchiSketch },
+// Zone cards are built from the pandal data, so counts stay correct when pandals change
+const ZONE_STYLE = {
+  'Central Siliguri': { bn: 'মধ্য শিলিগুড়ি', anchor: 'central', Sketch: PandalSketch },
+  'South & South-Central': { bn: 'দক্ষিণ', anchor: 'south', Sketch: LotusSketch },
+  'East & Sevoke Road corridor': { bn: 'সেবক রোড', anchor: 'east', Sketch: DhakSketch },
+  'North Siliguri': { bn: 'উত্তর', anchor: 'north', Sketch: KashSketch },
+  'West, Junction & Rajganj': { bn: 'পশ্চিম', anchor: 'west', Sketch: DhunuchiSketch },
+};
+const ZONES = zoneTable(pandalsData).map((z) => ({ ...z, ...ZONE_STYLE[z.name] }));
+const TOP_PANDALS = [...pandalsData].sort((a, b) => b.pujo_songi_score - a.pujo_songi_score || a.name.localeCompare(b.name)).slice(0, 5);
+const TOP_AREAS = [...AREA_STATS].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)).slice(0, 6);
+const CENTRE = { lat: 26.71117, lng: 88.42605 }; // Venus More
+const kmFromCentre = (key) => Math.round(distanceKm(CENTRE, LANDMARKS.find((l) => l.key === key)));
+
+const HOME_FAQS = [
+  {
+    q: 'When is Durga Puja 2026 in Siliguri?',
+    a: `Mahalaya is on **Saturday, 10 October 2026**. The main Pujo days run from **Maha Shashti on Saturday, 17 October** to **Bijoya Dashami on Wednesday, 21 October 2026**, with Saptami on 18 October, Ashtami on 19 October and Navami on 20 October. See the [day-by-day Puja schedule](/puja-schedule).`,
+  },
+  {
+    q: 'How many Durga Puja pandals are there in Siliguri in 2026?',
+    a: `Pujo Pandal lists **${STATS.total} Durga Puja pandals across ${STATS.areas} Siliguri neighbourhoods** for 2026, each pinned at its 2026 venue on the [Siliguri Puja map](/siliguri-puja-map). Central Siliguri has the most, with ${ZONES[0].count} pandals.`,
+  },
+  {
+    q: 'Which are the best Durga Puja pandals in Siliguri this year?',
+    a: `The highest-rated pandals on our 2026 list are ${TOP_PANDALS.map((p) => `[${p.name}](/pandals/${p.slug}) (${p.area_name})`).join(', ')}. Browse [all Siliguri pandals](/siliguri-puja-pandals) to filter by theme, traditional pujas and parking.`,
+  },
+  {
+    q: 'Which areas of Siliguri have the most pandals?',
+    a: `${TOP_AREAS.map((a) => `[${a.name}](/areas/${a.slug}) (${a.count})`).join(', ')} have the most pandals. Each area page lists its pandals with a map, parking notes and nearby neighbourhoods.`,
+  },
+  {
+    q: 'What is the best way to go pandal hopping in Siliguri?',
+    a: 'Walk the dense central clusters — Babupara, Hakimpara, Ashrampara and Deshbandhupara are close together — and use a bike or car only to jump between zones. Start before 6 PM: Hill Cart Road, Sevoke Road and Venus More are busiest from 7 PM to midnight on Saptami to Navami. The [smart route planner](/siliguri-puja-routes) orders pandals for your start point, travel mode and time.',
+  },
+  {
+    q: 'How far are the Siliguri pandals from NJP station and Bagdogra Airport?',
+    a: `Central Siliguri (Venus More) is about ${kmFromCentre('njp')} km in a straight line from New Jalpaiguri (NJP) station and about ${kmFromCentre('airport')} km from Bagdogra Airport; roads add a little more. Our guide to [pandals near NJP and Siliguri Junction](/blog/durga-puja-pandal-map-2026-near-njp-siliguri-junction) lists the closest pujas if you only have a few hours between trains or flights.`,
+  },
+  {
+    q: 'Is it free to visit the pandals, and do I need an app?',
+    a: 'Siliguri’s community Durga Puja pandals are free to visit. Pujo Pandal is free too and works in any phone browser — no app or sign-up. Save pandals to [your plan](/saved) and open the whole route in Google Maps.',
+  },
 ];
 
 const MODE_ICON = { Walking: Footprints, 'Bike / Scooty': Bike, 'Car / Auto': Car };
 const pandalBySlug = Object.fromEntries(pandalsData.map((p) => [p.slug, p]));
 
-// Next festival moment (Mahalaya at 4 AM, puja days from 6 AM), so the countdown never freezes
+// Next festival moment (Mahalaya at 4 AM, puja days from 6 AM), so the countdown never freezes.
+// `now` is null on the server and the first client render, so the prerendered HTML hydrates cleanly.
 function useNextEvent() {
-  const events = useMemo(
-    () =>
-      eventsData
-        .map((e) => ({ ...e, at: new Date(`${e.date}T${e.event_type === 'mahalaya' ? '04:00' : '06:00'}:00+05:30`).getTime() }))
-        .sort((a, b) => a.at - b.at),
-    []
-  );
-  const [now, setNow] = useState(() => Date.now());
+  const events = useMemo(() => eventsData.map((e) => ({ ...e, at: eventStart(e) })).sort((a, b) => a.at - b.at), []);
+  const [now, setNow] = useState(null);
   useEffect(() => {
+    setNow(Date.now());
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
   const DAY = 86400000;
-  const today = events.find((e) => now >= e.at && now < e.at + DAY - 6 * 3600000);
-  const next = events.find((e) => e.at > now);
-  const diff = next ? next.at - now : 0;
+  const today = now != null ? events.find((e) => now >= e.at && now < e.at + DAY - 6 * 3600000) : null;
+  const next = now != null ? events.find((e) => e.at > now) : events.find((e) => e.event_type === 'shashti');
+  const diff = next && now != null ? next.at - now : 0;
   return {
     events,
+    now,
     today,
     next,
     left: {
@@ -91,12 +131,14 @@ function useNextEvent() {
 }
 
 export default function Home() {
-  const { events, today, next, left } = useNextEvent();
+  const { events, now, today, next, left } = useNextEvent();
 
   useSeo({
-    title: 'Siliguri Durga Puja 2026 – Pandal Map & Smart Routes',
-    description: `Durga Puja pandal map 2026 for Siliguri: ${pandalsData.length} verified pandals, smart walking, bike and car routes, Puja dates and local guides.`,
+    title: 'Siliguri Durga Puja 2026 – Pandal Map, Routes & Dates',
+    description: `Siliguri Durga Puja 2026 guide: ${pandalsData.length} pandals across ${STATS.areas} areas on one map, smart pandal-hopping routes, Puja dates (17–21 Oct) and parking tips.`,
     path: '/',
+    imageAlt: 'Pujo Pandal — Siliguri Durga Puja 2026 guide',
+    jsonLd: [organization(), website(), festival2026(eventsData), faqPage(HOME_FAQS)],
   });
 
   const featuredPandals = pandalsData
@@ -125,7 +167,7 @@ export default function Home() {
                       <Photo
                         slug={slug}
                         eager={i === 0}
-                        alt="Durga Puja in Siliguri"
+                        alt={['Illuminated Durga Puja pandal in Siliguri at night', 'Durga Puja pandal interior in Siliguri', 'Durga idol at a Siliguri Durga Puja pandal'][i]}
                         sizes="(max-width: 640px) 90vw, 560px"
                         credit="none"
                         className="w-full h-full"
@@ -156,13 +198,10 @@ export default function Home() {
 
             {/* Text */}
             <div className="order-2 lg:order-1 text-center lg:text-left space-y-5 sm:space-y-6">
-              <div className="inline-flex items-center gap-2 text-xs">
-                <span className="font-bengali-serif text-base text-brand-crimson">শারদীয়া ১৪৩৩</span>
-                <span className="w-1 h-1 rounded-full bg-brand-gold" aria-hidden="true" />
-                <span className="eyebrow text-brand-muted">Siliguri Durga Puja 2026</span>
-              </div>
+              <p className="font-bengali-serif text-base text-brand-crimson">শারদীয়া ১৪৩৩ · শিলিগুড়ি</p>
 
               <h1 className="text-display font-bold text-brand-ink">
+                <span className="block font-sans text-eyebrow uppercase text-brand-muted mb-4">Siliguri Durga Puja 2026</span>
                 See more pandals.
                 <span className="block italic font-medium text-brand-crimson">Spend less time on the road.</span>
               </h1>
@@ -172,7 +211,7 @@ export default function Home() {
               </p>
 
               <p className="text-lead text-brand-muted max-w-xl mx-auto lg:mx-0">
-                Discover Siliguri’s pandals and build a Puja plan around your time, your starting point and the way you travel.
+                Every Siliguri Durga Puja pandal for 2026 on one map — with smart routes built around your time, your starting point and the way you travel.
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-1">
@@ -195,7 +234,7 @@ export default function Home() {
               <dl className="grid grid-cols-3 max-w-md mx-auto lg:mx-0 pt-3 divide-x divide-brand-border">
                 {[
                   { n: pandalsData.length, label: 'Pandals' },
-                  { n: 28, label: 'Neighbourhoods' },
+                  { n: STATS.areas, label: 'Neighbourhoods' },
                   { n: 5, label: 'Days of Pujo' },
                 ].map((s) => (
                   <div key={s.label} className="px-2 text-center">
@@ -229,7 +268,7 @@ export default function Home() {
             ) : next ? (
               <>
                 <p className="eyebrow text-brand-gold-light">
-                  Coming up · {new Date(next.date).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}
+                  {now == null ? 'Durga Puja 2026 begins' : 'Coming up'} · {formatDate(next.date, { weekday: 'long', year: false })}
                 </p>
                 <h2 className="text-h2 font-bold">
                   <span className="font-bengali-serif font-normal mr-2">{EVENT_BN[next.event_type]}</span>
@@ -253,7 +292,7 @@ export default function Home() {
                 { v: left.seconds, l: 'Sec' },
               ].map((u) => (
                 <div key={u.l} className="w-[4.5rem] sm:w-20 rounded-2xl bg-white/10 border border-white/20 py-3 text-center">
-                  <div className="font-display text-3xl sm:text-4xl leading-none font-semibold tabular-nums text-brand-gold-light">{String(u.v).padStart(2, '0')}</div>
+                  <div className="font-display text-3xl sm:text-4xl leading-none font-semibold tabular-nums text-brand-gold-light">{now == null ? '--' : String(u.v).padStart(2, '0')}</div>
                   <div className="text-xs font-medium text-white/75 mt-2">{u.l}</div>
                 </div>
               ))}
@@ -264,11 +303,11 @@ export default function Home() {
         <ol className="relative grid grid-cols-6 border-t border-white/15 text-center">
           {events.map((e) => {
             const isToday = today?.id === e.id;
-            const isPast = !isToday && e.at < Date.now();
+            const isPast = !isToday && now != null && e.at < now;
             return (
               <li key={e.id} className={`py-3.5 px-1 ${isToday ? 'bg-brand-gold text-brand-maroon-dark' : isPast ? 'text-white/45' : 'text-white'}`}>
                 <div className="font-bengali-serif text-sm sm:text-lg leading-none">{EVENT_BN[e.event_type]}</div>
-                <div className="text-xs mt-1.5 opacity-80">{new Date(e.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</div>
+                <time dateTime={e.date} className="block text-xs mt-1.5 opacity-80">{formatDate(e.date, { month: 'short', year: false })}</time>
               </li>
             );
           })}
@@ -363,15 +402,15 @@ export default function Home() {
         <SectionHeading
           bn="পাড়ায় পাড়ায়"
           title="Explore zone by zone"
-          sub="Hop pandals by neighbourhood corridor to keep travel short."
+          sub="Siliguri’s pandals fall into five zones. Cover one or two per evening to keep travel short."
           to="/areas"
           linkLabel="All areas"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {ZONES.map(({ name, bn, areas, count, Sketch }) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
+          {ZONES.map(({ name, bn, areas, count, anchor, Sketch }) => (
             <Link
               key={name}
-              to="/areas"
+              to={`/blog/siliguri-durga-puja-pandal-map-2026-zone-wise#${anchor}`}
               className="group relative overflow-hidden p-5 sm:p-6 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-crimson/40 hover:shadow-songi-lg transition-all"
             >
               <Sketch className="absolute -right-3 -bottom-3 w-24 h-24 text-brand-crimson/15 group-hover:text-brand-crimson/25 transition-colors" />
@@ -381,7 +420,7 @@ export default function Home() {
                   <span className="font-display text-3xl font-semibold text-brand-ink">{count}</span>
                 </div>
                 <h3 className="font-display text-h3 font-semibold text-brand-ink mt-3">{name}</h3>
-                <p className="text-sm text-brand-muted mt-1.5">{areas}</p>
+                <p className="text-sm text-brand-muted mt-1.5">{areas.slice(0, 4).join(', ')}</p>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-crimson mt-5">
                   {count} pandals <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
@@ -458,6 +497,77 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* ───────────────── LOCAL GUIDE ───────────────── */}
+      <section aria-labelledby="siliguri-guide" className="space-y-content">
+        <div>
+          <p className="font-bengali-serif text-brand-crimson text-lg sm:text-xl leading-none">শিলিগুড়ির দুর্গাপুজো</p>
+          <h2 id="siliguri-guide" className="text-h2 font-bold text-brand-ink mt-2">Siliguri Durga Puja 2026: the local guide</h2>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_20rem] gap-8 lg:gap-12">
+          <div className="space-y-5 text-base sm:text-lg leading-relaxed text-brand-ink/85 max-w-3xl">
+            <p>
+              Durga Puja is Siliguri’s biggest festival. For five days in October the city — the gateway to Darjeeling, Sikkim
+              and the Dooars — turns its paras into open-air galleries, with community pujas that range from traditional
+              ekchala idols to giant theme pandals and late-night light shows. Pujo Pandal maps <strong>{STATS.total} of them across {STATS.areas} neighbourhoods</strong>,
+              from <Link to="/areas/hakimpara" className="text-brand-crimson underline underline-offset-2">Hakimpara</Link> and{' '}
+              <Link to="/areas/babupara" className="text-brand-crimson underline underline-offset-2">Babupara</Link> in the centre to{' '}
+              <Link to="/areas/champasari" className="text-brand-crimson underline underline-offset-2">Champasari</Link> in the north,{' '}
+              <Link to="/areas/matigara" className="text-brand-crimson underline underline-offset-2">Matigara</Link> in the west and the{' '}
+              <Link to="/areas/sevoke-road" className="text-brand-crimson underline underline-offset-2">Sevoke Road</Link> corridor in the east.
+            </p>
+            <p>
+              <strong>Mahalaya falls on Saturday, 10 October 2026</strong>, when Siliguri wakes at 4 AM to the Mahishasuramardini broadcast.
+              Pandals open from <strong>Maha Shashti on Saturday, 17 October</strong>; Saptami, Ashtami and Navami (18–20 October) are the
+              busiest nights, and <strong>Bijoya Dashami on Wednesday, 21 October</strong> brings Sindoor Khela and immersion processions
+              to the Mahananda. The <Link to="/puja-schedule" className="text-brand-crimson underline underline-offset-2">Puja schedule</Link> has every day’s rituals.
+            </p>
+            <p>
+              Central Siliguri holds {ZONES[0].count} of the {STATS.total} pandals, packed into clusters you can walk in an evening.
+              {' '}{STATS.parking} pandals have parking close by; the rest are walk-in only, so park at the edge of a cluster and walk in.
+              Walk the centre, take a bike or car between zones, and let the{' '}
+              <Link to="/siliguri-puja-routes" className="text-brand-crimson underline underline-offset-2">route planner</Link> put the stops in order.
+            </p>
+            <p>
+              Coming from outside the city? New Jalpaiguri (NJP) station is about {kmFromCentre('njp')} km from Venus More in a straight line and
+              Bagdogra Airport about {kmFromCentre('airport')} km — taxis and autos run from both. Check the{' '}
+              <Link to="/blog/durga-puja-pandal-map-2026-near-njp-siliguri-junction" className="text-brand-crimson underline underline-offset-2">pandals near NJP and Siliguri Junction</Link>{' '}
+              if you only have a few hours.
+            </p>
+          </div>
+          <aside className="space-y-5">
+            <div className="rounded-2xl border border-brand-border bg-brand-card p-5">
+              <h3 className="font-display text-h3 font-semibold text-brand-ink">Busiest neighbourhoods</h3>
+              <ul className="mt-3 divide-y divide-brand-border/70 text-sm">
+                {TOP_AREAS.map((a) => (
+                  <li key={a.slug}>
+                    <Link to={`/areas/${a.slug}`} className="flex items-center justify-between py-2.5 hover:text-brand-crimson">
+                      <span className="font-medium text-brand-ink">{a.name} pandals</span>
+                      <span className="text-brand-muted">{a.count}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-brand-border bg-brand-card p-5">
+              <h3 className="font-display text-h3 font-semibold text-brand-ink">Top-rated in 2026</h3>
+              <ol className="mt-3 space-y-2.5 text-sm">
+                {TOP_PANDALS.map((p, i) => (
+                  <li key={p.slug} className="flex gap-2.5">
+                    <span className="w-5 shrink-0 font-semibold text-brand-crimson tabular-nums">{i + 1}.</span>
+                    <Link to={`/pandals/${p.slug}`} className="hover:text-brand-crimson">
+                      <span className="font-medium text-brand-ink">{p.name}</span>
+                      <span className="block text-brand-muted">{p.area_name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <Faq faqs={HOME_FAQS} title="Siliguri Durga Puja 2026: questions answered" />
 
       {/* ───────────────── CLOSING ───────────────── */}
       <section aria-label="Ashche bochhor abar hobe" className="relative overflow-hidden rounded-[2rem] text-white -mx-1 sm:mx-0">

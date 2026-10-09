@@ -15,7 +15,7 @@ export default function PandalCard({ pandal }) {
       <div className="relative h-48 w-full overflow-hidden bg-gradient-to-tr p-4 flex flex-col justify-between select-none from-brand-maroon via-brand-vermilion to-brand-gold">
         <SmartImage
           src={pandalImage(pandal)}
-          alt={`${pandal.name} — ${pandal.theme || pandal.category}`}
+          alt=""
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
