@@ -80,6 +80,12 @@ for (const url of urls) {
 await writePage('/404', path.join(DIST, '404.html'));
 
 // ── sitemap.xml ───────────────────────────────────────────────────────────────
+const PUBLIC = path.join(ROOT, 'public');
+const writeOutput = (filename, content) => {
+  fs.writeFileSync(path.join(DIST, filename), content);
+  fs.writeFileSync(path.join(PUBLIC, filename), content);
+};
+
 const postBySlug = Object.fromEntries(BLOG_POSTS.map((p) => [`/blog/${p.slug}`, p]));
 const lastmod = (url) =>
   postBySlug[url]?.dateModified ||
@@ -90,21 +96,26 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${indexable
   .map(({ url, meta }) => {
-    const img = meta.image ? `\n    <image:image><image:loc>${esc(abs(meta.image))}</image:loc></image:image>` : '';
-    return `  <url>\n    <loc>${SITE_URL}${url}</loc>\n    <lastmod>${lastmod(url)}</lastmod>${img}\n  </url>`;
+    const locUrl = url === '/' ? `${SITE_URL}/` : `${SITE_URL}${url}`;
+    const img = meta.image
+      ? `\n    <image:image>\n      <image:loc>${esc(abs(meta.image))}</image:loc>${
+          meta.imageAlt || meta.title ? `\n      <image:title>${esc(meta.imageAlt || meta.title)}</image:title>` : ''
+        }\n    </image:image>`
+      : '';
+    return `  <url>\n    <loc>${esc(locUrl)}</loc>\n    <lastmod>${lastmod(url)}</lastmod>${img}\n  </url>`;
   })
   .join('\n')}
 </urlset>
 `;
-fs.writeFileSync(path.join(DIST, 'sitemap.xml'), sitemap);
+writeOutput('sitemap.xml', sitemap);
 
 // ── robots.txt ────────────────────────────────────────────────────────────────
 const AI_BOTS = [
   'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot',
   'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Bingbot', 'CCBot', 'meta-externalagent', 'Amazonbot', 'DuckAssistBot',
 ];
-fs.writeFileSync(
-  path.join(DIST, 'robots.txt'),
+writeOutput(
+  'robots.txt',
   `# Pujo Pandal — Siliguri Durga Puja 2026 guide
 # ${SITE_URL}
 
@@ -162,7 +173,7 @@ ${routes.map((r) => `- [${r.title}](${SITE_URL}/routes/${r.slug}): ${r.travel_mo
 - [Sitemap](${SITE_URL}/sitemap.xml)
 - [About Pujo Pandal](${SITE_URL}/about)
 `;
-fs.writeFileSync(path.join(DIST, 'llms.txt'), llms);
+writeOutput('llms.txt', llms);
 
 // Blog body blocks → Markdown
 const md = (t) => plainText(fillTokens(t, stats)).replace(/\s+/g, ' ').trim();
@@ -236,13 +247,13 @@ ${blocksToMd(p.body)}
 ${p.faqs.map((f) => `**${md(f.q)}**\n${md(f.a)}`).join('\n\n')}`
 ).join('\n\n---\n\n')}
 `;
-fs.writeFileSync(path.join(DIST, 'llms-full.txt'), llmsFull);
+writeOutput('llms-full.txt', llmsFull);
 
 // ── feed.xml (RSS 2.0) ────────────────────────────────────────────────────────
 const rfc822 = (iso) => new Date(`${iso}T08:00:00+05:30`).toUTCString();
 const posts = [...BLOG_POSTS].sort((a, b) => b.dateModified.localeCompare(a.dateModified));
-fs.writeFileSync(
-  path.join(DIST, 'feed.xml'),
+writeOutput(
+  'feed.xml',
   `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
